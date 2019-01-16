@@ -31,7 +31,7 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<SelectTargetPage, SelectTargetPageViewModel>();
-            containerRegistry.RegisterForNavigation<SelectTargetPage, SelectTargetPageViewModel>();
+            containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
         }
     }
 }
