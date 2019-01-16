@@ -9,32 +9,33 @@ namespace TakeMeThereXamarinForms.Models
     {
         public string Id { get; set; }
 
-        private string _plusCode;
+        private string _plusCode="";
         public string PlusCode
         {
             get => _plusCode;
             set => SetProperty(ref _plusCode, value);
         }
 
-        private string _name;
+        private string _name="";
         public string Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
         }
 
-        private double _latitude;
+        private double _latitude=0;
         public double Latitude
         {
             get => _latitude;
             set => SetProperty(ref _latitude, value);
         }
 
-        private double _longitude;
+        private double _longitude=0;
         public double Longitude
         {
             get => _longitude;
             set => SetProperty(ref _longitude, value);
         }
+
     }
 }

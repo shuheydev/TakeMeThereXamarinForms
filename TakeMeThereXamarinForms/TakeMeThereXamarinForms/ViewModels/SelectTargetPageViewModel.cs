@@ -40,15 +40,11 @@ namespace TakeMeThereXamarinForms.ViewModels
                 var targetInfo = (TargetInformation)parameters["TargetInfo"];
 
                 Targets.Add(targetInfo);
-
-
             }
-
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
-            Targets.Add(new TargetInformation { Name = "hello", });
         }
     }
 }
