@@ -23,7 +23,7 @@ namespace TakeMeThereXamarinForms.Models
 
     }
 
-    class Geolocation : BindableBase, IGeolocation
+    public class Geolocation : BindableBase, IGeolocation
     {
         private Essentials.Location _location;
         public Essentials.Location Location
