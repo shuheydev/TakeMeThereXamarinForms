@@ -31,6 +31,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             Title = "Main Page";
 
             this.Geolocation = Geolocation.GetInstance();
+            this.Geolocation.SetTargetLocation(35.6585805, 139.7432442);//東京タワー
             this.Geolocation.Start(new TimeSpan(0, 0, 10));
 
             this.Compass = Compass.GetInstance();
