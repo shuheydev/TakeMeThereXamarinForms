@@ -32,3 +32,10 @@ using Android.App;
 // Add some common permissions, these can be removed if not needed
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
+
+
+[assembly: UsesPermission(Android.Manifest.Permission.AccessCoarseLocation)]//GPS
+[assembly: UsesPermission(Android.Manifest.Permission.AccessFineLocation)]//GPS
+[assembly: UsesFeature("android.hardware.location", Required = false)]//GPS。懐中電灯と同じくGoogle Play対策かな
+[assembly: UsesFeature("android.hardware.location.gps", Required = false)]//GPS。懐中電灯と同じくGoogle Play対策かな
+[assembly: UsesFeature("android.hardware.location.network", Required = false)]//GPS。懐中電灯と同じくGoogle Play対策かな
