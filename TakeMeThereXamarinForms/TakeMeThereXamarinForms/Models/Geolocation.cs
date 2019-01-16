@@ -54,7 +54,12 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _distance, value);
         }
 
-
+        private double _targetDirection;
+        public double TargetDirection
+        {
+            get => _targetDirection;
+            set => SetProperty(ref _targetDirection, value);
+        }
 
         public Essentials.Location TargetLocation { get; private set; }
 
@@ -75,7 +80,7 @@ namespace TakeMeThereXamarinForms.Models
 
         readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
 
-        private async Task UpdateLocationAsync()
+        private async Task UpdateInformationAsync()
         {
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
 
@@ -89,6 +94,8 @@ namespace TakeMeThereXamarinForms.Models
                 this.TargetLocation == null ? this.Location : this.TargetLocation,
                 Essentials.DistanceUnits.Kilometers);
 
+            this.TargetDirection = CalculateTargetDirection();
+
             OnGetGeolocation?.Invoke(this, EventArgs.Empty);
         }
 
@@ -100,7 +107,7 @@ namespace TakeMeThereXamarinForms.Models
             _timerWorking = true;
             Device.StartTimer(timeSpan, () =>
              {
-                 UpdateLocationAsync();
+                 UpdateInformationAsync();
 
                  return _timerWorking;
              });
@@ -121,5 +128,32 @@ namespace TakeMeThereXamarinForms.Models
         {
             this.TargetLocation = new Essentials.Location(latitude, longitude);
         }
+
+        private double CalculateTargetDirection()
+        {
+            if (this.Location == null || this.TargetLocation == null)
+                return double.NaN;
+
+            var lat1 = this.Location.Latitude;
+            var lon1 = this.Location.Longitude;
+            var lat2 = this.TargetLocation.Latitude;
+            var lon2 = this.TargetLocation.Longitude;
+
+
+            double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+            double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+
+            double dirE0 = 18 * Math.Atan2(y, x) / Math.PI;
+
+            if (dirE0 < 0)
+            {
+                dirE0 = dirE0 + 360;//0~360に保つため
+            }
+
+            double dirN0 = (dirE0 + 90) % 360;
+
+            return dirN0;
+        }
+
     }
 }

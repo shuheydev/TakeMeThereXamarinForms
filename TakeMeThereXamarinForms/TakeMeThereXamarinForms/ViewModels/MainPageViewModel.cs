@@ -25,6 +25,13 @@ namespace TakeMeThereXamarinForms.ViewModels
             set => SetProperty(ref _compass, value);
         }
 
+        private double _directionNorthToTarget;
+        public double DirectionNorthToTarget
+        {
+            get => _directionNorthToTarget;
+            set => SetProperty(ref _directionNorthToTarget, value);
+        }
+
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
@@ -32,9 +39,14 @@ namespace TakeMeThereXamarinForms.ViewModels
 
             this.Geolocation = Geolocation.GetInstance();
             this.Geolocation.SetTargetLocation(35.6585805, 139.7432442);//東京タワー
+
             this.Geolocation.Start(new TimeSpan(0, 0, 10));
 
             this.Compass = Compass.GetInstance();
+            this.Compass.OnReadingValueChanged += (s, e) =>
+            {
+                this.DirectionNorthToTarget = this.Geolocation.TargetDirection + this.Compass.CompassNorth;
+            };
             this.Compass.Start();
 
         }
