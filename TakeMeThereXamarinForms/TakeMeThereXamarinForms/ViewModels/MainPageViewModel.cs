@@ -11,49 +11,30 @@ namespace TakeMeThereXamarinForms.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private double _latitude;
-        public double Latitude
+        private Geolocation _geolocation;
+        public Geolocation Geolocation
         {
-            get => _latitude;
-            set => SetProperty(ref _latitude, value);
+            get => _geolocation;
+            set => SetProperty(ref _geolocation, value);
         }
 
-        private double _longitude;
-        public double Longitude
+        private Compass _compass;
+        public Compass Compass
         {
-            get => _longitude;
-            set => SetProperty(ref _longitude, value);
+            get => _compass;
+            set => SetProperty(ref _compass, value);
         }
-
-        private double _headingNorth;
-        public double HeadingNorth
-        {
-            get => _headingNorth;
-            set => SetProperty(ref _headingNorth, value);
-        }
-
 
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Main Page";
 
-            var geolocation = Geolocation.GetInstance();
+            this.Geolocation = Geolocation.GetInstance();
+            this.Geolocation.Start(new TimeSpan(0, 0, 10));
 
-            geolocation.OnGetGeolocation += (s, e) =>
-            {
-                this.Latitude = geolocation.Latitude;
-                this.Longitude = geolocation.Longitude;
-            };
-
-            var compass = Compass.GetInstance();
-            compass.OnReadingValueChanged += (s, e) =>
-            {
-                this.HeadingNorth = 360 - compass.HeadingNorth;
-            };
-            compass.Start();
-
-            geolocation.Start(new TimeSpan(0, 0, 10));
+            this.Compass = Compass.GetInstance();
+            this.Compass.Start();
 
         }
 

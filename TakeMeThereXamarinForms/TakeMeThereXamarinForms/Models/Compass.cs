@@ -6,13 +6,13 @@ using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.Models
 {
-    class Compass:BindableBase
+    public class Compass : BindableBase
     {
         private static Compass _singletonInstance = new Compass();
         private Compass()
         { }
         public static Compass GetInstance()
-        { 
+        {
             return _singletonInstance;
         }
 
@@ -23,6 +23,14 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _headingNorth, value);
         }
 
+        private double _compassNorth;
+        public double CompassNorth
+        {
+            get => _compassNorth;
+            set => SetProperty(ref _compassNorth, value);
+
+        }
+
 
         public event EventHandler OnReadingValueChanged;
 
@@ -31,6 +39,7 @@ namespace TakeMeThereXamarinForms.Models
             Essentials.Compass.ReadingChanged += (s, e) =>
             {
                 this.HeadingNorth = e.Reading.HeadingMagneticNorth;
+                this.CompassNorth = 360 - e.Reading.HeadingMagneticNorth;
 
                 OnReadingValueChanged?.Invoke(this, EventArgs.Empty);
             };
