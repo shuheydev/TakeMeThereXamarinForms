@@ -47,6 +47,19 @@ namespace TakeMeThereXamarinForms.Models
         private double? _cource;
         public double? Cource { get => _cource; set => SetProperty(ref _cource, value); }
 
+        private double _distance;
+        public double Distance
+        {
+            get => _distance;
+            set => SetProperty(ref _distance, value);
+        }
+
+
+
+        public Essentials.Location TargetLocation { get; private set; }
+
+
+
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
         {
@@ -71,6 +84,10 @@ namespace TakeMeThereXamarinForms.Models
             this.Altitude = this.Location.Altitude;
             this.Speed = this.Location.Speed;
             this.Cource = this.Location.Course;
+
+            this.Distance = Essentials.Location.CalculateDistance(this.Location,
+                this.TargetLocation == null ? this.Location : this.TargetLocation,
+                Essentials.DistanceUnits.Kilometers);
 
             OnGetGeolocation?.Invoke(this, EventArgs.Empty);
         }
@@ -98,6 +115,11 @@ namespace TakeMeThereXamarinForms.Models
         public async Task<Essentials.Location> GetCurrentLocationNowAsync()
         {
             return await Essentials.Geolocation.GetLocationAsync();
+        }
+
+        public void SetTargetLocation(double latitude, double longitude)
+        {
+            this.TargetLocation = new Essentials.Location(latitude, longitude);
         }
     }
 }

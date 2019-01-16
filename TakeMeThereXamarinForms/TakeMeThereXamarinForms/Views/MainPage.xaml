@@ -28,17 +28,17 @@
             <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="200">
                 <StackLayout HeightRequest="100" BackgroundColor="Red" Spacing="0" Padding="0">
                     <Label Text="Direct Distance" FontSize="20"/>
-                    <Label Text="421 m" FontSize="40" HorizontalTextAlignment="End" VerticalOptions="FillAndExpand"/>
+                    <Label Text="{Binding Geolocation.Distance,StringFormat='{}{0:N3} km'}" FontSize="30" HorizontalTextAlignment="End" VerticalOptions="FillAndExpand"/>
                 </StackLayout>
                 <StackLayout  HeightRequest="100" BackgroundColor="Red" Spacing="0" Padding="0">
                     <Label Text="Coordinate" FontSize="20"/>
                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
                         <Label Text="Longitude:" FontSize="15"/>
-                        <Label Text="{Binding Path=Geolocation.Location.Longitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding Geolocation.Location.Longitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
                         <Label Text="Latitude:" FontSize="15"/>
-                        <Label Text="{Binding Path=Geolocation.Location.Latitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding Geolocation.Location.Latitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
