@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TakeMeThereXamarinForms.Models;
+using Xamarin.Forms;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
@@ -37,6 +38,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         {
             Title = "Main Page";
 
+
             this.Geolocation = Geolocation.GetInstance();
             this.Geolocation.SetTargetLocation(35.6585805, 139.7432442);//東京タワー
 
@@ -47,10 +49,16 @@ namespace TakeMeThereXamarinForms.ViewModels
             {
                 this.DirectionNorthToTarget = this.Geolocation.TargetDirection + this.Compass.CompassNorth;
             };
+
             this.Compass.Start();
 
         }
 
 
+        public Command<string> TestCommand { get; set; }
+
+
+        public Command<string> NavigateCommand =>
+            new Command<string>(name => this.NavigationService.NavigateAsync(name));
     }
 }
