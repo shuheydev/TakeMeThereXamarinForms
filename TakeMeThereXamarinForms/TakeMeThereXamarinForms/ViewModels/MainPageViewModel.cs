@@ -10,8 +10,15 @@ using Xamarin.Forms;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MainPageViewModel : ViewModelBase, INavigationAware
     {
+        private string _targetName;
+        public string TargetName
+        {
+            get => _targetName;
+            set => SetProperty(ref _targetName, value);
+        }
+
         private Geolocation _geolocation;
         public Geolocation Geolocation
         {
@@ -60,5 +67,17 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public Command<string> NavigateCommand =>
             new Command<string>(name => this.NavigationService.NavigateAsync(name));
+
+
+        public override void OnNavigatingTo(INavigationParameters parameters)
+        {
+            var targetInfo = parameters[nameof(TargetInformation)] as TargetInformation;
+
+            if (targetInfo == null)
+                return;
+
+            this.Geolocation.SetTargetLocation(targetInfo.Latitude, targetInfo.Longitude);
+            this.TargetName = targetInfo.Name;
+        }
     }
 }
