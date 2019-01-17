@@ -10,22 +10,25 @@
         <ListView AbsoluteLayout.LayoutFlags="All"
                   AbsoluteLayout.LayoutBounds="0,0,1,1"
                   BackgroundColor="#2EFE2E88"
+                  HasUnevenRows="True"
                   ItemsSource="{Binding Targets}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell Height="200">
-                        <StackLayout Orientation="Vertical">
-                            <Label Text="{Binding PlusCode}" FontSize="80" HeightRequest="50"/>
-                            <Label Text="{Binding Name}" FontSize="25" HeightRequest="30"/>
+                    <ViewCell >
+                        <StackLayout Orientation="Vertical" Padding="10" Spacing="5">
+                            <Label Text="{Binding Name}" FontSize="40" BackgroundColor="Aqua"/>
+                            <Label Text="{Binding PlusCode}" FontSize="25" BackgroundColor="Bisque"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="+" FontSize="50"
+        <Button 
+                Image="plus.png"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="0.9,0.95,70,70" 
-                CornerRadius="35" BackgroundColor="Green"
+                CornerRadius="35" BackgroundColor="Accent"
                 Command="{Binding NavigateCommand}" CommandParameter="TargetDetailPage"/>
+
     </AbsoluteLayout>
 </ContentPage>
