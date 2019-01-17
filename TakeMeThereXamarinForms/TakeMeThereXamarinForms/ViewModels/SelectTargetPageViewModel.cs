@@ -51,5 +51,14 @@ namespace TakeMeThereXamarinForms.ViewModels
         public void OnNavigatingTo(INavigationParameters parameters)
         {
         }
+
+
+        public Command<TargetInformation> ItemSelectedCommand =>
+            new Command<TargetInformation>(targetInfo => {
+                var parameter = new NavigationParameters();
+                parameter.Add(nameof(TargetInformation), targetInfo);
+
+                _navigationService.GoBackAsync(parameter);
+            });
     }
 }

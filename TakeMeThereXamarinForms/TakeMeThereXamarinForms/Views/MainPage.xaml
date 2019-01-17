@@ -11,7 +11,7 @@
     <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
         <StackLayout HeightRequest="100" BackgroundColor="Red" Spacing="0" Padding="0">
             <Label Text="Destination" FontSize="20"/>
-            <Label Text="TargetName" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" BackgroundColor="Yellow">
+            <Label Text="{Binding TargetName}" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" BackgroundColor="Yellow">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="SelectTargetPage"/>
                 </Label.GestureRecognizers>
