@@ -14,11 +14,25 @@
                   ItemsSource="{Binding Targets}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell >
-                        <StackLayout Orientation="Vertical" Padding="10" Spacing="5">
-                            <Label Text="{Binding Name}" FontSize="40" BackgroundColor="Aqua"/>
-                            <Label Text="{Binding PlusCode}" FontSize="25" BackgroundColor="Bisque"/>
-                        </StackLayout>
+                    <ViewCell>
+                        <AbsoluteLayout Padding="10">
+                            <Button AbsoluteLayout.LayoutFlags="All"
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    BorderRadius="10" 
+                                    BorderColor="Black"
+                                    BorderWidth="2"
+                                    IsEnabled="False"
+                                    BackgroundColor="LightCoral"
+                                    />
+                            <StackLayout AbsoluteLayout.LayoutFlags="All"
+                                         AbsoluteLayout.LayoutBounds="0.5,0.5,0.95,0.95" 
+                                         Orientation="Vertical"
+                                         Spacing="5">
+                                <Label Text="{Binding Name}" FontSize="40" BackgroundColor="Aqua"/>
+                                <Label Text="{Binding PlusCode}" FontSize="25" BackgroundColor="Bisque"/>
+                            </StackLayout>
+                        </AbsoluteLayout>
+
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
