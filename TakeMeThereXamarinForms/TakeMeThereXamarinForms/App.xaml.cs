@@ -1,9 +1,12 @@
 ﻿using Prism;
 using Prism.Ioc;
+using System;
+using System.IO;
 using TakeMeThereXamarinForms.ViewModels;
 using TakeMeThereXamarinForms.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TakeMeThereXamarinForms.Data;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TakeMeThereXamarinForms
@@ -24,6 +27,8 @@ namespace TakeMeThereXamarinForms
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+
+
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,5 +38,24 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<SelectTargetPage, SelectTargetPageViewModel>();
             containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
         }
+
+        private static TargetInfoDatabase _database;
+        /// <summary>
+        /// シングルトンとしてデータベースオブジェクトを返す。
+        /// これによって
+        /// </summary>
+        public static TargetInfoDatabase Database
+        {
+            get
+            {
+                if(_database==null)
+                {
+                    _database = new TargetInfoDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TakeMeThereSQLite.db3"));
+                }
+                return _database;
+            }
+        }
+
+        public int ResumeAtTodoId { get; set; }
     }
 }

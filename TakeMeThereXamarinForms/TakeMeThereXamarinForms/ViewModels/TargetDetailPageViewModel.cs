@@ -39,14 +39,27 @@ namespace TakeMeThereXamarinForms.ViewModels
                     Longitude = this.TargetInfo.Longitude,
                 };
 
-                var parameters = new NavigationParameters
-                {
-                    {"ViewModelName",nameof(TargetDetailPageViewModel) },
-                    {"TargetInfo",targetInfo },
-                };
+                //var parameters = new NavigationParameters
+                //{
+                //    {"ViewModelName",nameof(TargetDetailPageViewModel) },
+                //    {"TargetInfo",targetInfo },
+                //};
 
-                _navigationService.GoBackAsync(parameters);
+                App.Database.SaveItemAsync(targetInfo);
+
+                _navigationService.GoBackAsync();
             });
 
+        public Command CancelCommand =>
+            new Command(_ =>
+            {
+                _navigationService.GoBackAsync();
+            });
+
+        public Command DeleteAllCommand =>
+            new Command(_ => {
+                App.Database.DeleteAllItemsAsync();
+                _navigationService.GoBackAsync();
+            });
     }
 }

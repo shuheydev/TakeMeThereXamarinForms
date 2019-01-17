@@ -7,22 +7,23 @@
 
     <StackLayout Padding="10" Spacing="20">
         <StackLayout>
-            
+
             <Label Text="Plus Code" />
             <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding TargetInfo.PlusCode,Mode=TwoWay}"/>
-            
+
             <Label Text="Name"/>
             <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding TargetInfo.Name,Mode=TwoWay}"/>
-            
+
             <Label Text="Latitude"/>
             <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding TargetInfo.Latitude,Mode=TwoWay}"/>
-            
+
             <Label Text="Longitude" />
             <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding TargetInfo.Longitude,Mode=TwoWay}"/>
-            
+
             <StackLayout Orientation="Horizontal" Spacing="20">
-                <Button Text="キャンセル" HorizontalOptions="End"/>
-                <Button Text="保存" HorizontalOptions="End" Command="{Binding SaveCommand}"/>
+                <Button Text="キャンセル" Command="{Binding CancelCommand}"/>
+                <Button Text="削除" Command="{Binding DeleteAllCommand}"/>
+                <Button Text="保存" Command="{Binding SaveCommand}"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>

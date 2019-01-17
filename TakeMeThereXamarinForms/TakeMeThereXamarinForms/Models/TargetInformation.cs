@@ -7,9 +7,10 @@ namespace TakeMeThereXamarinForms.Models
 {
     public class TargetInformation:BindableBase
     {
-        public string Id { get; set; }
+        [SQLite.PrimaryKey,SQLite.AutoIncrement]
+        public int Id { get; set; }
 
-        private string _plusCode="";
+        private string _plusCode;
         public string PlusCode
         {
             get => _plusCode;
@@ -23,14 +24,14 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _name, value);
         }
 
-        private double _latitude=0;
+        private double _latitude;
         public double Latitude
         {
             get => _latitude;
             set => SetProperty(ref _latitude, value);
         }
 
-        private double _longitude=0;
+        private double _longitude;
         public double Longitude
         {
             get => _longitude;
