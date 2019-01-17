@@ -16,6 +16,8 @@ namespace TakeMeThereXamarinForms.ViewModels
         public SelectTargetPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+
+            //RestoreList();
         }
 
 
@@ -29,17 +31,20 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            var viewModelName = (string)parameters["ViewModelName"];
-            if (viewModelName.Equals(nameof(TargetDetailPageViewModel)))
-            {
-                var targetInfo = (TargetInformation)parameters["TargetInfo"];
+            RestoreList();
+        }
 
-                Targets.Add(targetInfo);
+        private void RestoreList()
+        {
+            var infos = App.Database.GetItemsAsync().Result;
+            Targets.Clear();
+            foreach (var info in infos)
+            {
+                Targets.Add(info);
             }
         }
 
