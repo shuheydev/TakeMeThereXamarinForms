@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Class="TakeMeThereXamarinForms.Views.MainPage"
              NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}">
@@ -10,7 +11,11 @@
     <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
         <StackLayout HeightRequest="100" BackgroundColor="Red" Spacing="0" Padding="0">
             <Label Text="Destination" FontSize="20"/>
-            <Label Text="Target Name" FontSize="40" HorizontalTextAlignment="Center"/>
+            <Label Text="TargetName" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" BackgroundColor="Yellow">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="SelectTargetPage"/>
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
         <AbsoluteLayout VerticalOptions="FillAndExpand" BackgroundColor="Red">
             <Label Text="Direction" FontSize="20"/>
