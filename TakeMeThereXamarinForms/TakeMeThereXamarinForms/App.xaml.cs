@@ -7,6 +7,7 @@ using TakeMeThereXamarinForms.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TakeMeThereXamarinForms.Data;
+using TakeMeThereXamarinForms.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TakeMeThereXamarinForms
@@ -26,9 +27,13 @@ namespace TakeMeThereXamarinForms
         {
             InitializeComponent();
 
+            Resources = new ResourceDictionary();
+            Resources.Add("TileColor", Color.FromHex("FFFFFF"));
+
+            App.Geolocation.Start(new TimeSpan(0, 0, 5));
+            App.Compass.Start();
+
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
-
-
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -37,6 +42,22 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<SelectTargetPage, SelectTargetPageViewModel>();
             containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            App.Geolocation.Start(new TimeSpan(0, 0, 5));
+            App.Compass.Start();
+        }
+
+        protected override void OnSleep()
+        {
+            base.OnSleep();
+
+            App.Geolocation.Stop();
+            App.Compass.Stop();
         }
 
         private static TargetInfoDatabase _database;
@@ -57,5 +78,10 @@ namespace TakeMeThereXamarinForms
         }
 
         public int ResumeAtTodoId { get; set; }
+
+
+        public static Geolocation Geolocation => Geolocation.GetInstance();
+
+        public static Compass Compass => Compass.GetInstance();
     }
 }

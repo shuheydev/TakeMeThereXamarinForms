@@ -95,7 +95,7 @@ namespace TakeMeThereXamarinForms.Views
                 {
                     float radius = 9 * (circle + t);
 
-                    strokePaint.Color = new SKColor(0x7c, 0xfc, 0x00, (byte)(255 * (circle == 0 ? (1 - t) : 1)));
+                    strokePaint.Color = new SKColor(255, 0, 0, (byte)(255 * (circle == 0 ? (1 - t) : 1)));
 
                     canvas.DrawCircle(0, -90, radius, strokePaint);
                 }

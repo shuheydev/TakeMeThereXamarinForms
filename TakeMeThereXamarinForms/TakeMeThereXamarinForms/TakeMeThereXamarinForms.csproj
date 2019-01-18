@@ -15,6 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="OpenLocationCode">
+      <HintPath>..\..\..\..\Users\shuhe\OneDrive - Shuhei Nishizawa\Programming\外部ライブラリ\open-location-code\OpenLocationCode\bin\Debug\netstandard2.0\OpenLocationCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\SelectTargetPage.xaml.cs">
       <DependentUpon>SelectTargetPage.xaml</DependentUpon>
     </Compile>

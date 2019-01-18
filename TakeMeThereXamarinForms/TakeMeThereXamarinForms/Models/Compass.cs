@@ -34,22 +34,28 @@ namespace TakeMeThereXamarinForms.Models
 
         public event EventHandler OnReadingValueChanged;
 
+        public bool IsWorking;
         public void Start()
         {
             Essentials.Compass.ReadingChanged += (s, e) =>
             {
-                this.HeadingNorth = e.Reading.HeadingMagneticNorth;
-                this.CompassNorth = 360 - e.Reading.HeadingMagneticNorth;
+                this.HeadingNorth = e.Reading.HeadingMagneticNorth + 5;//補正
+                this.CompassNorth = 360 - this.HeadingNorth;
 
                 OnReadingValueChanged?.Invoke(this, EventArgs.Empty);
             };
 
-            Essentials.Compass.Start(Essentials.SensorSpeed.UI);
+            if (!Essentials.Compass.IsMonitoring)
+                Essentials.Compass.Start(Essentials.SensorSpeed.UI);
+
+            IsWorking = Essentials.Compass.IsMonitoring;
         }
 
         public void Stop()
         {
             Essentials.Compass.Stop();
+
+            IsWorking = Essentials.Compass.IsMonitoring;
         }
     }
 }
