@@ -14,25 +14,25 @@ namespace TakeMeThereXamarinForms.Data
         public TargetInfoDatabase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<TargetInformation>().Wait();
+            database.CreateTableAsync<LocationInformation>().Wait();
         }
 
-        public Task<List<TargetInformation>> GetItemsAsync()
+        public Task<List<LocationInformation>> GetItemsAsync()
         {
-            return database.Table<TargetInformation>().ToListAsync();
+            return database.Table<LocationInformation>().ToListAsync();
         }
 
-        public Task<List<TargetInformation>> GetItemsNotDoneAsync()
+        public Task<List<LocationInformation>> GetItemsNotDoneAsync()
         {
-            return database.QueryAsync<TargetInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+            return database.QueryAsync<LocationInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
         }
 
-        public Task<TargetInformation> GetItemAsync(int id)
+        public Task<LocationInformation> GetItemAsync(int id)
         {
-            return database.Table<TargetInformation>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return database.Table<LocationInformation>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveItemAsync(TargetInformation item)
+        public Task<int> SaveItemAsync(LocationInformation item)
         {
             if (item.Id != 0)
             {
@@ -44,14 +44,14 @@ namespace TakeMeThereXamarinForms.Data
             }
         }
 
-        public Task<int> DeleteItemAsync(TargetInformation item)
+        public Task<int> DeleteItemAsync(LocationInformation item)
         {
             return database.DeleteAsync(item);
         }
 
         public Task<int> DeleteAllItemsAsync()
         {
-            return database.DeleteAllAsync<TargetInformation>();
+            return database.DeleteAllAsync<LocationInformation>();
         }
     }
 }

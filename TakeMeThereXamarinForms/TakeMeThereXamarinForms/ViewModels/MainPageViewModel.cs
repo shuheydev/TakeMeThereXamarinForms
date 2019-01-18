@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using TakeMeThereXamarinForms.Models;
 using Xamarin.Forms;
+using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
     public class MainPageViewModel : ViewModelBase, INavigationAware
     {
-        private string _targetName;
-        public string TargetName
+        private LocationInformation _targetInfo;
+        public LocationInformation TargetInfo
         {
-            get => _targetName;
-            set => SetProperty(ref _targetName, value);
+            get => _targetInfo;
+            set => SetProperty(ref _targetInfo, value);
         }
 
         private Geolocation _geolocation;
@@ -33,36 +34,50 @@ namespace TakeMeThereXamarinForms.ViewModels
             set => SetProperty(ref _compass, value);
         }
 
-        private double _directionNorthToTarget;
-        public double DirectionNorthToTarget
+
+        private double _directionToNorth;
+        public double DirectionToNorth
         {
-            get => _directionNorthToTarget;
-            set => SetProperty(ref _directionNorthToTarget, value);
+            get => _directionToNorth;
+            set => SetProperty(ref _directionToNorth, value);
         }
+
+
+        private double _directionToTarget;
+        public double DirectionToTarget
+        {
+            get => _directionToTarget;
+            set => SetProperty(ref _directionToTarget, value);
+        }
+
+
+        //private Essentials.Location _location;
+        //public Essentials.Location Location
+        //{
+        //    get => _location;
+        //    set => SetProperty(ref _location, value);
+        //}
+
+
+        //private double _distance;
+        //public double Distance
+        //{
+        //    get => _distance;
+        //    set => SetProperty(ref _distance, value);
+        //}
+
+
 
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Main Page";
 
-
-            this.Geolocation = Geolocation.GetInstance();
-            this.Geolocation.SetTargetLocation(35.6585805, 139.7432442);//東京タワー
-
-            this.Geolocation.Start(new TimeSpan(0, 0, 10));
-
-            this.Compass = Compass.GetInstance();
-            this.Compass.OnReadingValueChanged += (s, e) =>
-            {
-                this.DirectionNorthToTarget = this.Geolocation.TargetDirection + this.Compass.CompassNorth;
-            };
-
-            this.Compass.Start();
-
+            this.Geolocation = App.Geolocation;
+            this.Compass = App.Compass;
+            this.Compass.SetGeolocation(this.Geolocation);
         }
 
-
-        public Command<string> TestCommand { get; set; }
 
 
         public Command<string> NavigateCommand =>
@@ -71,13 +86,26 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
-            var targetInfo = parameters[nameof(TargetInformation)] as TargetInformation;
+            base.OnNavigatingTo(parameters);
+
+            var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
 
             if (targetInfo == null)
                 return;
 
-            this.Geolocation.SetTargetLocation(targetInfo.Latitude, targetInfo.Longitude);
-            this.TargetName = targetInfo.Name;
+            this.TargetInfo = targetInfo;
+            this.Geolocation.SetTarget(this.TargetInfo);
+
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
         }
     }
 }

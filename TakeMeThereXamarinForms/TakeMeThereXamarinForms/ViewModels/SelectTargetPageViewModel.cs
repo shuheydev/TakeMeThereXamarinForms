@@ -7,6 +7,7 @@ using System.Linq;
 using Xamarin.Forms;
 using TakeMeThereXamarinForms.Models;
 using System.Collections.ObjectModel;
+using TakeMeThereXamarinForms.Views;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
@@ -27,7 +28,7 @@ namespace TakeMeThereXamarinForms.ViewModels
                 _navigationService.NavigateAsync(name);
             });
 
-        public ObservableCollection<TargetInformation> Targets { get; set; } = new ObservableCollection<TargetInformation>();
+        public ObservableCollection<LocationInformation> Targets { get; set; } = new ObservableCollection<LocationInformation>();
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -35,7 +36,6 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            RestoreList();
         }
 
         private void RestoreList()
@@ -50,15 +50,27 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
+            RestoreList();
         }
 
 
-        public Command<TargetInformation> ItemSelectedCommand =>
-            new Command<TargetInformation>(targetInfo => {
+        public Command<LocationInformation> ItemSelectedCommand =>
+            new Command<LocationInformation>(targetInfo => {
                 var parameter = new NavigationParameters();
-                parameter.Add(nameof(TargetInformation), targetInfo);
+                parameter.Add(nameof(LocationInformation), targetInfo);
 
                 _navigationService.GoBackAsync(parameter);
+            });
+
+
+        public Command<LocationInformation> EditItemCommand =>
+            new Command<LocationInformation>(targetInfo => {
+
+                var parameters = new NavigationParameters {
+                    { nameof(LocationInformation), targetInfo},
+                };
+
+                _navigationService.NavigateAsync(nameof(TargetDetailPage),parameters);
             });
     }
 }
