@@ -19,14 +19,32 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _location, value);
         }
 
+        private Essentials.Location _targetLocation;
+        public Essentials.Location TargetLocation
+        {
+            get => _targetLocation;
+            set => SetProperty(ref _targetLocation, value);
+        }
+
+        private double _directionToTarget;
+        public double DirectionToTarget
+        {
+            get => _directionToTarget;
+            set => SetProperty(ref _directionToTarget, value);
+        }
 
 
+        private double _distanceToTarget;
+        public double DistanceToTarget
+        {
+            get => _distanceToTarget;
+            set => SetProperty(ref _distanceToTarget, value);
+        }
 
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
         {
         }
-
         public static Geolocation GetInstance()
         {
             return _singletonInstance;
@@ -42,6 +60,16 @@ namespace TakeMeThereXamarinForms.Models
         {
             //現在の位置情報を取得
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
+
+            //目的地がセットされている場合に限る
+            if (_targetInfo != null && this.Location != null)
+            {
+                this.TargetLocation = Utility.GetLocationFromLocalCode(this._targetInfo.PlusCode, this.Location);
+                this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
+                this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
+            }
+
+
         }
 
 
@@ -63,6 +91,17 @@ namespace TakeMeThereXamarinForms.Models
         public void Stop()
         {
             IsWorking = false;
+        }
+
+        private LocationInformation _targetInfo;
+        public void SetTarget(LocationInformation targetInfo)
+        {
+            this._targetInfo = targetInfo;
+        }
+
+        public void ClearTarget()
+        {
+            this._targetInfo = null;
         }
 
     }

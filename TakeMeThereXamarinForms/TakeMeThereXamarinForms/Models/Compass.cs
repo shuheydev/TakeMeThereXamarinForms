@@ -23,30 +23,42 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _headingNorth, value);
         }
 
-        private double _compassNorth;
-        public double CompassNorth
+        private double _headingNorthForRotate;
+        public double HeadingNorthForRotate
         {
-            get => _compassNorth;
-            set => SetProperty(ref _compassNorth, value);
+            get => _headingNorthForRotate;
+            set => SetProperty(ref _headingNorthForRotate, value);
+        }
 
+        private double _directionToTargetForRotate;
+        public double DirectionToTargetForRotate
+        {
+            get => _directionToTargetForRotate;
+            set => SetProperty(ref _directionToTargetForRotate, value);
         }
 
 
         public event EventHandler OnReadingValueChanged;
 
+        public double Correction = 30;
         public bool IsWorking;
         public void Start()
         {
             Essentials.Compass.ReadingChanged += (s, e) =>
             {
-                this.HeadingNorth = e.Reading.HeadingMagneticNorth + 5;//補正
-                this.CompassNorth = 360 - this.HeadingNorth;
+                this.HeadingNorth = e.Reading.HeadingMagneticNorth + Correction;//補正
+                this.HeadingNorthForRotate = -this.HeadingNorth;
+
+                if(this._geolocation!=null)
+                {
+                    this.DirectionToTargetForRotate = this.HeadingNorthForRotate - this._geolocation.DirectionToTarget;
+                }
 
                 OnReadingValueChanged?.Invoke(this, EventArgs.Empty);
             };
 
             if (!Essentials.Compass.IsMonitoring)
-                Essentials.Compass.Start(Essentials.SensorSpeed.UI);
+                Essentials.Compass.Start(Essentials.SensorSpeed.UI,applyLowPassFilter:true);
 
             IsWorking = Essentials.Compass.IsMonitoring;
         }
@@ -56,6 +68,17 @@ namespace TakeMeThereXamarinForms.Models
             Essentials.Compass.Stop();
 
             IsWorking = Essentials.Compass.IsMonitoring;
+        }
+
+
+        private Geolocation _geolocation;
+        public void SetGeolocation(Geolocation geolocation)
+        {
+            this._geolocation = geolocation;
+        }
+        public void ClearGeolocation()
+        {
+            this._geolocation = null;
         }
     }
 }

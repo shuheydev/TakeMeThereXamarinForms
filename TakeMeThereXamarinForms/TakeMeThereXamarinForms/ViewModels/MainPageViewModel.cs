@@ -20,11 +20,26 @@ namespace TakeMeThereXamarinForms.ViewModels
             set => SetProperty(ref _targetInfo, value);
         }
 
-        private double _directionNorth;
-        public double DirectionNorth
+        private Geolocation _geolocation;
+        public Geolocation Geolocation
         {
-            get => _directionNorth;
-            set => SetProperty(ref _directionNorth, value);
+            get => _geolocation;
+            set => SetProperty(ref _geolocation, value);
+        }
+
+        private Compass _compass;
+        public Compass Compass
+        {
+            get => _compass;
+            set => SetProperty(ref _compass, value);
+        }
+
+
+        private double _directionToNorth;
+        public double DirectionToNorth
+        {
+            get => _directionToNorth;
+            set => SetProperty(ref _directionToNorth, value);
         }
 
 
@@ -36,41 +51,31 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
 
-        private Essentials.Location _location;
-        public Essentials.Location Location
-        {
-            get => _location;
-            set => SetProperty(ref _location, value);
-        }
+        //private Essentials.Location _location;
+        //public Essentials.Location Location
+        //{
+        //    get => _location;
+        //    set => SetProperty(ref _location, value);
+        //}
 
 
-        private double _distance;
-        public double Distance
-        {
-            get => _distance;
-            set => SetProperty(ref _distance, value);
-        }
+        //private double _distance;
+        //public double Distance
+        //{
+        //    get => _distance;
+        //    set => SetProperty(ref _distance, value);
+        //}
+
+
 
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Main Page";
 
-            App.Geolocation.OnGetGeolocation += (s, e) =>
-            {
-                var geolocation = s as Geolocation;
-
-                this.Location = geolocation.Location;
-
-                this.Distance = Utility.CalculateDistance(this.Location,geolocation.Location);
-            };
-
-            App.Compass.OnReadingValueChanged += (s, e) =>
-            {
-                var compass = s as Compass;
-
-                this.DirectionNorth = 360 - compass.HeadingNorth;
-            };
+            this.Geolocation = App.Geolocation;
+            this.Compass = App.Compass;
+            this.Compass.SetGeolocation(this.Geolocation);
         }
 
 
@@ -89,6 +94,7 @@ namespace TakeMeThereXamarinForms.ViewModels
                 return;
 
             this.TargetInfo = targetInfo;
+            this.Geolocation.SetTarget(this.TargetInfo);
 
         }
 

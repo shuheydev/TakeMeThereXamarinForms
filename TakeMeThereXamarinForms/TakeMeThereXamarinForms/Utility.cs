@@ -10,34 +10,45 @@ namespace TakeMeThereXamarinForms
     static class Utility
     {
 
-        private static double CalculateTargetDirection(Essentials.Location location1, Essentials.Location location2)
+        public static double CalculateTargetDirection(Essentials.Location location1, Essentials.Location location2)
         {
             if (location1 == null || location2 == null)
                 return double.NaN;
 
-            var lat1 = location1.Latitude;
-            var lon1 = location1.Longitude;
+            var lat1 = location1.Latitude;//緯度
+            var lon1 = location1.Longitude;//経度
             var lat2 = location2.Latitude;
             var lon2 = location2.Longitude;
 
 
-            double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
-            double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+            //double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+            //double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
 
-            double dirE0 = 18 * Math.Atan2(y, x) / Math.PI;
+            //double dirE0 = 18 * Math.Atan2(y, x) / Math.PI;
 
-            if (dirE0 < 0)
-            {
-                dirE0 = dirE0 + 360;//0~360に保つため
-            }
+            //if (dirE0 < 0)
+            //{
+            //    dirE0 = dirE0 + 360;//0~360に保つため
+            //}
 
-            var dirN0 = (dirE0 + 90) % 360;
+            //var dirN0 = (dirE0 + 90) % 360;
 
-            return dirN0;
+            //return dirN0;
+
+            double y = Math.Cos(lat2) * Math.Sin(lon2 - lon1);
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1);
+
+
+            var direction = Math.Atan2(y, x) * 180 / Math.PI;//度
+
+            return direction;
         }
 
         public static double CalculateDistance(Essentials.Location location1, Essentials.Location location2)
         {
+            if (location1 == null || location2 == null)
+                return double.NaN;
+
             return Essentials.Location.CalculateDistance(location1, location2, Essentials.DistanceUnits.Kilometers);
         }
 
