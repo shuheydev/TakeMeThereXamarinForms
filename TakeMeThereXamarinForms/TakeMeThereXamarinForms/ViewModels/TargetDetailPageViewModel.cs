@@ -34,24 +34,6 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command SaveCommand =>
             new Command(_ =>
             {
-                //OpenLocationCode recoveredOlc;
-
-                //if ( App.Geolocation.Location!=null)
-                //{
-                //    //Open Location Codeで経緯度に変換
-                //    //ローカルコード
-                //    var localCode = Regex.Match(this.TargetInfo.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
-                //    var olc = new OpenLocationCode(localCode);
-
-                //    recoveredOlc= olc.Recover(App.Geolocation.Location.Latitude, App.Geolocation.Location.Longitude);
-
-                //    var decoded = recoveredOlc.Decode();
-
-                //    this.TargetInfo.Latitude = decoded.CenterLatitude;
-                //    this.TargetInfo.Longitude = decoded.CenterLongitude;
-                //}
-
-               
                 App.Database.SaveItemAsync(this.TargetInfo);
 
                 _navigationService.GoBackAsync();
@@ -69,6 +51,11 @@ namespace TakeMeThereXamarinForms.ViewModels
                 _navigationService.GoBackAsync();
             });
 
+        public Command DeleteCommand =>
+            new Command(_ => {
+                App.Database.DeleteItemAsync(TargetInfo);
+                _navigationService.GoBackAsync();
+            });
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
