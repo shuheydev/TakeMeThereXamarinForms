@@ -9,11 +9,11 @@ using TakeMeThereXamarinForms.Models;
 using System.Threading.Tasks;
 using Google.OpenLocationCode;
 using System.Text.RegularExpressions;
-
+using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
-    public class TargetDetailPageViewModel : BindableBase,INavigationAware
+    public class TargetDetailPageViewModel : BindableBase, INavigationAware
     {
         private INavigationService _navigationService;
         public TargetDetailPageViewModel(INavigationService navigationService)
@@ -34,6 +34,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command SaveCommand =>
             new Command(_ =>
             {
+                
                 App.Database.SaveItemAsync(this.TargetInfo);
 
                 _navigationService.GoBackAsync();
@@ -46,15 +47,36 @@ namespace TakeMeThereXamarinForms.ViewModels
             });
 
         public Command DeleteAllCommand =>
-            new Command(_ => {
+            new Command(_ =>
+            {
                 App.Database.DeleteAllItemsAsync();
                 _navigationService.GoBackAsync();
             });
 
         public Command DeleteCommand =>
-            new Command(_ => {
+            new Command(_ =>
+            {
                 App.Database.DeleteItemAsync(TargetInfo);
                 _navigationService.GoBackAsync();
+            });
+
+        public Command OpenMapCommand =>
+            new Command(_ =>
+            {
+                if (string.IsNullOrWhiteSpace(this.TargetInfo.Name))
+                {
+                    Essentials.Map.OpenAsync(App.Geolocation.Location);
+                }
+                else
+                {
+                    var options = new Essentials.MapLaunchOptions
+                    {
+                        Name = this.TargetInfo.Name,
+                    };
+
+                    Essentials.Map.OpenAsync(new Essentials.Location(this.TargetInfo.Latitude, this.TargetInfo.Longitude), options);
+                }
+
             });
 
         public void OnNavigatedFrom(INavigationParameters parameters)

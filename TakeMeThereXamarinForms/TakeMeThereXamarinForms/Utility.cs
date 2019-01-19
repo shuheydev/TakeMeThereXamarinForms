@@ -21,25 +21,18 @@ namespace TakeMeThereXamarinForms
             var lon2 = location2.Longitude;
 
 
-            //double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
-            //double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+            double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
+            double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
 
-            //double dirE0 = 18 * Math.Atan2(y, x) / Math.PI;
+            double dirE0 = 180 * Math.Atan2(y, x) / Math.PI;
 
-            //if (dirE0 < 0)
-            //{
-            //    dirE0 = dirE0 + 360;//0~360に保つため
-            //}
+            if (dirE0 < 0)
+            {
+                dirE0 = dirE0 + 360;//0~360に保つため
+            }
 
-            //var dirN0 = (dirE0 + 90) % 360;
+            var direction = (dirE0 + 90) % 360;//北を基準にする。
 
-            //return dirN0;
-
-            double y = Math.Cos(lat2) * Math.Sin(lon2 - lon1);
-            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1);
-
-
-            var direction = Math.Atan2(y, x) * 180 / Math.PI;//度
 
             return direction;
         }

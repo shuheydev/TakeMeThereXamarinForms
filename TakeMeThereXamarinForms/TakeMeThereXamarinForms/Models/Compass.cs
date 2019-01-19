@@ -40,25 +40,25 @@ namespace TakeMeThereXamarinForms.Models
 
         public event EventHandler OnReadingValueChanged;
 
-        public double Correction = 30;
+        public double Correction = -20;//補正
         public bool IsWorking;
         public void Start()
         {
             Essentials.Compass.ReadingChanged += (s, e) =>
             {
-                this.HeadingNorth = e.Reading.HeadingMagneticNorth + Correction;//補正
+                this.HeadingNorth = (e.Reading.HeadingMagneticNorth + Correction) % 360;//0～360の間にする
                 this.HeadingNorthForRotate = -this.HeadingNorth;
 
-                if(this._geolocation!=null)
+                if (this._geolocation != null)
                 {
-                    this.DirectionToTargetForRotate = this.HeadingNorthForRotate - this._geolocation.DirectionToTarget;
+                    this.DirectionToTargetForRotate = this.HeadingNorthForRotate + this._geolocation.DirectionToTarget;
                 }
 
                 OnReadingValueChanged?.Invoke(this, EventArgs.Empty);
             };
 
             if (!Essentials.Compass.IsMonitoring)
-                Essentials.Compass.Start(Essentials.SensorSpeed.UI,applyLowPassFilter:true);
+                Essentials.Compass.Start(Essentials.SensorSpeed.UI, applyLowPassFilter: true);
 
             IsWorking = Essentials.Compass.IsMonitoring;
         }
