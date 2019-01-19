@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TakeMeThereXamarinForms.Data;
 using TakeMeThereXamarinForms.Models;
+using Prism.AppModel;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TakeMeThereXamarinForms
@@ -42,6 +43,9 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<SelectTargetPage, SelectTargetPageViewModel>();
             containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
+
+
+            containerRegistry.Register<IApplicationStore, ApplicationStore>();
         }
 
         protected override void OnResume()
