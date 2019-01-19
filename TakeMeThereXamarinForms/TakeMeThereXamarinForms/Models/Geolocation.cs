@@ -41,6 +41,14 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _distanceToTarget, value);
         }
 
+
+        private double _speedKPH;
+        public double SpeedKPH
+        {
+            get => _speedKPH;
+            set => SetProperty(ref _speedKPH, value);
+        }
+
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
         {
@@ -60,6 +68,8 @@ namespace TakeMeThereXamarinForms.Models
         {
             //現在の位置情報を取得
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
+
+            this.SpeedKPH = Utility.ConvertSpeedToKPH(this.Location.Speed);
 
             //目的地がセットされている場合に限る
             if (TargetInfo != null && this.Location != null)

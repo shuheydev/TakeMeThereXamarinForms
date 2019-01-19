@@ -62,5 +62,16 @@ namespace TakeMeThereXamarinForms
             return new Essentials.Location(decoded.CenterLatitude, decoded.CenterLongitude);
         }
 
+        internal static double ConvertSpeedToKPH(double? speed)
+        {
+            if (speed == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return ((double)speed * 3600.0) / 1000.0;
+            }
+        }
     }
 }

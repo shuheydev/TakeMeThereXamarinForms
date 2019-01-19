@@ -29,7 +29,7 @@
                                     Rotation="{Binding Compass.DirectionToTargetForRotate}"/>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,1,170,70" Orientation="Vertical" Spacing="0" Padding="0">
                 <Label Text="Speed" FontSize="20" HorizontalOptions="End"/>
-                <Label Text="{Binding Geolocation.Location.Speed,StringFormat='{}{0:1N} m/s'}" FontSize="30" HorizontalOptions="End"/>
+                <Label Text="{Binding Geolocation.SpeedKPH,StringFormat='{}{0:N2} m/s'}" FontSize="30" HorizontalOptions="End"/>
             </StackLayout>
         </AbsoluteLayout>
         <StackLayout Orientation="Horizontal" Spacing="10">

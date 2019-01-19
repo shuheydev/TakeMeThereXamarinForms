@@ -24,6 +24,7 @@ namespace TakeMeThereXamarinForms
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
+        public static int GeolocationTimeSpanSeconds = 10;
         protected override async void OnInitialized()
         {
             InitializeComponent();
@@ -31,11 +32,12 @@ namespace TakeMeThereXamarinForms
             Resources = new ResourceDictionary();
             Resources.Add("TileColor", Color.FromHex("FFFFFF"));
 
-            App.Geolocation.Start(new TimeSpan(0, 0, 5));
+
+            App.Geolocation.Start(new TimeSpan(0, 0, GeolocationTimeSpanSeconds));
             App.Compass.Start();
 
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -53,7 +55,7 @@ namespace TakeMeThereXamarinForms
         {
             base.OnResume();
 
-            App.Geolocation.Start(new TimeSpan(0, 0, 5));
+            App.Geolocation.Start(new TimeSpan(0, 0,GeolocationTimeSpanSeconds ));
             App.Compass.Start();
 
             (MainPage.BindingContext as IApplicationLifecycleAware)?.OnResume();
