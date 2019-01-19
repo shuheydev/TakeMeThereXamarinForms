@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Prism.AppModel;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -11,7 +12,7 @@ using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase, INavigationAware
+    public class MainPageViewModel : ViewModelBase, INavigationAware,IApplicationLifecycleAware
     {
         private LocationInformation _targetInfo;
         public LocationInformation TargetInfo
@@ -51,31 +52,23 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
 
-        //private Essentials.Location _location;
-        //public Essentials.Location Location
-        //{
-        //    get => _location;
-        //    set => SetProperty(ref _location, value);
-        //}
 
-
-        //private double _distance;
-        //public double Distance
-        //{
-        //    get => _distance;
-        //    set => SetProperty(ref _distance, value);
-        //}
-
-
-
-        public MainPageViewModel(INavigationService navigationService)
+        private readonly IApplicationStore _applicationStore;
+        public MainPageViewModel(
+            INavigationService navigationService,
+            IApplicationStore applicationStore)
             : base(navigationService)
         {
+            this._applicationStore = applicationStore;
+
             Title = "Main Page";
 
             this.Geolocation = App.Geolocation;
             this.Compass = App.Compass;
             this.Compass.SetGeolocation(this.Geolocation);
+
+
+            RestoreInfo();
         }
 
 
@@ -96,6 +89,8 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.TargetInfo = targetInfo;
             this.Geolocation.SetTarget(this.TargetInfo);
 
+
+            StoreInfo();
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -106,6 +101,30 @@ namespace TakeMeThereXamarinForms.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+        }
+
+        public void OnResume()
+        {
+            RestoreInfo();
+        }
+
+        public void OnSleep()
+        {
+            StoreInfo();
+        }
+
+
+        private void StoreInfo()
+        {
+            this._applicationStore.Properties[nameof(TargetInfo)] = TargetInfo;
+            this._applicationStore.SavePropertiesAsync();
+        }
+        private void RestoreInfo()
+        {
+            if (this._applicationStore.Properties.TryGetValue(nameof(TargetInfo), out var targetInfo))
+            {
+                this.TargetInfo = TargetInfo;
+            }
         }
     }
 }

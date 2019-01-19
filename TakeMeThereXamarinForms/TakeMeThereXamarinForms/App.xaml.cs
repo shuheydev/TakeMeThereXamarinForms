@@ -34,6 +34,7 @@ namespace TakeMeThereXamarinForms
             App.Geolocation.Start(new TimeSpan(0, 0, 5));
             App.Compass.Start();
 
+
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
@@ -54,6 +55,8 @@ namespace TakeMeThereXamarinForms
 
             App.Geolocation.Start(new TimeSpan(0, 0, 5));
             App.Compass.Start();
+
+            (MainPage.BindingContext as IApplicationLifecycleAware)?.OnResume();
         }
 
         protected override void OnSleep()
@@ -62,6 +65,8 @@ namespace TakeMeThereXamarinForms
 
             App.Geolocation.Stop();
             App.Compass.Stop();
+
+            (MainPage.BindingContext as IApplicationLifecycleAware)?.OnSleep();
         }
 
         private static TargetInfoDatabase _database;
