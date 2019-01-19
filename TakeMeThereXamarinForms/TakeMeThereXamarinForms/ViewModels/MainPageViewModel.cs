@@ -12,7 +12,7 @@ using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase, INavigationAware,IApplicationLifecycleAware
+    public class MainPageViewModel : ViewModelBase, INavigationAware, IApplicationLifecycleAware
     {
         private LocationInformation _targetInfo;
         public LocationInformation TargetInfo
@@ -74,7 +74,14 @@ namespace TakeMeThereXamarinForms.ViewModels
 
 
         public Command<string> NavigateCommand =>
-            new Command<string>(name => this.NavigationService.NavigateAsync(name));
+            new Command<string>(name =>
+            {
+
+                if (this.Geolocation.TargetInfo != null)
+                    App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
+
+                this.NavigationService.NavigateAsync(name);
+            });
 
 
         public override void OnNavigatingTo(INavigationParameters parameters)
@@ -124,6 +131,10 @@ namespace TakeMeThereXamarinForms.ViewModels
             if (this._applicationStore.Properties.TryGetValue(nameof(TargetInfo), out var targetInfo))
             {
                 this.TargetInfo = TargetInfo;
+            }
+            else
+            {
+                this.TargetInfo = new LocationInformation();
             }
         }
     }

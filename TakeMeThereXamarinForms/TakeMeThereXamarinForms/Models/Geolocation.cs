@@ -62,9 +62,12 @@ namespace TakeMeThereXamarinForms.Models
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
 
             //目的地がセットされている場合に限る
-            if (_targetInfo != null && this.Location != null)
+            if (TargetInfo != null && this.Location != null)
             {
-                this.TargetLocation = Utility.GetLocationFromLocalCode(this._targetInfo.PlusCode, this.Location);
+                this.TargetLocation = Utility.GetLocationFromLocalCode(this.TargetInfo.PlusCode, this.Location);
+                this.TargetInfo.Latitude = this.TargetLocation.Latitude;
+                this.TargetInfo.Longitude = this.TargetLocation.Longitude;
+
                 this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
                 this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
             }
@@ -93,15 +96,15 @@ namespace TakeMeThereXamarinForms.Models
             IsWorking = false;
         }
 
-        private LocationInformation _targetInfo;
+        public LocationInformation TargetInfo { get; private set; }
         public void SetTarget(LocationInformation targetInfo)
         {
-            this._targetInfo = targetInfo;
+            this.TargetInfo = targetInfo;
         }
 
         public void ClearTarget()
         {
-            this._targetInfo = null;
+            this.TargetInfo = null;
         }
 
     }

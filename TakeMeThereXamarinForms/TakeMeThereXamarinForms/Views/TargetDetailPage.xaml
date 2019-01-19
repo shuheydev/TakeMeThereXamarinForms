@@ -21,9 +21,26 @@
             <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding TargetInfo.Longitude,Mode=TwoWay}"/>
 
             <StackLayout Orientation="Horizontal" Spacing="20">
-                <Button Text="キャンセル" Command="{Binding CancelCommand}"/>
-                <Button Text="削除" Command="{Binding DeleteAllCommand}"/>
-                <Button Text="保存" Command="{Binding SaveCommand}"/>
+                <Button Text="キャンセル"
+                        CornerRadius="35"
+                        HeightRequest="70" WidthRequest="70"
+                        BackgroundColor="Accent"
+                        Command="{Binding CancelCommand}"/>
+                <Button Text="削除" 
+                        CornerRadius="35"
+                        HeightRequest="70" WidthRequest="70"
+                        BackgroundColor="Accent"
+                        Command="{Binding DeleteCommand}"/>
+                <Button Text="保存" 
+                        CornerRadius="35"
+                        HeightRequest="70" WidthRequest="70"
+                        BackgroundColor="Accent"
+                        Command="{Binding SaveCommand}"/>
+                <Button Text="地図"
+                        CornerRadius="35"
+                        HeightRequest="70" WidthRequest="70"
+                        BackgroundColor="Accent"
+                        Command="{Binding OpenMapCommand}"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>
