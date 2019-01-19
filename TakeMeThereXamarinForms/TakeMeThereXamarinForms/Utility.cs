@@ -1,6 +1,7 @@
 ﻿using Google.OpenLocationCode;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Essentials = Xamarin.Essentials;
@@ -72,6 +73,25 @@ namespace TakeMeThereXamarinForms
             {
                 return ((double)speed * 3600.0) / 1000.0;
             }
+        }
+
+        internal static double CalculateAverageSpeed(Queue<Essentials.Location> locations)
+        {
+            var locs = locations.ToList();
+            double totalDistance = 0;
+            double totalHours = 0;
+            for (int i = 0; i < locs.Count - 1; i++)
+            {
+                var loc1 = locs[i];
+                var loc2 = locs[i + 1];
+
+                totalDistance += Utility.CalculateDistance(loc1, loc2);//km
+                totalHours += Math.Abs((loc2.Timestamp - loc1.Timestamp).TotalHours);//h
+            }
+
+            var averageSpeed = totalDistance / totalHours;
+
+            return double.IsNaN(averageSpeed) ? 0.0 : averageSpeed;
         }
     }
 }
