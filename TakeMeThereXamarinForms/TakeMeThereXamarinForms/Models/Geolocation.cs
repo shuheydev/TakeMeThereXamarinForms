@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Essentials = Xamarin.Essentials;
 using Google.OpenLocationCode;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace TakeMeThereXamarinForms.Models
 {
@@ -49,6 +50,14 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _speedKPH, value);
         }
 
+
+        private double _expectedRequiredTimeToTarget;
+        public double ExpectedRequiredTimeToTarget
+        {
+            get => _expectedRequiredTimeToTarget;
+            set => SetProperty(ref _expectedRequiredTimeToTarget, value);
+        }
+
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
         {
@@ -64,12 +73,29 @@ namespace TakeMeThereXamarinForms.Models
 
         private readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
 
+        private FixSizedQueue<Essentials.Location> _locations = new FixSizedQueue<Essentials.Location>(10);
         private async Task UpdateInformationAsync()
         {
             //現在の位置情報を取得
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
 
-            this.SpeedKPH = Utility.ConvertSpeedToKPH(this.Location.Speed);
+            this._locations.Enqueue(this.Location);
+
+            //var locs = this._locations.Queue.ToList();
+            //double totalDistance = 0;
+            //double totalHours = 0;
+            //for (int i = 0; i < locs.Count - 1; i++)
+            //{
+            //    var loc1 = locs[i];
+            //    var loc2 = locs[i + 1];
+
+            //    totalDistance += Utility.CalculateDistance(loc1, loc2);//km
+            //    totalHours += Math.Abs((loc2.Timestamp - loc1.Timestamp).TotalHours);//h
+            //}
+
+            //var averageSpeed = totalDistance / totalHours;
+            //this.SpeedKPH = double.IsNaN(averageSpeed)?0.0:averageSpeed;
+            this.SpeedKPH = Utility.CalculateAverageSpeed(this._locations.Queue);
 
             //目的地がセットされている場合に限る
             if (TargetInfo != null && this.Location != null)
@@ -80,6 +106,8 @@ namespace TakeMeThereXamarinForms.Models
 
                 this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
                 this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
+
+                this.ExpectedRequiredTimeToTarget = this.DistanceToTarget / this.SpeedKPH;
             }
 
 

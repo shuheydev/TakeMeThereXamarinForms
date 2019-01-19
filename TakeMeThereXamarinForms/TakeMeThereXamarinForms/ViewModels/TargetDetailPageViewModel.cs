@@ -63,6 +63,9 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command OpenMapCommand =>
             new Command(_ =>
             {
+                if (App.Geolocation.Location == null)
+                    return;
+
                 if (string.IsNullOrWhiteSpace(this.TargetInfo.Name))
                 {
                     Essentials.Map.OpenAsync(App.Geolocation.Location);
