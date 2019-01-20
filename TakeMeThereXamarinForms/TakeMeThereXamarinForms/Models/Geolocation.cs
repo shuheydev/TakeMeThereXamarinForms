@@ -34,7 +34,6 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _directionToTarget, value);
         }
 
-
         private double _distanceToTarget;
         public double DistanceToTarget
         {
@@ -51,17 +50,23 @@ namespace TakeMeThereXamarinForms.Models
         }
 
 
-        private double _expectedRequiredTimeToTarget;
-        public double ExpectedRequiredTimeToTarget
+        private TimeSpan _expectedRequiredTimeToTarget;
+        public TimeSpan ExpectedRequiredTimeToTarget
         {
             get => _expectedRequiredTimeToTarget;
             set => SetProperty(ref _expectedRequiredTimeToTarget, value);
         }
 
+        private DateTime _expectedArrivalTimeToTarget;
+        public DateTime ExpectedArrivalTimeToTarget
+        {
+            get => _expectedArrivalTimeToTarget;
+            set => SetProperty(ref _expectedArrivalTimeToTarget, value);
+        }
+
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
         {
-            this.Location = Essentials.Geolocation.GetLastKnownLocationAsync().Result;
         }
         public static Geolocation GetInstance()
         {
@@ -74,15 +79,16 @@ namespace TakeMeThereXamarinForms.Models
 
         private readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
 
-        private FixSizedQueue<Essentials.Location> _locations = new FixSizedQueue<Essentials.Location>(5);
-        private async Task UpdateInformationAsync()
+        private FixSizedQueue<Essentials.Location> _locations = new FixSizedQueue<Essentials.Location>(1);
+        public async Task UpdateInformationAsync()
         {
             //現在の位置情報を取得
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
 
-            this._locations.Enqueue(this.Location);
+            var lastKnownLocation = await Essentials.Geolocation.GetLastKnownLocationAsync();
+            this._locations.Enqueue(lastKnownLocation);
 
-            this.SpeedKPH = Utility.CalculateAverageSpeed(this._locations.Queue);
+            this.SpeedKPH = Utility.CalculateAverageSpeed2(this._locations.Queue);
 
             //目的地がセットされている場合に限る
             if (TargetInfo != null && this.Location != null)
@@ -94,10 +100,10 @@ namespace TakeMeThereXamarinForms.Models
                 this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
                 this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
 
-                this.ExpectedRequiredTimeToTarget = this.DistanceToTarget / this.SpeedKPH;
+                this.ExpectedRequiredTimeToTarget = Utility.ConvertHourToTimeSpan(this.DistanceToTarget / (this.SpeedKPH.Equals(0)?3.0:this.SpeedKPH));
+
+                this.ExpectedArrivalTimeToTarget = DateTime.Now.Add(this.ExpectedRequiredTimeToTarget);
             }
-
-
         }
 
 
@@ -106,6 +112,9 @@ namespace TakeMeThereXamarinForms.Models
         public void Start(TimeSpan timeSpan)
         {
             IsWorking = true;
+
+            //SetInitialLocation();
+
             Device.StartTimer(timeSpan, () =>
              {
                  UpdateInformationAsync();
@@ -114,6 +123,11 @@ namespace TakeMeThereXamarinForms.Models
 
                  return IsWorking;
              });
+        }
+
+        public async Task SetInitialLocation()
+        {
+            this.Location =await Essentials.Geolocation.GetLastKnownLocationAsync();
         }
 
         public void Stop()

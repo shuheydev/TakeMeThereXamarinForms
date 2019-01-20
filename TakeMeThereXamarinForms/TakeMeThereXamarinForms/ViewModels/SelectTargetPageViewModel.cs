@@ -14,12 +14,23 @@ namespace TakeMeThereXamarinForms.ViewModels
 {
     public class SelectTargetPageViewModel : BindableBase, INavigationAware
     {
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+        
+
+
         private INavigationService _navigationService;
         private IApplicationStore _applicationStore;
         public SelectTargetPageViewModel(
             INavigationService navigationService,
             IApplicationStore applicationStore)
         {
+            this.Title = "目的地を選択";
+
             _navigationService = navigationService;
             _applicationStore = applicationStore;
             //RestoreList();

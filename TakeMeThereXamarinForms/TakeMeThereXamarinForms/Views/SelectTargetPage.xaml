@@ -5,7 +5,8 @@
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TakeMeThereXamarinForms.Views.SelectTargetPage"
-             x:Name="Root">
+             x:Name="Root"
+             Title="{Binding Title}">
 
 
     <AbsoluteLayout>

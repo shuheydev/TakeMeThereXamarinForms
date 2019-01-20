@@ -96,6 +96,8 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.TargetInfo = targetInfo;
             this.Geolocation.SetTarget(this.TargetInfo);
 
+            //即更新したい
+            this.Geolocation.UpdateInformationAsync();
 
             StoreInfo();
         }

@@ -4,10 +4,16 @@
              xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:local="clr-namespace:TakeMeThereXamarinForms.Converters"
              x:Class="TakeMeThereXamarinForms.Views.MainPage"
              NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <local:ExpectedRequiredTimeConverter x:Key="ExpectedRequiredTimeConverter" />
+        <local:ExpectedArrivalTimeConverter x:Key="ExpectedArrivalTimeConverter" />
+    </ContentPage.Resources>
+    
     <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
         <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
             <Label Text="Destination" FontSize="20"/>
@@ -29,7 +35,7 @@
                                     Rotation="{Binding Compass.DirectionToTargetForRotate}"/>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,1,170,70" Orientation="Vertical" Spacing="0" Padding="0">
                 <Label Text="Speed" FontSize="20" HorizontalOptions="End"/>
-                <Label Text="{Binding Geolocation.SpeedKPH,StringFormat='{}{0:N2} km/h'}" FontSize="30" HorizontalOptions="End"/>
+                <Label Text="{Binding Geolocation.SpeedKPH,StringFormat='{}{0:N1} km/h'}" FontSize="30" HorizontalOptions="End"/>
             </StackLayout>
         </AbsoluteLayout>
         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -52,9 +58,9 @@
             </StackLayout>
             <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" HorizontalOptions="FillAndExpand">
                 <Label Text="Expected Required Time" FontSize="15"/>
-                <Label Text="{Binding Geolocation.ExpectedRequiredTimeToTarget,StringFormat='{}{0:N2} Hours'}" FontSize="40" HorizontalTextAlignment="End"/>
+                <Label Text="{Binding Geolocation.ExpectedRequiredTimeToTarget,Converter={StaticResource ExpectedRequiredTimeConverter}}" FontSize="35" HorizontalTextAlignment="End"/>
                 <Label Text="Expected Arrival Time" FontSize="15"/>
-                <Label Text="15:25" FontSize="40" HorizontalTextAlignment="End"/>
+                <Label Text="{Binding Geolocation.ExpectedArrivalTimeToTarget,Converter={StaticResource ExpectedArrivalTimeConverter}}" FontSize="40" HorizontalTextAlignment="End"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>

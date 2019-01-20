@@ -93,5 +93,21 @@ namespace TakeMeThereXamarinForms
 
             return double.IsNaN(averageSpeed) ? 0.0 : averageSpeed;
         }
+
+        internal static double CalculateAverageSpeed2(Queue<Essentials.Location> locations)
+        {
+            var averageSpeed = locations.Average(location => location.Speed) * 3600 / 1000;//m/s→km/h
+
+            return (double)(averageSpeed == null ? 0.0f : averageSpeed);
+        }
+
+        internal static TimeSpan ConvertHourToTimeSpan(double inputHours)
+        {
+            int hours = (int)Math.Truncate(inputHours);
+            int minutes = (int)Math.Truncate(inputHours % 1.0f * 60.0f);
+            int seconds = (int)((inputHours % 1.0f * 60.0f) % 1.0f);
+
+            return new TimeSpan(hours, minutes, seconds);
+        }
     }
 }

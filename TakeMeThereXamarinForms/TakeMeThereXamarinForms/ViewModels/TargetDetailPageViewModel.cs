@@ -16,6 +16,13 @@ namespace TakeMeThereXamarinForms.ViewModels
 {
     public class TargetDetailPageViewModel : BindableBase, INavigationAware
     {
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
         private INavigationService _navigationService;
         public TargetDetailPageViewModel(INavigationService navigationService)
         {
@@ -75,6 +82,11 @@ namespace TakeMeThereXamarinForms.ViewModels
         {
             if (this.TargetInfo.Id == 0)
             {
+                if(this.Geolocation.Location==null)
+                {
+                    this.Geolocation.SetInitialLocation();
+                }
+
                 var options = new Essentials.MapLaunchOptions
                 {
                     Name = "現在地",
@@ -105,9 +117,13 @@ namespace TakeMeThereXamarinForms.ViewModels
             var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
 
             if (targetInfo == null)
+            {
+                this.Title = "新規";
                 return;
+            }
 
             this.TargetInfo = targetInfo;
+            this.Title = "編集";
         }
     }
 }
