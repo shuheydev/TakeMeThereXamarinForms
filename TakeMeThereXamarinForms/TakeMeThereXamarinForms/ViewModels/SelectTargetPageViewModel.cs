@@ -29,7 +29,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             INavigationService navigationService,
             IApplicationStore applicationStore)
         {
-            this.Title = "目的地を選択";
+            this.Title = "Select Destination";
 
             _navigationService = navigationService;
             _applicationStore = applicationStore;

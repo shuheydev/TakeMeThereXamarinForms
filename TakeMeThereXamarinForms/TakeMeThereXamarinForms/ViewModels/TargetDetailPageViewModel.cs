@@ -118,12 +118,12 @@ namespace TakeMeThereXamarinForms.ViewModels
 
             if (targetInfo == null)
             {
-                this.Title = "新規";
+                this.Title = "New";
                 return;
             }
 
             this.TargetInfo = targetInfo;
-            this.Title = "編集";
+            this.Title = "Edit";
         }
     }
 }
