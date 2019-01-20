@@ -40,7 +40,7 @@ namespace TakeMeThereXamarinForms.Models
 
         public event EventHandler OnReadingValueChanged;
 
-        public double Correction = -20;//補正
+        public double Correction = 0;//補正
         public bool IsWorking;
         public void Start()
         {
