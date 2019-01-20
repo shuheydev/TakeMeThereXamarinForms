@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Google.OpenLocationCode;
 using System.Text.RegularExpressions;
 using Essentials = Xamarin.Essentials;
+using System.Windows.Input;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
@@ -21,6 +22,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             this._navigationService = navigationService;
 
             this.TargetInfo = new LocationInformation();
+            this.Geolocation = App.Geolocation;
         }
 
 
@@ -31,56 +33,64 @@ namespace TakeMeThereXamarinForms.ViewModels
             set => SetProperty(ref _targetInfo, value);
         }
 
-        public Command SaveCommand =>
-            new Command(_ =>
-            {
-                
-                App.Database.SaveItemAsync(this.TargetInfo);
+        private Geolocation _geolocation;
+        public Geolocation Geolocation
+        {
+            get => _geolocation;
+            set => SetProperty(ref _geolocation, value);
+        }
 
+
+        public ICommand SaveCommand =>
+            new DelegateCommand(() =>
+            {
+                App.Database.SaveItemAsync(this.TargetInfo);
                 _navigationService.GoBackAsync();
-            });
+            }, () =>
+            {
+                return !string.IsNullOrWhiteSpace(this.TargetInfo.PlusCode);
+            }).
+            ObservesProperty(() => this.TargetInfo.PlusCode);
+
 
         public Command CancelCommand =>
-            new Command(_ =>
+            new Command(() =>
             {
                 _navigationService.GoBackAsync();
             });
 
-        public Command DeleteAllCommand =>
-            new Command(_ =>
-            {
-                App.Database.DeleteAllItemsAsync();
-                _navigationService.GoBackAsync();
-            });
 
-        public Command DeleteCommand =>
-            new Command(_ =>
+        public ICommand DeleteCommand =>
+            new DelegateCommand(() =>
             {
                 App.Database.DeleteItemAsync(TargetInfo);
                 _navigationService.GoBackAsync();
-            });
+            },
+                () => this.TargetInfo.Id != 0)
+            .ObservesProperty(() => this.TargetInfo.Id);
+
 
         public Command OpenMapCommand =>
-            new Command(_ =>
+        new Command(() =>
+        {
+            if (this.TargetInfo.Id == 0)
             {
-                if (App.Geolocation.Location == null)
-                    return;
-
-                if (string.IsNullOrWhiteSpace(this.TargetInfo.Name))
+                var options = new Essentials.MapLaunchOptions
                 {
-                    Essentials.Map.OpenAsync(App.Geolocation.Location);
-                }
-                else
+                    Name = "現在地",
+                };
+                Essentials.Map.OpenAsync(this.Geolocation.Location, options);
+            }
+            else
+            {
+                var options = new Essentials.MapLaunchOptions
                 {
-                    var options = new Essentials.MapLaunchOptions
-                    {
-                        Name = this.TargetInfo.Name,
-                    };
+                    Name = this.TargetInfo.Name,
+                };
+                Essentials.Map.OpenAsync(new Essentials.Location(this.TargetInfo.Latitude, this.TargetInfo.Longitude), options);
+            }
+        });
 
-                    Essentials.Map.OpenAsync(new Essentials.Location(this.TargetInfo.Latitude, this.TargetInfo.Longitude), options);
-                }
-
-            });
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
