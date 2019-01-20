@@ -14,10 +14,6 @@ namespace TakeMeThereXamarinForms.Views
 {
     public partial class MainPage : ContentPage
     {
-        private readonly double cycleTime = 2000;
-        private Stopwatch stopwatch = new Stopwatch();
-        private bool pageIsActive;
-        private float t;
 
         public MainPage()
         {
@@ -30,6 +26,20 @@ namespace TakeMeThereXamarinForms.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            SetLippleEffectTimerForTargetMark();
+        }
+
+
+        private readonly double cycleTime = 2000;
+        private Stopwatch stopwatch = new Stopwatch();
+        private bool pageIsActive;
+        private float t;
+        /// <summary>
+        /// 目的地をピコンピコンさせるためのタイマーを開始する
+        /// </summary>
+        private void SetLippleEffectTimerForTargetMark()
+        {         
             pageIsActive = true;
             stopwatch.Start();
 
@@ -37,6 +47,8 @@ namespace TakeMeThereXamarinForms.Views
             {
                 t = (float)(stopwatch.Elapsed.TotalMilliseconds % cycleTime / (cycleTime));
 
+                //canvasの再描画を行わせる
+                //OnCanvasViewTargetDirectionPaintSurfaceが実行される。
                 skCanvasViewTargetDirection.InvalidateSurface();
 
                 if (!pageIsActive)
@@ -45,6 +57,7 @@ namespace TakeMeThereXamarinForms.Views
                 return pageIsActive;
             });
         }
+
 
         protected override void OnDisappearing()
         {
@@ -82,7 +95,7 @@ namespace TakeMeThereXamarinForms.Views
                 {
                     float radius = 9 * (circle + t);
 
-                    strokePaint.Color = new SKColor(0x7c, 0xfc, 0x00, (byte)(255 * (circle == 0 ? (1 - t) : 1)));
+                    strokePaint.Color = new SKColor(255, 0, 0, (byte)(255 * (circle == 0 ? (1 - t) : 1)));
 
                     canvas.DrawCircle(0, -90, radius, strokePaint);
                 }

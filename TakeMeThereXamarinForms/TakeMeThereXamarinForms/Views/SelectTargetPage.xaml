@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="TakeMeThereXamarinForms.Views.SelectTargetPage"
+             x:Name="Root"
+             Title="{Binding Title}">
+
+
+    <AbsoluteLayout>
+        <ListView AbsoluteLayout.LayoutFlags="All"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding Targets}">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                  Command="{Binding ItemSelectedCommand}"
+                                                  EventArgsParameterPath="SelectedItem"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <AbsoluteLayout Padding="10">
+                            <!--<Button AbsoluteLayout.LayoutFlags="All"
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    BorderRadius="10" 
+                                    BorderColor="Black"
+                                    BorderWidth="2"
+                                    IsEnabled="False"
+                                    BackgroundColor="LightCoral"/>-->
+                            <StackLayout Orientation="Horizontal" 
+                                         AbsoluteLayout.LayoutFlags="All"
+                                         AbsoluteLayout.LayoutBounds="0.5,0.5,0.95,0.95" 
+                                         Spacing="5">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Name}" FontSize="40"/>
+                                    <Label Text="{Binding PlusCode}" FontSize="25"/>
+                                </StackLayout>
+                                <Button Image="edit.png" BackgroundColor="#00FFFFFF"
+                                        WidthRequest="40" HeightRequest="40" HorizontalOptions="End"
+                                        Command="{Binding Source={x:Reference Root},Path=BindingContext.EditItemCommand}" CommandParameter="{Binding}"/>
+                            </StackLayout>
+                        </AbsoluteLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Image="plus.png"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.9,0.95,70,70" 
+                CornerRadius="35" BackgroundColor="Accent"
+                Command="{Binding NavigateCommand}" CommandParameter="TargetDetailPage"/>
+
+    </AbsoluteLayout>
+</ContentPage>

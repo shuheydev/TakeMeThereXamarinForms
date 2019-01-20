@@ -5,25 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Essentials = Xamarin.Essentials;
-
+using Google.OpenLocationCode;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace TakeMeThereXamarinForms.Models
 {
-    interface IGeolocation
-    {
-        double Latitude { get; set; }
-        double Longitude { get; set; }
-        double? Altitude { get; set; }
-        double? Speed { get; set; }
-        double? Cource { get; set; }
-
-
-        void Start(TimeSpan timeSpan);
-        void Stop();
-
-    }
-
-    class Geolocation : BindableBase, IGeolocation
+    public class Geolocation : BindableBase
     {
         private Essentials.Location _location;
         public Essentials.Location Location
@@ -32,20 +20,49 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _location, value);
         }
 
-        private double _latitude;
-        public double Latitude { get => _latitude; set => SetProperty(ref _latitude, value); }
+        private Essentials.Location _targetLocation;
+        public Essentials.Location TargetLocation
+        {
+            get => _targetLocation;
+            set => SetProperty(ref _targetLocation, value);
+        }
 
-        private double _longitude;
-        public double Longitude { get => _longitude; set => SetProperty(ref _longitude, value); }
+        private double _directionToTarget;
+        public double DirectionToTarget
+        {
+            get => _directionToTarget;
+            set => SetProperty(ref _directionToTarget, value);
+        }
 
-        private double? _altitude;
-        public double? Altitude { get => _altitude; set => SetProperty(ref _altitude, value); }
+        private double _distanceToTarget;
+        public double DistanceToTarget
+        {
+            get => _distanceToTarget;
+            set => SetProperty(ref _distanceToTarget, value);
+        }
 
-        private double? _speed;
-        public double? Speed { get => _speed; set => SetProperty(ref _speed, value); }
 
-        private double? _cource;
-        public double? Cource { get => _cource; set => SetProperty(ref _cource, value); }
+        private double _speedKPH;
+        public double SpeedKPH
+        {
+            get => _speedKPH;
+            set => SetProperty(ref _speedKPH, value);
+        }
+
+
+        private TimeSpan _expectedRequiredTimeToTarget;
+        public TimeSpan ExpectedRequiredTimeToTarget
+        {
+            get => _expectedRequiredTimeToTarget;
+            set => SetProperty(ref _expectedRequiredTimeToTarget, value);
+        }
+
+        private DateTime _expectedArrivalTimeToTarget;
+        public DateTime ExpectedArrivalTimeToTarget
+        {
+            get => _expectedArrivalTimeToTarget;
+            set => SetProperty(ref _expectedArrivalTimeToTarget, value);
+        }
 
         private static Geolocation _singletonInstance = new Geolocation();
         private Geolocation()
@@ -60,44 +77,74 @@ namespace TakeMeThereXamarinForms.Models
         public event EventHandler OnGetGeolocation;
 
 
-        readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
+        private readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
 
-        private async Task UpdateLocationAsync()
+        private FixSizedQueue<Essentials.Location> _locations = new FixSizedQueue<Essentials.Location>(1);
+        public async Task UpdateInformationAsync()
         {
+            //現在の位置情報を取得
             this.Location = await Essentials.Geolocation.GetLocationAsync(request);
 
-            this.Latitude = this.Location.Latitude;
-            this.Longitude = this.Location.Longitude;
-            this.Altitude = this.Location.Altitude;
-            this.Speed = this.Location.Speed;
-            this.Cource = this.Location.Course;
+            var lastKnownLocation = await Essentials.Geolocation.GetLastKnownLocationAsync();
+            this._locations.Enqueue(lastKnownLocation);
 
-            OnGetGeolocation?.Invoke(this, EventArgs.Empty);
+            this.SpeedKPH = Utility.CalculateAverageSpeed2(this._locations.Queue);
+
+            //目的地がセットされている場合に限る
+            if (TargetInfo != null && this.Location != null)
+            {
+                this.TargetLocation = Utility.GetLocationFromLocalCode(this.TargetInfo.PlusCode, this.Location);
+                this.TargetInfo.Latitude = this.TargetLocation.Latitude;
+                this.TargetInfo.Longitude = this.TargetLocation.Longitude;
+
+                this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
+                this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
+
+                this.ExpectedRequiredTimeToTarget = Utility.ConvertHourToTimeSpan(this.DistanceToTarget / (this.SpeedKPH.Equals(0)?3.0:this.SpeedKPH));
+
+                this.ExpectedArrivalTimeToTarget = DateTime.Now.Add(this.ExpectedRequiredTimeToTarget);
+            }
         }
 
 
+        public bool IsWorking;
 
-        private static bool _timerWorking;
         public void Start(TimeSpan timeSpan)
         {
-            _timerWorking = true;
+            IsWorking = true;
+
+            //SetInitialLocation();
+
             Device.StartTimer(timeSpan, () =>
              {
-                 UpdateLocationAsync();
+                 UpdateInformationAsync();
 
-                 return _timerWorking;
+                 OnGetGeolocation?.Invoke(this, EventArgs.Empty);
+
+                 return IsWorking;
              });
+        }
+
+        public async Task SetInitialLocation()
+        {
+            this.Location =await Essentials.Geolocation.GetLastKnownLocationAsync();
         }
 
         public void Stop()
         {
-            _timerWorking = false;
+            IsWorking = false;
         }
 
-
-        public async Task<Essentials.Location> GetCurrentLocationNowAsync()
+        public LocationInformation TargetInfo { get; private set; }
+        public void SetTarget(LocationInformation targetInfo)
         {
-            return await Essentials.Geolocation.GetLocationAsync();
+            this.TargetInfo = targetInfo;
         }
+
+        public void ClearTarget()
+        {
+            this.TargetInfo = null;
+        }
+
     }
 }
