@@ -47,7 +47,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Image="plus.png"
+        <Button Image="add.png"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="0.9,0.95,70,70" 
                 CornerRadius="35" BackgroundColor="Accent"

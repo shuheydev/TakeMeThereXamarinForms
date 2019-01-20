@@ -22,22 +22,22 @@
             <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding TargetInfo.Longitude,Mode=TwoWay}"/>
 
             <StackLayout Orientation="Horizontal" Spacing="20">
-                <Button Text="キャンセル"
+                <Button Image="back.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
                         Command="{Binding CancelCommand}"/>
-                <Button Text="削除" 
+                <Button Image="delete.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
                         Command="{Binding DeleteCommand}"/>
-                <Button Text="保存" 
+                <Button Image="save.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
                         Command="{Binding SaveCommand}"/>
-                <Button Text="地図"
+                <Button Image="map.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
