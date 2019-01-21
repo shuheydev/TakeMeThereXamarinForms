@@ -4,44 +4,44 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TakeMeThereXamarinForms.Views.TargetDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Path=Title}">
 
     <StackLayout Padding="10" Spacing="20">
         <StackLayout>
 
             <Label Text="Plus Code" />
-            <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding TargetInfo.PlusCode,Mode=TwoWay}"/>
+            <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding Path=TargetInfo.PlusCode,Mode=TwoWay}"/>
 
             <Label Text="Name"/>
-            <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding TargetInfo.Name,Mode=TwoWay}"/>
+            <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding Path=TargetInfo.Name,Mode=TwoWay}"/>
 
             <Label Text="Latitude"/>
-            <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding TargetInfo.Latitude,Mode=TwoWay}"/>
+            <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding Path=TargetInfo.Latitude,Mode=TwoWay}"/>
 
             <Label Text="Longitude" />
-            <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding TargetInfo.Longitude,Mode=TwoWay}"/>
+            <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding Path=TargetInfo.Longitude,Mode=TwoWay}"/>
 
             <StackLayout Orientation="Horizontal" Spacing="20">
                 <Button Image="back.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
-                        Command="{Binding CancelCommand}"/>
+                        Command="{Binding Path=CancelCommand}"/>
                 <Button Image="delete.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
-                        Command="{Binding DeleteCommand}"/>
+                        Command="{Binding Path=DeleteCommand}"/>
                 <Button Image="save.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
-                        Command="{Binding SaveCommand}"/>
+                        Command="{Binding Path=SaveCommand}"/>
                 <Button Image="map.png"
                         CornerRadius="35"
                         HeightRequest="70" WidthRequest="70"
                         BackgroundColor="Accent"
-                        Command="{Binding OpenMapCommand}"/>
+                        Command="{Binding Path=OpenMapCommand}"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>

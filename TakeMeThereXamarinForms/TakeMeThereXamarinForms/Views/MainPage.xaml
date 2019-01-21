@@ -17,9 +17,9 @@
     <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
         <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
             <Label Text="Destination" FontSize="20"/>
-            <Label Text="{Binding TargetInfo.Name}" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+            <Label Text="{Binding Path=TargetInfo.Name}" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="SelectTargetPage"/>
+                    <TapGestureRecognizer Command="{Binding Path=NavigateCommand}" CommandParameter="SelectTargetPage"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
@@ -28,39 +28,39 @@
             <skiaforms:SKCanvasView x:Name="skCanvasViewCompass" 
                                     AbsoluteLayout.LayoutFlags="PositionProportional" 
                                     AbsoluteLayout.LayoutBounds="0.5,0.5,320,320"
-                                    Rotation="{Binding Compass.HeadingNorthForRotate}"/>
+                                    Rotation="{Binding Path=Compass.HeadingNorthForRotate}"/>
             <skiaforms:SKCanvasView x:Name="skCanvasViewTargetDirection" 
                                     AbsoluteLayout.LayoutFlags="PositionProportional" 
                                     AbsoluteLayout.LayoutBounds="0.5,0.5,320,320"
-                                    Rotation="{Binding Compass.DirectionToTargetForRotate}"/>
+                                    Rotation="{Binding Path=Compass.DirectionToTargetForRotate}"/>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,1,170,70" Orientation="Vertical" Spacing="0" Padding="0">
                 <Label Text="Speed" FontSize="20" HorizontalOptions="End"/>
-                <Label Text="{Binding Geolocation.SpeedKPH,StringFormat='{}{0:N1} km/h'}" FontSize="30" HorizontalOptions="End"/>
+                <Label Text="{Binding Path=Geolocation.SpeedKPH,StringFormat='{}{0:N1} km/h'}" FontSize="30" HorizontalOptions="End"/>
             </StackLayout>
         </AbsoluteLayout>
         <StackLayout Orientation="Horizontal" Spacing="10">
             <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="200">
                 <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
                     <Label Text="Direct Distance" FontSize="20"/>
-                    <Label Text="{Binding Geolocation.DistanceToTarget,StringFormat='{}{0:N3} km'}" FontSize="30" HorizontalTextAlignment="End" VerticalOptions="FillAndExpand"/>
+                    <Label Text="{Binding Path=Geolocation.DistanceToTarget,StringFormat='{}{0:N3} km'}" FontSize="35" HorizontalTextAlignment="End" VerticalOptions="FillAndExpand"/>
                 </StackLayout>
                 <StackLayout  HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
                     <Label Text="Coordinate" FontSize="20"/>
                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
                         <Label Text="Longitude:" FontSize="15"/>
-                        <Label Text="{Binding Geolocation.Location.Longitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding Path=Geolocation.Location.Longitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
                         <Label Text="Latitude:" FontSize="15"/>
-                        <Label Text="{Binding Geolocation.Location.Latitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding Path=Geolocation.Location.Latitude}" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
             <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" HorizontalOptions="FillAndExpand">
                 <Label Text="Expected Required Time" FontSize="15"/>
-                <Label Text="{Binding Geolocation.ExpectedRequiredTimeToTarget,Converter={StaticResource ExpectedRequiredTimeConverter}}" FontSize="35" HorizontalTextAlignment="End"/>
+                <Label Text="{Binding Path=Geolocation.ExpectedRequiredTimeToTarget,Converter={StaticResource ExpectedRequiredTimeConverter}}" FontSize="30" HorizontalTextAlignment="End"/>
                 <Label Text="Expected Arrival Time" FontSize="15"/>
-                <Label Text="{Binding Geolocation.ExpectedArrivalTimeToTarget,Converter={StaticResource ExpectedArrivalTimeConverter}}" FontSize="40" HorizontalTextAlignment="End"/>
+                <Label Text="{Binding Path=Geolocation.ExpectedArrivalTimeToTarget,Converter={StaticResource ExpectedArrivalTimeConverter}}" FontSize="40" HorizontalTextAlignment="End"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>

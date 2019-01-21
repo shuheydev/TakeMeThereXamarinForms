@@ -96,16 +96,17 @@ namespace TakeMeThereXamarinForms
 
         internal static double CalculateAverageSpeed2(Queue<Essentials.Location> locations)
         {
-            var averageSpeed = locations.Average(location => location.Speed) * 3600 / 1000;//m/s→km/h
+            var averageSpeed = Utility.ConvertSpeedToKPH(locations.Average(location => location.Speed));//m/s→km/h
 
-            return (double)(averageSpeed == null ? 0.0f : averageSpeed);
+            return (double)averageSpeed;
         }
 
         internal static TimeSpan ConvertHourToTimeSpan(double inputHours)
         {
             int hours = (int)Math.Truncate(inputHours);
-            int minutes = (int)Math.Truncate(inputHours % 1.0f * 60.0f);
-            int seconds = (int)((inputHours % 1.0f * 60.0f) % 1.0f);
+            double minutesDouble = (inputHours % 1.0f) * 60.0f;
+            int minutes = (int)Math.Truncate(minutesDouble);
+            int seconds = (int)((minutesDouble % 1.0f) * 60.0f);
 
             return new TimeSpan(hours, minutes, seconds);
         }
