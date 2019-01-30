@@ -15,13 +15,12 @@
     </ContentPage.Resources>
     
     <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
-        <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
-            <Label Text="Destination" FontSize="20"/>
-            <Label Text="{Binding Path=TargetInfo.Name}" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Path=NavigateCommand}" CommandParameter="SelectTargetPage"/>
-                </Label.GestureRecognizers>
-            </Label>
+        <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0" >
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=NavigateCommand}" CommandParameter="SelectTargetPage"/>
+            </StackLayout.GestureRecognizers>
+            <Label Text="Destination" FontSize="20" />
+            <Label Text="{Binding Path=TargetInfo.Name}" FontSize="40" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
         </StackLayout>
         <AbsoluteLayout VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource TileColor}">
             <Label Text="Direction" FontSize="20"/>

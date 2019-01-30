@@ -31,7 +31,7 @@
                                     <Label Text="{Binding Path=Name}" FontSize="40"/>
                                     <Label Text="{Binding Path=PlusCode}" FontSize="25"/>
                                 </StackLayout>
-                                <Button Image="edit.png" BackgroundColor="#00FFFFFF"
+                                <Button Image="edit.png" BackgroundColor="#00FFFFFF" BorderRadius="20"
                                         WidthRequest="40" HeightRequest="40" HorizontalOptions="End"
                                         Command="{Binding Source={x:Reference Root},Path=BindingContext.EditItemCommand}" CommandParameter="{Binding}"/>
                             </StackLayout>
@@ -40,7 +40,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Image="add.png"
+        <Button Image="add.png" 
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="0.9,0.95,70,70" 
                 CornerRadius="35" BackgroundColor="Accent"

@@ -56,8 +56,8 @@ namespace TakeMeThereXamarinForms.ViewModels
             }, () =>
             {
                 return !string.IsNullOrWhiteSpace(this.TargetInfo.PlusCode);
-            }).
-            ObservesProperty(() => this.TargetInfo.PlusCode);
+            })
+            .ObservesProperty(() => this.TargetInfo.PlusCode);
 
 
         public Command CancelCommand =>

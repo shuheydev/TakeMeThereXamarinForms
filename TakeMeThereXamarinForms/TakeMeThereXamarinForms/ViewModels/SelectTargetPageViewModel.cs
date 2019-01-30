@@ -55,9 +55,9 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         private void RestoreList()
         {
-            var infos = App.Database.GetItemsAsync().Result;
+            var targetGeolocationInfors = App.Database.GetItemsAsync().Result;
             Targets.Clear();
-            foreach (var info in infos)
+            foreach (var info in targetGeolocationInfors)
             {
                 Targets.Add(info);
             }
