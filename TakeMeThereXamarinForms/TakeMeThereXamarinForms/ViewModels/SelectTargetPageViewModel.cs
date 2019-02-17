@@ -75,6 +75,9 @@ namespace TakeMeThereXamarinForms.ViewModels
                 //選択日時を更新
                 targetInfo.SelectedAt = DateTimeOffset.Now;
 
+                //DBへ反映
+                App.Database.SaveItemAsync(targetInfo);
+
                 var parameter = new NavigationParameters();
                 parameter.Add(nameof(LocationInformation), targetInfo);
 

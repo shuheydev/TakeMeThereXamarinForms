@@ -51,6 +51,9 @@ namespace TakeMeThereXamarinForms.ViewModels
         public ICommand SaveCommand =>
             new DelegateCommand(() =>
             {
+                //更新日時の更新
+                this.TargetInfo.UpdatedAt = DateTimeOffset.Now;
+
                 App.Database.SaveItemAsync(this.TargetInfo);
                 _navigationService.GoBackAsync();
             }, () =>

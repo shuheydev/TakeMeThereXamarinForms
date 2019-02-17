@@ -55,12 +55,7 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _updateAt, value);
         }
 
-        private DateTimeOffset _createdAt;
-        public DateTimeOffset CreatedAt
-        {
-            get => _createdAt;
-            set => SetProperty(ref _createdAt, value);
-        }
+        public DateTimeOffset CreatedAt { get; }
 
         private DateTimeOffset _selectedAt;
         public DateTimeOffset SelectedAt
