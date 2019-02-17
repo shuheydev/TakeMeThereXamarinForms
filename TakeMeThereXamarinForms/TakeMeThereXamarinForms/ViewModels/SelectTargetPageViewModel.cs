@@ -55,7 +55,8 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         private void RestoreList()
         {
-            var targetGeolocationInfors = App.Database.GetItemsAsync().Result;
+            //DBから目的地リストを取得して、選択日時降順にソート。
+            var targetGeolocationInfors = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
             Targets.Clear();
             foreach (var info in targetGeolocationInfors)
             {
