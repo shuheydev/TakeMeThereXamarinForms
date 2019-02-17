@@ -72,6 +72,9 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
+                //選択日時を更新
+                targetInfo.SelectedAt = DateTimeOffset.Now;
+
                 var parameter = new NavigationParameters();
                 parameter.Add(nameof(LocationInformation), targetInfo);
 

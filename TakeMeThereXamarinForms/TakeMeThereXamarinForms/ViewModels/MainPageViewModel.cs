@@ -75,6 +75,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
             {
+              　//
                 if (this.Geolocation.TargetInfo != null)
                     App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
 
