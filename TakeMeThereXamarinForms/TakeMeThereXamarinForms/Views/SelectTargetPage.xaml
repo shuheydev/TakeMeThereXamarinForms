@@ -43,7 +43,13 @@
                                 </StackLayout>
                                 <ImageButton Source="Edit_black_48dp.png" BackgroundColor="#00FFFFFF"
                                         WidthRequest="30" HeightRequest="30" HorizontalOptions="End"
-                                        Command="{Binding Source={x:Reference Root},Path=BindingContext.EditItemCommand}" CommandParameter="{Binding}"/>
+                                        Command="{Binding Source={x:Reference Root},Path=BindingContext.EditItemCommand}" CommandParameter="{Binding}">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding Path=IsGuardian}" Value="True">
+                                            <Setter Property="IsVisible" Value="False"/>
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
                             </StackLayout>
                         </AbsoluteLayout>
                     </ViewCell>

@@ -33,7 +33,6 @@ namespace TakeMeThereXamarinForms.ViewModels
 
             _navigationService = navigationService;
             _applicationStore = applicationStore;
-            //RestoreList();
         }
 
 
@@ -78,6 +77,10 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
+                //番兵の場合は処理を行わない
+                if (targetInfo.IsGuardian == true)
+                    return;
+
                 //選択日時を更新
                 targetInfo.SelectedAt = DateTimeOffset.Now;
 
@@ -94,7 +97,6 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<LocationInformation> EditItemCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
-
                 var parameters = new NavigationParameters {
                     { nameof(LocationInformation), targetInfo},
                 };
