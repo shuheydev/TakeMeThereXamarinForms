@@ -10,6 +10,13 @@ namespace TakeMeThereXamarinForms.Models
 {
     public class LocationInformation : BindableBase
     {
+        public LocationInformation()
+        {
+            this.CreatedAt = DateTimeOffset.Now;
+            this.UpdatedAt = DateTimeOffset.Now;
+            this.SelectedAt = DateTimeOffset.Now;
+        }
+
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
