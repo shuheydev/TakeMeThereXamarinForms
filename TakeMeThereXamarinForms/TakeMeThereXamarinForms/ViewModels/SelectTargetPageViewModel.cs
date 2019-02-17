@@ -56,17 +56,17 @@ namespace TakeMeThereXamarinForms.ViewModels
         private void RestoreList()
         {
             //DBから目的地リストを取得して、選択日時降順にソート。
-            var targetGeolocationInfors = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
+            var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
+         
             Targets.Clear();
-            foreach (var info in targetGeolocationInfors)
+            foreach (var info in targetGeolocationInfos)
             {
                 Targets.Add(info);
             }
 
             //リストの一番下に番兵を入れる。
             //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
-            Targets.Add(new LocationInformation(true));
-
+            Targets.Add(LocationInformation.CreateGuardian());
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
