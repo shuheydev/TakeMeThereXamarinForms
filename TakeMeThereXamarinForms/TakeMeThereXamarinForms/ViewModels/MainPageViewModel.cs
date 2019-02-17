@@ -67,7 +67,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.Compass = App.Compass;
             this.Compass.SetGeolocation(this.Geolocation);
 
-
             RestoreInfo();
         }
 

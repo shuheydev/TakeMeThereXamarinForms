@@ -55,6 +55,13 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _createdAt, value);
         }
 
+        private DateTimeOffset _selectedAt;
+        public DateTimeOffset SelectedAt
+        {
+            get => _selectedAt;
+            set => SetProperty(ref _selectedAt, value);
+        }
+
         public void UpdateCoordinateFromPlusCode(Location baseLocation)
         {
             UpdateCoordinateFromPlusCode(baseLocation.Latitude, baseLocation.Longitude);
