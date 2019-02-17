@@ -29,6 +29,7 @@ namespace TakeMeThereXamarinForms
         {
             InitializeComponent();
 
+            //リソース
             Resources = new ResourceDictionary();
             Resources.Add("TileColor", Color.FromHex("FFFFFF"));
 
