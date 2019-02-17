@@ -8,6 +8,16 @@
              x:Name="Root"
              Title="{Binding Path=Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="ImageButton">
+                <Setter Property="HeightRequest" Value="60"/>
+                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="CornerRadius" Value="30"/>
+                <Setter Property="BackgroundColor" Value="Accent"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <AbsoluteLayout>
         <ListView AbsoluteLayout.LayoutFlags="All"
@@ -31,8 +41,8 @@
                                     <Label Text="{Binding Path=Name}" FontSize="40"/>
                                     <Label Text="{Binding Path=PlusCode}" FontSize="25"/>
                                 </StackLayout>
-                                <Button Image="edit.png" BackgroundColor="#00FFFFFF" BorderRadius="20"
-                                        WidthRequest="40" HeightRequest="40" HorizontalOptions="End"
+                                <ImageButton Source="Edit_black_48dp.png" BackgroundColor="#00FFFFFF"
+                                        WidthRequest="30" HeightRequest="30" HorizontalOptions="End"
                                         Command="{Binding Source={x:Reference Root},Path=BindingContext.EditItemCommand}" CommandParameter="{Binding}"/>
                             </StackLayout>
                         </AbsoluteLayout>
@@ -40,10 +50,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Image="add.png" 
+        <ImageButton Source="Add_white_48dp.png" 
                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                AbsoluteLayout.LayoutBounds="0.9,0.95,70,70" 
-                CornerRadius="35" BackgroundColor="Accent"
+                AbsoluteLayout.LayoutBounds="0.9,0.95"
+                Style="{StaticResource buttonStyle}"
                 Command="{Binding Path=NavigateCommand}" CommandParameter="TargetDetailPage"/>
 
     </AbsoluteLayout>

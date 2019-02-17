@@ -6,6 +6,17 @@
              x:Class="TakeMeThereXamarinForms.Views.TargetDetailPage"
              Title="{Binding Path=Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="ImageButton">
+                <Setter Property="HeightRequest" Value="60"/>
+                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="CornerRadius" Value="30"/>
+                <Setter Property="BackgroundColor" Value="Accent"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout Padding="10" Spacing="20">
         <StackLayout>
 
@@ -22,25 +33,17 @@
             <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding Path=TargetInfo.Longitude,Mode=TwoWay}"/>
 
             <StackLayout Orientation="Horizontal" Spacing="20">
-                <Button Image="back.png"
-                        CornerRadius="35"
-                        HeightRequest="70" WidthRequest="70"
-                        BackgroundColor="Accent"
+                <ImageButton Source="Arrow_back_white_48dp.png"
+                        Style="{StaticResource buttonStyle}"
                         Command="{Binding Path=CancelCommand}"/>
-                <Button Image="delete.png"
-                        CornerRadius="35"
-                        HeightRequest="70" WidthRequest="70"
-                        BackgroundColor="Accent"
+                <ImageButton Source="Delete_outline_white_48dp.png"
+                        Style="{StaticResource buttonStyle}"
                         Command="{Binding Path=DeleteCommand}"/>
-                <Button Image="save.png"
-                        CornerRadius="35"
-                        HeightRequest="70" WidthRequest="70"
-                        BackgroundColor="Accent"
+                <ImageButton Source="Save_white_48dp.png"
+                        Style="{StaticResource buttonStyle}"
                         Command="{Binding Path=SaveCommand}"/>
-                <Button Image="map.png"
-                        CornerRadius="35"
-                        HeightRequest="70" WidthRequest="70"
-                        BackgroundColor="Accent"
+                <ImageButton Source="Map_white_48dp.png"
+                        Style="{StaticResource buttonStyle}"
                         Command="{Binding Path=OpenMapCommand}"/>
             </StackLayout>
         </StackLayout>

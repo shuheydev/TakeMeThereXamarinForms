@@ -2328,10 +2328,13 @@ namespace TakeMeThereXamarinForms.Droid
 			public const int abc_vector_test = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int add = 2130837587;
+			public const int Add_white_48dp = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int avd_hide_password = 2130837588;
+			public const int Arrow_back_white_48dp = 2130837588;
+			
+			// aapt resource value: 0x7f020055
+			public const int avd_hide_password = 2130837589;
 			
 			// aapt resource value: 0x7f020135
 			public const int avd_hide_password_1 = 2130837813;
@@ -2342,8 +2345,8 @@ namespace TakeMeThereXamarinForms.Droid
 			// aapt resource value: 0x7f020137
 			public const int avd_hide_password_3 = 2130837815;
 			
-			// aapt resource value: 0x7f020055
-			public const int avd_show_password = 2130837589;
+			// aapt resource value: 0x7f020056
+			public const int avd_show_password = 2130837590;
 			
 			// aapt resource value: 0x7f020138
 			public const int avd_show_password_1 = 2130837816;
@@ -2354,11 +2357,8 @@ namespace TakeMeThereXamarinForms.Droid
 			// aapt resource value: 0x7f02013a
 			public const int avd_show_password_3 = 2130837818;
 			
-			// aapt resource value: 0x7f020056
-			public const int back = 2130837590;
-			
 			// aapt resource value: 0x7f020057
-			public const int delete = 2130837591;
+			public const int Delete_outline_white_48dp = 2130837591;
 			
 			// aapt resource value: 0x7f020058
 			public const int design_bottom_navigation_item_background = 2130837592;
@@ -2379,7 +2379,7 @@ namespace TakeMeThereXamarinForms.Droid
 			public const int design_snackbar_background = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int edit = 2130837598;
+			public const int Edit_black_48dp = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
 			public const int ic_audiotrack_dark = 2130837599;
@@ -2913,7 +2913,7 @@ namespace TakeMeThereXamarinForms.Droid
 			public const int ic_vol_type_tv_light = 2130837775;
 			
 			// aapt resource value: 0x7f020110
-			public const int map = 2130837776;
+			public const int Map_white_48dp = 2130837776;
 			
 			// aapt resource value: 0x7f020111
 			public const int mr_button_connected_dark = 2130837777;
@@ -3015,7 +3015,7 @@ namespace TakeMeThereXamarinForms.Droid
 			public const int notify_panel_notification_icon_bg = 2130837807;
 			
 			// aapt resource value: 0x7f020130
-			public const int save = 2130837808;
+			public const int Save_white_48dp = 2130837808;
 			
 			// aapt resource value: 0x7f020131
 			public const int tooltip_frame_dark = 2130837809;
