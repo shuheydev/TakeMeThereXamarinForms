@@ -55,7 +55,8 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         private void RestoreList()
         {
-            var targetGeolocationInfors = App.Database.GetItemsAsync().Result;
+            //DBから目的地リストを取得して、選択日時降順にソート。
+            var targetGeolocationInfors = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
             Targets.Clear();
             foreach (var info in targetGeolocationInfors)
             {
@@ -72,6 +73,12 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
+                //選択日時を更新
+                targetInfo.SelectedAt = DateTimeOffset.Now;
+
+                //DBへ反映
+                App.Database.SaveItemAsync(targetInfo);
+
                 var parameter = new NavigationParameters();
                 parameter.Add(nameof(LocationInformation), targetInfo);
 

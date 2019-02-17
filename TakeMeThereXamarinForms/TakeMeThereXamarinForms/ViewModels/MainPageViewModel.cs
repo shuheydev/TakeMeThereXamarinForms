@@ -67,7 +67,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.Compass = App.Compass;
             this.Compass.SetGeolocation(this.Geolocation);
 
-
             RestoreInfo();
         }
 
@@ -76,7 +75,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
             {
-
+              　//
                 if (this.Geolocation.TargetInfo != null)
                     App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
 

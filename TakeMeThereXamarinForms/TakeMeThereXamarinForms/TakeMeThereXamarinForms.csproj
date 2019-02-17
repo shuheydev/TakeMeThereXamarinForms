@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="LiveXAML" Version="2.1.59" />
+    <PackageReference Include="OpenLocationCode" Version="1.0.1" />
     <PackageReference Include="SkiaSharp" Version="1.68.0" />
     <PackageReference Include="SkiaSharp.Views" Version="1.68.0" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />

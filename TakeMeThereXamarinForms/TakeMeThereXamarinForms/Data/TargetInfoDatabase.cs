@@ -22,10 +22,10 @@ namespace TakeMeThereXamarinForms.Data
             return database.Table<LocationInformation>().ToListAsync();
         }
 
-        public Task<List<LocationInformation>> GetItemsNotDoneAsync()
-        {
-            return database.QueryAsync<LocationInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
-        }
+        //public Task<List<LocationInformation>> GetItemsNotDoneAsync()
+        //{
+        //    return database.QueryAsync<LocationInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+        //}
 
         public Task<LocationInformation> GetItemAsync(int id)
         {

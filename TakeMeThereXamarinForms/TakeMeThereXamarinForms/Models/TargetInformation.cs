@@ -10,6 +10,13 @@ namespace TakeMeThereXamarinForms.Models
 {
     public class LocationInformation : BindableBase
     {
+        public LocationInformation()
+        {
+            this.CreatedAt = DateTimeOffset.Now;
+            this.UpdatedAt = DateTimeOffset.Now;
+            this.SelectedAt = DateTimeOffset.Now;
+        }
+
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
@@ -41,6 +48,21 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _longitude, value);
         }
 
+        private DateTimeOffset _updateAt;
+        public DateTimeOffset UpdatedAt
+        {
+            get => _updateAt;
+            set => SetProperty(ref _updateAt, value);
+        }
+
+        public DateTimeOffset CreatedAt { get; }
+
+        private DateTimeOffset _selectedAt;
+        public DateTimeOffset SelectedAt
+        {
+            get => _selectedAt;
+            set => SetProperty(ref _selectedAt, value);
+        }
 
         public void UpdateCoordinateFromPlusCode(Location baseLocation)
         {
@@ -62,7 +84,7 @@ namespace TakeMeThereXamarinForms.Models
 
             this.Latitude = decoded.CenterLatitude;
             this.Longitude = decoded.CenterLongitude;
-        }      
+        }
     }
 }
 
