@@ -17,6 +17,20 @@ namespace TakeMeThereXamarinForms.Models
             this.SelectedAt = DateTimeOffset.Now;
         }
 
+        private LocationInformation(bool asGurdian)
+        {
+            this.CreatedAt = DateTimeOffset.Now;
+            this.UpdatedAt = DateTimeOffset.Now;
+            this.SelectedAt = DateTimeOffset.Now;
+
+            this.IsGuardian = asGurdian;
+        }
+        static public LocationInformation CreateGuardian()
+        {
+            return new LocationInformation(true);
+        }
+
+
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
@@ -63,6 +77,8 @@ namespace TakeMeThereXamarinForms.Models
             get => _selectedAt;
             set => SetProperty(ref _selectedAt, value);
         }
+
+        public bool IsGuardian { get; }
 
         public void UpdateCoordinateFromPlusCode(Location baseLocation)
         {

@@ -62,6 +62,11 @@ namespace TakeMeThereXamarinForms.ViewModels
             {
                 Targets.Add(info);
             }
+
+            //リストの一番下に番兵を入れる。
+            //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
+            Targets.Add(new LocationInformation(true));
+
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
