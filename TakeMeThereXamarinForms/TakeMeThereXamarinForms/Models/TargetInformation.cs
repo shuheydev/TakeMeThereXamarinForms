@@ -41,6 +41,19 @@ namespace TakeMeThereXamarinForms.Models
             set => SetProperty(ref _longitude, value);
         }
 
+        private DateTimeOffset _updateAt;
+        public DateTimeOffset UpdatedAt
+        {
+            get => _updateAt;
+            set => SetProperty(ref _updateAt, value);
+        }
+
+        private DateTimeOffset _createdAt;
+        public DateTimeOffset CreatedAt
+        {
+            get => _createdAt;
+            set => SetProperty(ref _createdAt, value);
+        }
 
         public void UpdateCoordinateFromPlusCode(Location baseLocation)
         {
@@ -62,7 +75,7 @@ namespace TakeMeThereXamarinForms.Models
 
             this.Latitude = decoded.CenterLatitude;
             this.Longitude = decoded.CenterLongitude;
-        }      
+        }
     }
 }
 

@@ -19,13 +19,13 @@ namespace TakeMeThereXamarinForms.Data
 
         public Task<List<LocationInformation>> GetItemsAsync()
         {
-            return database.Table<LocationInformation>().ToListAsync();
+            return database.Table<LocationInformation>().OrderByDescending(info=>info.UpdatedAt).ToListAsync();
         }
 
-        public Task<List<LocationInformation>> GetItemsNotDoneAsync()
-        {
-            return database.QueryAsync<LocationInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
-        }
+        //public Task<List<LocationInformation>> GetItemsNotDoneAsync()
+        //{
+        //    return database.QueryAsync<LocationInformation>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+        //}
 
         public Task<LocationInformation> GetItemAsync(int id)
         {
