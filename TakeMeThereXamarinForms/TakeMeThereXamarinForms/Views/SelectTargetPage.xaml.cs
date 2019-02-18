@@ -10,5 +10,16 @@ namespace TakeMeThereXamarinForms.Views
         {
             InitializeComponent();
         }
+
+        private void ListView_TargetList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            //選択時のハイライトを無効にするための記述。
+            var s = sender as ListView;
+
+            if (s == null)
+                return;
+
+            s.SelectedItem = null;
+        }
     }
 }

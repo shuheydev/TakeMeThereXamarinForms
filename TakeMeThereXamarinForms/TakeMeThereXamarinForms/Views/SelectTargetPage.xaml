@@ -20,10 +20,11 @@
     </ContentPage.Resources>
 
     <AbsoluteLayout>
-        <ListView AbsoluteLayout.LayoutFlags="All"
+        <ListView x:Name="ListView_TargetList" AbsoluteLayout.LayoutFlags="All"
                   AbsoluteLayout.LayoutBounds="0,0,1,1"
                   HasUnevenRows="True"
-                  ItemsSource="{Binding Path=Targets}">
+                  ItemsSource="{Binding Path=Targets}"
+                  ItemTapped="ListView_TargetList_ItemTapped">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemSelected"
                                                   Command="{Binding Path=ItemSelectedCommand}"

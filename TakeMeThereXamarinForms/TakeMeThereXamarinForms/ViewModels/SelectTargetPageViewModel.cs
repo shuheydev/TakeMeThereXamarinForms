@@ -77,6 +77,12 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
+                //選択時のハイライトを無効にするためにView側でSelectedItem=nullにしているため、
+                //アイテム選択時に2回のイベントが発火する。
+                //2回目のイベントはnullがくるのでそれをはじいている。
+                if (targetInfo == null)
+                    return;
+
                 //番兵の場合は処理を行わない
                 if (targetInfo.IsGuardian == true)
                     return;
