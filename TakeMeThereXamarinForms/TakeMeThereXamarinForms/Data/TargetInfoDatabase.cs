@@ -1,7 +1,5 @@
 ﻿using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TakeMeThereXamarinForms.Models;
 
@@ -9,7 +7,7 @@ namespace TakeMeThereXamarinForms.Data
 {
     public class TargetInfoDatabase
     {
-        readonly SQLiteAsyncConnection database;
+        private readonly SQLiteAsyncConnection database;
 
         public TargetInfoDatabase(string dbPath)
         {

@@ -6,7 +6,7 @@
     ランタイム ディレクティブについては、https://go.microsoft.com/fwlink/?LinkID=391919 を参照してください
 
     App1.MyClass およびそのすべてのパブリック/プライベート メンバーのリフレクションを完全に使用可能にする
-    <Type Name="App1.MyClass" Dynamic="Required All"/>
+    <Type Name="App1.MyClass" Dynamic="Required All" />
 
     System.Int32 による AppClass<T> の特定のインスタンス化の動的生成を可能にする
     <TypeInstantiation Name="App1.AppClass" Arguments="System.Int32" Activate="Required Public" />
@@ -22,10 +22,7 @@
       すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
     -->
     <Assembly Name="*Application*" Dynamic="Required All" />
-    
-    
+
     <!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
-
-
   </Application>
 </Directives>

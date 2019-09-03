@@ -1,8 +1,6 @@
 ﻿using Google.OpenLocationCode;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
 using static Google.OpenLocationCode.OpenLocationCode;
@@ -26,16 +24,17 @@ namespace TakeMeThereXamarinForms.Models
 
             this.IsGuardian = asGurdian;
         }
+
         static public LocationInformation CreateGuardian()
         {
             return new LocationInformation(true);
         }
 
-
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
         private string _plusCode;
+
         public string PlusCode
         {
             get => _plusCode;
@@ -43,6 +42,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private string _name = "";
+
         public string Name
         {
             get => _name;
@@ -50,6 +50,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _latitude;
+
         public double Latitude
         {
             get => _latitude;
@@ -57,6 +58,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _longitude;
+
         public double Longitude
         {
             get => _longitude;
@@ -64,6 +66,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private DateTimeOffset _updateAt;
+
         public DateTimeOffset UpdatedAt
         {
             get => _updateAt;
@@ -73,6 +76,7 @@ namespace TakeMeThereXamarinForms.Models
         public DateTimeOffset CreatedAt { get; }
 
         private DateTimeOffset _selectedAt;
+
         public DateTimeOffset SelectedAt
         {
             get => _selectedAt;
@@ -85,6 +89,7 @@ namespace TakeMeThereXamarinForms.Models
         {
             UpdateCoordinateFromPlusCode(referenceLocation.Latitude, referenceLocation.Longitude);
         }
+
         public void UpdateCoordinateFromPlusCode(double referenceLatitude, double referenceLongitude)
         {
             //目的地の位置情報を計算
@@ -104,4 +109,3 @@ namespace TakeMeThereXamarinForms.Models
         }
     }
 }
-

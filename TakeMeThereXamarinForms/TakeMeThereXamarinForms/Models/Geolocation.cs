@@ -1,19 +1,15 @@
 ﻿using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Essentials = Xamarin.Essentials;
-using Google.OpenLocationCode;
-using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace TakeMeThereXamarinForms.Models
 {
     public class Geolocation : BindableBase
     {
         private Essentials.Location _location;
+
         public Essentials.Location Location
         {
             get => _location;
@@ -21,6 +17,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private Essentials.Location _targetLocation;
+
         public Essentials.Location TargetLocation
         {
             get => _targetLocation;
@@ -28,6 +25,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _directionToTarget;
+
         public double DirectionToTarget
         {
             get => _directionToTarget;
@@ -35,22 +33,23 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _distanceToTarget;
+
         public double DistanceToTarget
         {
             get => _distanceToTarget;
             set => SetProperty(ref _distanceToTarget, value);
         }
 
-
         private double _speedKPH;
+
         public double SpeedKPH
         {
             get => _speedKPH;
             set => SetProperty(ref _speedKPH, value);
         }
 
-
         private TimeSpan _expectedRequiredTimeToTarget;
+
         public TimeSpan ExpectedRequiredTimeToTarget
         {
             get => _expectedRequiredTimeToTarget;
@@ -58,6 +57,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private DateTime _expectedArrivalTimeToTarget;
+
         public DateTime ExpectedArrivalTimeToTarget
         {
             get => _expectedArrivalTimeToTarget;
@@ -65,21 +65,22 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private static Geolocation _singletonInstance = new Geolocation();
+
         private Geolocation()
         {
         }
+
         public static Geolocation GetInstance()
         {
             return _singletonInstance;
         }
 
-
         public event EventHandler OnGetGeolocation;
-
 
         private readonly Essentials.GeolocationRequest request = new Essentials.GeolocationRequest(Essentials.GeolocationAccuracy.Best);
 
         private FixSizedQueue<Essentials.Location> _locations = new FixSizedQueue<Essentials.Location>(1);
+
         public async Task UpdateInformationAsync()
         {
             //現在の位置情報を取得
@@ -100,12 +101,11 @@ namespace TakeMeThereXamarinForms.Models
                 this.DirectionToTarget = Utility.CalculateTargetDirection(this.Location, this.TargetLocation);
                 this.DistanceToTarget = Utility.CalculateDistance(this.Location, this.TargetLocation);
 
-                this.ExpectedRequiredTimeToTarget = Utility.ConvertHourToTimeSpan(this.DistanceToTarget / (this.SpeedKPH.Equals(0)?3.0:this.SpeedKPH));
+                this.ExpectedRequiredTimeToTarget = Utility.ConvertHourToTimeSpan(this.DistanceToTarget / (this.SpeedKPH.Equals(0) ? 3.0 : this.SpeedKPH));
 
                 this.ExpectedArrivalTimeToTarget = DateTime.Now.Add(this.ExpectedRequiredTimeToTarget);
             }
         }
-
 
         public bool IsWorking;
 
@@ -127,7 +127,7 @@ namespace TakeMeThereXamarinForms.Models
 
         public async Task SetInitialLocation()
         {
-            this.Location =await Essentials.Geolocation.GetLastKnownLocationAsync();
+            this.Location = await Essentials.Geolocation.GetLastKnownLocationAsync();
         }
 
         public void Stop()
@@ -136,6 +136,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         public LocationInformation TargetInfo { get; private set; }
+
         public void SetTarget(LocationInformation targetInfo)
         {
             this.TargetInfo = targetInfo;
@@ -145,6 +146,5 @@ namespace TakeMeThereXamarinForms.Models
         {
             this.TargetInfo = null;
         }
-
     }
 }

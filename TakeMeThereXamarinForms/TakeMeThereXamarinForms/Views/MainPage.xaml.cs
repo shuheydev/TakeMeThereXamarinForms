@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SkiaSharp;
+﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
+using System.Diagnostics;
 using Xamarin.Forms;
-using Color = System.Drawing.Color;
-
 
 namespace TakeMeThereXamarinForms.Views
 {
     public partial class MainPage : ContentPage
     {
-
         public MainPage()
         {
             InitializeComponent();
@@ -30,16 +23,16 @@ namespace TakeMeThereXamarinForms.Views
             SetLippleEffectTimerForTargetMark();
         }
 
-
         private readonly double cycleTime = 2000;
         private Stopwatch stopwatch = new Stopwatch();
         private bool pageIsActive;
         private float t;
+
         /// <summary>
         /// 目的地をピコンピコンさせるためのタイマーを開始する
         /// </summary>
         private void SetLippleEffectTimerForTargetMark()
-        {         
+        {
             pageIsActive = true;
             stopwatch.Start();
 
@@ -58,13 +51,11 @@ namespace TakeMeThereXamarinForms.Views
             });
         }
 
-
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             pageIsActive = false;
         }
-
 
         /// <summary>
         /// 目的地の方角を表示するcanvasの初期設定
@@ -90,7 +81,6 @@ namespace TakeMeThereXamarinForms.Views
                 canvas.Translate(info.Width / 2f, info.Height / 2f);
                 canvas.Scale(Math.Min(info.Width / 200f, info.Height / 200f));
 
-
                 for (int circle = 0; circle < 1; circle++)
                 {
                     float radius = 9 * (circle + t);
@@ -101,7 +91,6 @@ namespace TakeMeThereXamarinForms.Views
                 }
             }
         }
-
 
         /// <summary>
         /// 方位を表示するcanvasの初期設定
@@ -122,7 +111,6 @@ namespace TakeMeThereXamarinForms.Views
                 strokePaint.Style = SKPaintStyle.Stroke;
                 strokePaint.Color = SKColors.Black;
                 strokePaint.StrokeCap = SKStrokeCap.Square;
-
 
                 //座標変換
                 canvas.Translate(info.Width / 2f, info.Height / 2f);
@@ -151,17 +139,19 @@ namespace TakeMeThereXamarinForms.Views
                             case 0:
                                 directionText = "N";
                                 break;
+
                             case 90:
                                 directionText = "E";
                                 break;
+
                             case 180:
                                 directionText = "S";
                                 break;
+
                             case 270:
                                 directionText = "W";
                                 break;
                         }
-
 
                         var textWidth = textPaint.MeasureText(directionText, ref textBounds);
 

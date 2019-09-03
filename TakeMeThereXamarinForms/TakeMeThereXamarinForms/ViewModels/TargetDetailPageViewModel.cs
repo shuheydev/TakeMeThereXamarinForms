@@ -2,21 +2,17 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
-using TakeMeThereXamarinForms.Models;
-using System.Threading.Tasks;
-using Google.OpenLocationCode;
-using System.Text.RegularExpressions;
-using Essentials = Xamarin.Essentials;
 using System.Windows.Input;
+using TakeMeThereXamarinForms.Models;
+using Xamarin.Forms;
+using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
     public class TargetDetailPageViewModel : BindableBase, INavigationAware
     {
         private string _title;
+
         public string Title
         {
             get => _title;
@@ -24,6 +20,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private INavigationService _navigationService;
+
         public TargetDetailPageViewModel(INavigationService navigationService)
         {
             this._navigationService = navigationService;
@@ -32,8 +29,8 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.Geolocation = App.Geolocation;
         }
 
-
         private LocationInformation _targetInfo;
+
         public LocationInformation TargetInfo
         {
             get => _targetInfo;
@@ -41,12 +38,12 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private Geolocation _geolocation;
+
         public Geolocation Geolocation
         {
             get => _geolocation;
             set => SetProperty(ref _geolocation, value);
         }
-
 
         public ICommand SaveCommand =>
             new DelegateCommand(() =>
@@ -62,13 +59,11 @@ namespace TakeMeThereXamarinForms.ViewModels
             })
             .ObservesProperty(() => this.TargetInfo.PlusCode);
 
-
         public Command CancelCommand =>
             new Command(() =>
             {
                 _navigationService.GoBackAsync();
             });
-
 
         public ICommand DeleteCommand =>
             new DelegateCommand(() =>
@@ -78,7 +73,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             },
                 () => this.TargetInfo.Id != 0)
             .ObservesProperty(() => this.TargetInfo.Id);
-
 
         public Command OpenMapCommand =>
         new Command(() =>
@@ -105,7 +99,6 @@ namespace TakeMeThereXamarinForms.ViewModels
                 Essentials.Map.OpenAsync(new Essentials.Location(this.TargetInfo.Latitude, this.TargetInfo.Longitude), options);
             }
         });
-
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {

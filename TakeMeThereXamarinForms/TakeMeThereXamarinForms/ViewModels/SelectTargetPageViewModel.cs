@@ -1,30 +1,28 @@
-﻿using Prism.Commands;
+﻿using Prism.AppModel;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
-using TakeMeThereXamarinForms.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
+using TakeMeThereXamarinForms.Models;
 using TakeMeThereXamarinForms.Views;
-using Prism.AppModel;
+using Xamarin.Forms;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
     public class SelectTargetPageViewModel : BindableBase, INavigationAware
     {
         private string _title;
+
         public string Title
         {
             get => _title;
             set => SetProperty(ref _title, value);
         }
 
-
-
         private INavigationService _navigationService;
         private IApplicationStore _applicationStore;
+
         public SelectTargetPageViewModel(
             INavigationService navigationService,
             IApplicationStore applicationStore)
@@ -34,7 +32,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             _navigationService = navigationService;
             _applicationStore = applicationStore;
         }
-
 
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
@@ -69,7 +66,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             Targets.Add(LocationInformation.CreateGuardian());
         }
 
-
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
             {
@@ -94,7 +90,6 @@ namespace TakeMeThereXamarinForms.ViewModels
 
                 _navigationService.GoBackAsync(parameter);
             });
-
 
         public Command<LocationInformation> EditItemCommand =>
             new Command<LocationInformation>(targetInfo =>

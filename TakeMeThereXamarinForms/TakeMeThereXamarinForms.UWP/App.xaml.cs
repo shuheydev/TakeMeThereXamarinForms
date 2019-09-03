@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace TakeMeThereXamarinForms.UWP
@@ -33,16 +23,14 @@ namespace TakeMeThereXamarinForms.UWP
         }
 
         /// <summary>
-        /// アプリケーションがエンド ユーザーによって正常に起動されたときに呼び出されます。他のエントリ ポイントは、
-        /// アプリケーションが特定のファイルを開くために起動されたときなどに使用されます。
+        /// アプリケーションがエンド ユーザーによって正常に起動されたときに呼び出されます。他のエントリ ポイントは、 アプリケーションが特定のファイルを開くために起動されたときなどに使用されます。
         /// </summary>
         /// <param name="e">起動の要求とプロセスの詳細を表示します。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
-            // ウィンドウに既にコンテンツが表示されている場合は、アプリケーションの初期化を繰り返さずに、
-            // ウィンドウがアクティブであることだけを確認してください
+            // ウィンドウに既にコンテンツが表示されている場合は、アプリケーションの初期化を繰り返さずに、 ウィンドウがアクティブであることだけを確認してください
             if (rootFrame == null)
             {
                 // ナビゲーション コンテキストとして動作するフレームを作成し、最初のページに移動します
@@ -81,15 +69,13 @@ namespace TakeMeThereXamarinForms.UWP
         /// </summary>
         /// <param name="sender">移動に失敗したフレーム</param>
         /// <param name="e">ナビゲーション エラーの詳細</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         /// <summary>
-        /// アプリケーションの実行が中断されたときに呼び出されます。
-        /// アプリケーションが終了されるか、メモリの内容がそのままで再開されるかに
-        /// かかわらず、アプリケーションの状態が保存されます。
+        /// アプリケーションの実行が中断されたときに呼び出されます。 アプリケーションが終了されるか、メモリの内容がそのままで再開されるかに かかわらず、アプリケーションの状態が保存されます。
         /// </summary>
         /// <param name="sender">中断要求の送信元。</param>
         /// <param name="e">中断要求の詳細。</param>

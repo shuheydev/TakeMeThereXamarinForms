@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using static Google.OpenLocationCode.OpenLocationCode;
 using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms
 {
-    static class Utility
+    internal static class Utility
     {
-
         public static double CalculateTargetDirection(Essentials.Location location1, Essentials.Location location2)
         {
             if (location1 == null || location2 == null)
@@ -21,7 +19,6 @@ namespace TakeMeThereXamarinForms
             var lon1 = location1.Longitude;//経度
             var lat2 = location2.Latitude;
             var lon2 = location2.Longitude;
-
 
             double y = Math.Cos(lon2 * Math.PI / 180) * Math.Sin(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
             double x = Math.Cos(lon1 * Math.PI / 180) * Math.Sin(lon2 * Math.PI / 180) - Math.Sin(lon1 * Math.PI / 180) * Math.Cos(lon2 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180 - lat1 * Math.PI / 180);
@@ -34,7 +31,6 @@ namespace TakeMeThereXamarinForms
             }
 
             var direction = (dirE0 + 90) % 360;//北を基準にする。
-
 
             return direction;
         }
