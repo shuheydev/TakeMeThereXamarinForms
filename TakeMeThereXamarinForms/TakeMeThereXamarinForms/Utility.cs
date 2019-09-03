@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using static Google.OpenLocationCode.OpenLocationCode;
 using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms
@@ -53,10 +54,10 @@ namespace TakeMeThereXamarinForms
 
             //Open Location Codeで経緯度に変換
             //ローカルコード
-            var localCode = Regex.Match(localCodeWithPlaceName, "^[23456789CFGHJMPQRVWX+]+").Value;
-            var olc = new OpenLocationCode(localCode);
+            var shortCode = Regex.Match(localCodeWithPlaceName, "^[23456789CFGHJMPQRVWX+]+").Value;
+            var locationObject = new ShortCode(shortCode);
 
-            recoveredOlc = olc.Recover(baseLocation.Latitude, baseLocation.Longitude);
+            recoveredOlc = locationObject.RecoverNearest(baseLocation.Latitude, baseLocation.Longitude);
 
             var decoded = recoveredOlc.Decode();
 

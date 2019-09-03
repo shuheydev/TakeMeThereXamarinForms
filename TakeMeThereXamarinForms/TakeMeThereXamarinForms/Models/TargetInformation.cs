@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
+using static Google.OpenLocationCode.OpenLocationCode;
 
 namespace TakeMeThereXamarinForms.Models
 {
@@ -80,21 +81,21 @@ namespace TakeMeThereXamarinForms.Models
 
         public bool IsGuardian { get; }
 
-        public void UpdateCoordinateFromPlusCode(Location baseLocation)
+        public void UpdateCoordinateFromPlusCode(Location referenceLocation)
         {
-            UpdateCoordinateFromPlusCode(baseLocation.Latitude, baseLocation.Longitude);
+            UpdateCoordinateFromPlusCode(referenceLocation.Latitude, referenceLocation.Longitude);
         }
-        public void UpdateCoordinateFromPlusCode(double baseLatitude, double baseLongitude)
+        public void UpdateCoordinateFromPlusCode(double referenceLatitude, double referenceLongitude)
         {
             //目的地の位置情報を計算
             OpenLocationCode recoveredOlc;
 
             //Open Location Codeで経緯度に変換
             //ローカルコード
-            var localCode = Regex.Match(this.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
-            var olc = new OpenLocationCode(localCode);
+            var shortCode = Regex.Match(this.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
+            var locationObject = new ShortCode(shortCode);
 
-            recoveredOlc = olc.Recover(baseLatitude, baseLongitude);
+            recoveredOlc = locationObject.RecoverNearest(referenceLatitude, referenceLongitude);
 
             var decoded = recoveredOlc.Decode();
 
