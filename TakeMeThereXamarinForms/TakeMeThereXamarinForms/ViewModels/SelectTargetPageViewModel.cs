@@ -20,7 +20,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             get => _title;
             set => SetProperty(ref _title, value);
         }
-        
+
 
 
         private INavigationService _navigationService;
@@ -50,13 +50,14 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            RestoreList();
         }
 
         private void RestoreList()
         {
             //DBから目的地リストを取得して、選択日時降順にソート。
-            var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
-         
+            var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info => info.SelectedAt);
+
             Targets.Clear();
             foreach (var info in targetGeolocationInfos)
             {
@@ -66,11 +67,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             //リストの一番下に番兵を入れる。
             //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
             Targets.Add(LocationInformation.CreateGuardian());
-        }
-
-        public void OnNavigatingTo(INavigationParameters parameters)
-        {
-            RestoreList();
         }
 
 

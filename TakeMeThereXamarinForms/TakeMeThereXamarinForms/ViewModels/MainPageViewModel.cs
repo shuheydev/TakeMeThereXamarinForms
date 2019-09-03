@@ -75,17 +75,21 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
             {
-              　//
+                //
                 if (this.Geolocation.TargetInfo != null)
                     App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
 
                 this.NavigationService.NavigateAsync(name);
             });
 
-
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
 
             var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
 
@@ -99,16 +103,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.Geolocation.UpdateInformationAsync();
 
             StoreInfo();
-        }
-
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            base.OnNavigatedFrom(parameters);
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
         }
 
         public void OnResume()

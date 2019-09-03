@@ -85,9 +85,9 @@ namespace TakeMeThereXamarinForms.ViewModels
         {
             if (this.TargetInfo.Id == 0)
             {
-                if(this.Geolocation.Location==null)
+                if (this.Geolocation.Location == null)
                 {
-                    this.Geolocation.SetInitialLocation();
+                    this.Geolocation.SetInitialLocation().Wait();
                 }
 
                 var options = new Essentials.MapLaunchOptions
@@ -112,10 +112,6 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
-        {
-        }
-
-        public void OnNavigatingTo(INavigationParameters parameters)
         {
             var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
 
