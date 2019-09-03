@@ -9,10 +9,10 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="buttonStyle" TargetType="ImageButton">
-                <Setter Property="HeightRequest" Value="60"/>
-                <Setter Property="WidthRequest" Value="60"/>
-                <Setter Property="CornerRadius" Value="30"/>
-                <Setter Property="BackgroundColor" Value="Accent"/>
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="WidthRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="BackgroundColor" Value="Accent" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -21,30 +21,30 @@
         <StackLayout>
 
             <Label Text="Plus Code" />
-            <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding Path=TargetInfo.PlusCode,Mode=TwoWay}"/>
+            <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding Path=TargetInfo.PlusCode,Mode=TwoWay}" />
 
-            <Label Text="Name"/>
-            <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding Path=TargetInfo.Name,Mode=TwoWay}"/>
+            <Label Text="Name" />
+            <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding Path=TargetInfo.Name,Mode=TwoWay}" />
 
-            <Label Text="Latitude"/>
-            <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding Path=TargetInfo.Latitude,Mode=TwoWay}"/>
+            <Label Text="Latitude" />
+            <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding Path=TargetInfo.Latitude,Mode=TwoWay}" />
 
             <Label Text="Longitude" />
-            <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding Path=TargetInfo.Longitude,Mode=TwoWay}"/>
+            <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding Path=TargetInfo.Longitude,Mode=TwoWay}" />
 
             <StackLayout Orientation="Horizontal" Spacing="20">
                 <ImageButton Source="Arrow_back_white_48dp.png"
                         Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=CancelCommand}"/>
+                        Command="{Binding Path=CancelCommand}" />
                 <ImageButton Source="Delete_outline_white_48dp.png"
                         Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=DeleteCommand}"/>
+                        Command="{Binding Path=DeleteCommand}" />
                 <ImageButton Source="Save_white_48dp.png"
                         Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=SaveCommand}"/>
+                        Command="{Binding Path=SaveCommand}" />
                 <ImageButton Source="Map_white_48dp.png"
                         Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=OpenMapCommand}"/>
+                        Command="{Binding Path=OpenMapCommand}" />
             </StackLayout>
         </StackLayout>
     </StackLayout>

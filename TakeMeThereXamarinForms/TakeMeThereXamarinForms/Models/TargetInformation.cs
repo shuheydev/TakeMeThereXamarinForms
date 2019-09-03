@@ -1,10 +1,9 @@
 ﻿using Google.OpenLocationCode;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
+using static Google.OpenLocationCode.OpenLocationCode;
 
 namespace TakeMeThereXamarinForms.Models
 {
@@ -25,16 +24,17 @@ namespace TakeMeThereXamarinForms.Models
 
             this.IsGuardian = asGurdian;
         }
+
         static public LocationInformation CreateGuardian()
         {
             return new LocationInformation(true);
         }
 
-
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
         private string _plusCode;
+
         public string PlusCode
         {
             get => _plusCode;
@@ -42,6 +42,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private string _name = "";
+
         public string Name
         {
             get => _name;
@@ -49,6 +50,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _latitude;
+
         public double Latitude
         {
             get => _latitude;
@@ -56,6 +58,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _longitude;
+
         public double Longitude
         {
             get => _longitude;
@@ -63,6 +66,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private DateTimeOffset _updateAt;
+
         public DateTimeOffset UpdatedAt
         {
             get => _updateAt;
@@ -72,6 +76,7 @@ namespace TakeMeThereXamarinForms.Models
         public DateTimeOffset CreatedAt { get; }
 
         private DateTimeOffset _selectedAt;
+
         public DateTimeOffset SelectedAt
         {
             get => _selectedAt;
@@ -80,21 +85,22 @@ namespace TakeMeThereXamarinForms.Models
 
         public bool IsGuardian { get; }
 
-        public void UpdateCoordinateFromPlusCode(Location baseLocation)
+        public void UpdateCoordinateFromPlusCode(Location referenceLocation)
         {
-            UpdateCoordinateFromPlusCode(baseLocation.Latitude, baseLocation.Longitude);
+            UpdateCoordinateFromPlusCode(referenceLocation.Latitude, referenceLocation.Longitude);
         }
-        public void UpdateCoordinateFromPlusCode(double baseLatitude, double baseLongitude)
+
+        public void UpdateCoordinateFromPlusCode(double referenceLatitude, double referenceLongitude)
         {
             //目的地の位置情報を計算
             OpenLocationCode recoveredOlc;
 
             //Open Location Codeで経緯度に変換
             //ローカルコード
-            var localCode = Regex.Match(this.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
-            var olc = new OpenLocationCode(localCode);
+            var shortCode = Regex.Match(this.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
+            var locationObject = new ShortCode(shortCode);
 
-            recoveredOlc = olc.Recover(baseLatitude, baseLongitude);
+            recoveredOlc = locationObject.RecoverNearest(referenceLatitude, referenceLongitude);
 
             var decoded = recoveredOlc.Decode();
 
@@ -103,4 +109,3 @@ namespace TakeMeThereXamarinForms.Models
         }
     }
 }
-

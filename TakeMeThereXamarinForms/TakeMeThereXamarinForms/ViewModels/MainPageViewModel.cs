@@ -1,20 +1,14 @@
 ﻿using Prism.AppModel;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TakeMeThereXamarinForms.Models;
 using Xamarin.Forms;
-using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
     public class MainPageViewModel : ViewModelBase, INavigationAware, IApplicationLifecycleAware
     {
         private LocationInformation _targetInfo;
+
         public LocationInformation TargetInfo
         {
             get => _targetInfo;
@@ -22,6 +16,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private Geolocation _geolocation;
+
         public Geolocation Geolocation
         {
             get => _geolocation;
@@ -29,31 +24,31 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private Compass _compass;
+
         public Compass Compass
         {
             get => _compass;
             set => SetProperty(ref _compass, value);
         }
 
-
         private double _directionToNorth;
+
         public double DirectionToNorth
         {
             get => _directionToNorth;
             set => SetProperty(ref _directionToNorth, value);
         }
 
-
         private double _directionToTarget;
+
         public double DirectionToTarget
         {
             get => _directionToTarget;
             set => SetProperty(ref _directionToTarget, value);
         }
 
-
-
         private readonly IApplicationStore _applicationStore;
+
         public MainPageViewModel(
             INavigationService navigationService,
             IApplicationStore applicationStore)
@@ -70,22 +65,24 @@ namespace TakeMeThereXamarinForms.ViewModels
             RestoreInfo();
         }
 
-
-
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
             {
-              　//
+                //
                 if (this.Geolocation.TargetInfo != null)
                     App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
 
                 this.NavigationService.NavigateAsync(name);
             });
 
-
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
 
             var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
 
@@ -101,16 +98,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             StoreInfo();
         }
 
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            base.OnNavigatedFrom(parameters);
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-        }
-
         public void OnResume()
         {
             RestoreInfo();
@@ -121,12 +108,12 @@ namespace TakeMeThereXamarinForms.ViewModels
             StoreInfo();
         }
 
-
         private void StoreInfo()
         {
             this._applicationStore.Properties[nameof(TargetInfo)] = TargetInfo;
             this._applicationStore.SavePropertiesAsync();
         }
+
         private void RestoreInfo()
         {
             if (this._applicationStore.Properties.TryGetValue(nameof(TargetInfo), out var targetInfo))

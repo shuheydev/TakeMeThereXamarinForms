@@ -1,7 +1,5 @@
 ﻿using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Essentials = Xamarin.Essentials;
 
 namespace TakeMeThereXamarinForms.Models
@@ -9,14 +7,17 @@ namespace TakeMeThereXamarinForms.Models
     public class Compass : BindableBase
     {
         private static Compass _singletonInstance = new Compass();
+
         private Compass()
         { }
+
         public static Compass GetInstance()
         {
             return _singletonInstance;
         }
 
         private double _headingNorth;
+
         public double HeadingNorth
         {
             get => _headingNorth;
@@ -24,6 +25,7 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _headingNorthForRotate;
+
         public double HeadingNorthForRotate
         {
             get => _headingNorthForRotate;
@@ -31,17 +33,18 @@ namespace TakeMeThereXamarinForms.Models
         }
 
         private double _directionToTargetForRotate;
+
         public double DirectionToTargetForRotate
         {
             get => _directionToTargetForRotate;
             set => SetProperty(ref _directionToTargetForRotate, value);
         }
 
-
         public event EventHandler OnReadingValueChanged;
 
         public double Correction = 0;//補正
         public bool IsWorking;
+
         public void Start()
         {
             Essentials.Compass.ReadingChanged += (s, e) =>
@@ -70,12 +73,13 @@ namespace TakeMeThereXamarinForms.Models
             IsWorking = Essentials.Compass.IsMonitoring;
         }
 
-
         private Geolocation _geolocation;
+
         public void SetGeolocation(Geolocation geolocation)
         {
             this._geolocation = geolocation;
         }
+
         public void ClearGeolocation()
         {
             this._geolocation = null;

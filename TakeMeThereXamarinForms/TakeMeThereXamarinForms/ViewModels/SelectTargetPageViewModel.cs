@@ -1,30 +1,28 @@
-﻿using Prism.Commands;
+﻿using Prism.AppModel;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
-using TakeMeThereXamarinForms.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
+using TakeMeThereXamarinForms.Models;
 using TakeMeThereXamarinForms.Views;
-using Prism.AppModel;
+using Xamarin.Forms;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
     public class SelectTargetPageViewModel : BindableBase, INavigationAware
     {
         private string _title;
+
         public string Title
         {
             get => _title;
             set => SetProperty(ref _title, value);
         }
-        
-
 
         private INavigationService _navigationService;
         private IApplicationStore _applicationStore;
+
         public SelectTargetPageViewModel(
             INavigationService navigationService,
             IApplicationStore applicationStore)
@@ -34,7 +32,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             _navigationService = navigationService;
             _applicationStore = applicationStore;
         }
-
 
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
@@ -50,13 +47,14 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            RestoreList();
         }
 
         private void RestoreList()
         {
             //DBから目的地リストを取得して、選択日時降順にソート。
-            var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info=>info.SelectedAt);
-         
+            var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info => info.SelectedAt);
+
             Targets.Clear();
             foreach (var info in targetGeolocationInfos)
             {
@@ -67,12 +65,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
             Targets.Add(LocationInformation.CreateGuardian());
         }
-
-        public void OnNavigatingTo(INavigationParameters parameters)
-        {
-            RestoreList();
-        }
-
 
         public Command<LocationInformation> ItemSelectedCommand =>
             new Command<LocationInformation>(targetInfo =>
@@ -98,7 +90,6 @@ namespace TakeMeThereXamarinForms.ViewModels
 
                 _navigationService.GoBackAsync(parameter);
             });
-
 
         public Command<LocationInformation> EditItemCommand =>
             new Command<LocationInformation>(targetInfo =>

@@ -1,9 +1,5 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
@@ -12,6 +8,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         protected INavigationService NavigationService { get; private set; }
 
         private string _title;
+
         public string Title
         {
             get { return _title; }
@@ -25,22 +22,14 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
-
         }
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
-
-        }
-
-        public virtual void OnNavigatingTo(INavigationParameters parameters)
-        {
-
         }
 
         public virtual void Destroy()
         {
-
         }
     }
 }
