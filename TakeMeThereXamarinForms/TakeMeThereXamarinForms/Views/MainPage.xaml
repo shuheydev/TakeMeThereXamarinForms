@@ -48,11 +48,25 @@
                 IsClippedToBounds="True"
                 VerticalOptions="Center"
                 WidthRequest="300">
-                <Grid HeightRequest="280" VerticalOptions="FillAndExpand">
-                    <skiaforms:SKCanvasView x:Name="skCanvasViewCompass" Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />
+                <Grid HeightRequest="300" VerticalOptions="FillAndExpand">
+                    <skiaforms:SKCanvasView
+                        x:Name="skCanvasViewCompass"
+                        IsVisible="False"
+                        Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />
                     <skiaforms:SKCanvasView x:Name="skCanvasViewTargetDirection" Rotation="{Binding Path=Compass.DirectionToTargetForRotate}" />
                 </Grid>
             </controls:ShadowFrame>
+            <Frame
+                Padding="8"
+                BackgroundColor="{StaticResource HighlightColor}"
+                CornerRadius="200"
+                HeightRequest="220"
+                HorizontalOptions="Center"
+                IsClippedToBounds="True"
+                VerticalOptions="Center"
+                WidthRequest="220">
+                <Frame BackgroundColor="{StaticResource BackgroundColor}" CornerRadius="200" />
+            </Frame>
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

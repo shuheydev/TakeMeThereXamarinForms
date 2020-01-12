@@ -123,12 +123,13 @@ namespace TakeMeThereXamarinForms.Views
                 {
                     strokePaint.StrokeWidth = 1;
 
-                    var yBaseValue = -70;//y座標の基準値。メモリの長さやテキストの位置に使う
+                    var yBaseValue = -75;//y座標の基準値。目盛りの長さやテキストの位置に使う
                     var yEndPoint = yBaseValue - 5;
 
                     if (angle == 0 || angle == 90 || angle == 180 || angle == 270)
                     {
                         //ちょっと長めに
+                        yBaseValue = -70;
                         yEndPoint = yBaseValue - 10;
                         //ちょっと太めに
                         strokePaint.StrokeWidth = 1.5f;
