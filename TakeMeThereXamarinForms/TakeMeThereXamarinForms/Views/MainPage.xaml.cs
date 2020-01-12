@@ -106,10 +106,10 @@ namespace TakeMeThereXamarinForms.Views
             canvas.Clear();
 
             using (SKPaint strokePaint = new SKPaint())
-            using (SKPaint textPaint = new SKPaint { Color = SKColors.Black, TextSize = 15 })
+            using (SKPaint textPaint = new SKPaint { Color = SKColors.Gray, TextSize = 15 })
             {
                 strokePaint.Style = SKPaintStyle.Stroke;
-                strokePaint.Color = SKColors.Black;
+                strokePaint.Color = SKColors.Gray;
                 strokePaint.StrokeCap = SKStrokeCap.Square;
 
                 //座標変換

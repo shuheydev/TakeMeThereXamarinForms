@@ -17,10 +17,9 @@
     <StackLayout
         Padding="10"
         BackgroundColor="{StaticResource BackgroundColor}"
-        Orientation="Vertical"
-        Spacing="10">
+        Spacing="15">
         <controls:ShadowFrame
-            Padding="0"
+            Padding="5"
             BackgroundColor="{StaticResource TileColor}"
             CornerRadius="10"
             Elevation="80"
@@ -38,54 +37,63 @@
             </Grid>
         </controls:ShadowFrame>
 
-        <controls:ShadowFrame
-            Padding="0"
-            CornerRadius="10"
-            Elevation="80"
-            IsClippedToBounds="True">
-            <AbsoluteLayout BackgroundColor="{StaticResource TileColor}" VerticalOptions="FillAndExpand">
-                <Label FontSize="20" Text="Direction" />
-                <skiaforms:SKCanvasView
-                    x:Name="skCanvasViewCompass"
-                    AbsoluteLayout.LayoutBounds="0.5,0.5,320,320"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />
-                <skiaforms:SKCanvasView
-                    x:Name="skCanvasViewTargetDirection"
-                    AbsoluteLayout.LayoutBounds="0.5,0.5,320,320"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Rotation="{Binding Path=Compass.DirectionToTargetForRotate}" />
-                <StackLayout
-                    Padding="0"
-                    AbsoluteLayout.LayoutBounds="1,1,170,70"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Orientation="Vertical"
-                    Spacing="0">
-                    <Label
-                        FontSize="20"
-                        HorizontalOptions="End"
-                        Text="Speed" />
-                    <Label
-                        FontSize="30"
-                        HorizontalOptions="End"
-                        Text="{Binding Path=Geolocation.SpeedKPH, StringFormat='{}{0:N1} km/h'}" />
-                </StackLayout>
-            </AbsoluteLayout>
-        </controls:ShadowFrame>
-        <StackLayout Orientation="Horizontal" Spacing="10">
+        <Grid>
+            <Label FontSize="20" Text="Direction" />
+            <Grid VerticalOptions="End">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    FontSize="20"
+                    HorizontalOptions="End"
+                    Text="Speed" />
+                <Label
+                    Grid.Row="1"
+                    FontSize="30"
+                    HorizontalOptions="End"
+                    Text="{Binding Path=Geolocation.SpeedKPH, StringFormat='{}{0:N1} km/h'}" />
+            </Grid>
+            <controls:ShadowFrame
+                Margin="5,5,5,30"
+                Padding="0"
+                BackgroundColor="{StaticResource TileColor}"
+                CornerRadius="200"
+                Elevation="80"
+                HeightRequest="280"
+                HorizontalOptions="Center"
+                IsClippedToBounds="True"
+                VerticalOptions="Center"
+                WidthRequest="280">
+                <Grid HeightRequest="280" VerticalOptions="FillAndExpand">
+                    <skiaforms:SKCanvasView x:Name="skCanvasViewCompass" Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />
+                    <skiaforms:SKCanvasView x:Name="skCanvasViewTargetDirection" Rotation="{Binding Path=Compass.DirectionToTargetForRotate}" />
+                </Grid>
+            </controls:ShadowFrame>
+        </Grid>
+
+        <StackLayout Orientation="Horizontal" Spacing="15">
             <StackLayout
                 Orientation="Vertical"
-                Spacing="10"
+                Spacing="15"
                 WidthRequest="200">
                 <controls:ShadowFrame
-                    Padding="0"
+                    Padding="5"
                     BackgroundColor="{StaticResource TileColor}"
                     CornerRadius="10"
-                    Elevation="80"
-                    HeightRequest="100">
+                    Elevation="80">
                     <Grid>
-                        <Label FontSize="20" Text="Direct Distance" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
                         <Label
+                            Grid.Row="0"
+                            FontSize="20"
+                            Text="Direct Distance" />
+                        <Label
+                            Grid.Row="1"
                             FontSize="35"
                             HorizontalTextAlignment="End"
                             Text="{Binding Path=Geolocation.DistanceToTarget, StringFormat='{}{0:N3} km'}"
@@ -93,13 +101,25 @@
                     </Grid>
                 </controls:ShadowFrame>
                 <controls:ShadowFrame
-                    Padding="0"
+                    Padding="5"
                     BackgroundColor="{StaticResource TileColor}"
                     CornerRadius="10"
-                    HeightRequest="100">
+                    Elevation="80">
                     <Grid>
-                        <Label FontSize="20" Text="Coordinate" />
-                        <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            FontSize="20"
+                            Text="Coordinate" />
+                        <StackLayout
+                            Grid.Row="1"
+                            Orientation="Vertical"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
                             <Label FontSize="15" Text="Longitude:" />
                             <Label
                                 FontSize="15"
@@ -107,7 +127,11 @@
                                 HorizontalTextAlignment="End"
                                 Text="{Binding Path=Geolocation.Location.Longitude}" />
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                        <StackLayout
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
                             <Label FontSize="15" Text="Latitude:" />
                             <Label
                                 FontSize="15"
@@ -119,20 +143,32 @@
                 </controls:ShadowFrame>
             </StackLayout>
             <controls:ShadowFrame
-                Padding="0"
+                Padding="5"
                 BackgroundColor="{StaticResource TileColor}"
                 CornerRadius="10"
                 Elevation="80"
-                HeightRequest="100"
                 HorizontalOptions="FillAndExpand">
                 <Grid>
-                    <Label FontSize="15" Text="Expected Required Time" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
                     <Label
+                        Grid.Row="0"
+                        FontSize="20"
+                        Text="Required Time" />
+                    <Label
+                        Grid.Row="1"
                         FontSize="30"
                         HorizontalTextAlignment="End"
                         Text="{Binding Path=Geolocation.ExpectedRequiredTimeToTarget, Converter={StaticResource ExpectedRequiredTimeConverter}}" />
-                    <Label FontSize="15" Text="Expected Arrival Time" />
                     <Label
+                        Grid.Row="2"
+                        FontSize="20"
+                        Text="Arrival Time" />
+                    <Label
+                        Grid.Row="3"
                         FontSize="40"
                         HorizontalTextAlignment="End"
                         Text="{Binding Path=Geolocation.ExpectedArrivalTimeToTarget, Converter={StaticResource ExpectedArrivalTimeConverter}}" />
