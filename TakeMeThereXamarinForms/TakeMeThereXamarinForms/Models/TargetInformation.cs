@@ -97,8 +97,7 @@ namespace TakeMeThereXamarinForms.Models
 
             //Open Location Codeで経緯度に変換
             //ローカルコード
-            var shortCode = Regex.Match(this.PlusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
-            var locationObject = new ShortCode(shortCode);
+            var locationObject = Utility.GetShortCodeFromPlusCode(this.PlusCode);
 
             recoveredOlc = locationObject.RecoverNearest(referenceLatitude, referenceLongitude);
 

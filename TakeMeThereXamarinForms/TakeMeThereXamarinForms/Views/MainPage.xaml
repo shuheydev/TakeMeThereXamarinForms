@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:local="clr-namespace:TakeMeThereXamarinForms.Converters"
              x:Class="TakeMeThereXamarinForms.Views.MainPage"
              NavigationPage.HasNavigationBar="False"
@@ -14,7 +12,7 @@
         <local:ExpectedArrivalTimeConverter x:Key="ExpectedArrivalTimeConverter" />
     </ContentPage.Resources>
 
-    <StackLayout Spacing="10" Padding="10" Orientation="Vertical">
+    <StackLayout Spacing="10" Padding="10" Orientation="Vertical" BackgroundColor="Black">
         <StackLayout HeightRequest="100" BackgroundColor="{StaticResource TileColor}" Spacing="0" Padding="0">
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=NavigateCommand}" CommandParameter="SelectTargetPage" />

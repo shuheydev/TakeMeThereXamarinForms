@@ -107,5 +107,13 @@ namespace TakeMeThereXamarinForms
 
             return new TimeSpan(hours, minutes, seconds);
         }
+
+        public static ShortCode GetShortCodeFromPlusCode(string plusCode)
+        {
+            var shortCode = Regex.Match(plusCode, "^[23456789CFGHJMPQRVWX+]+").Value;
+            var locationObject = new ShortCode(shortCode);
+
+            return locationObject;
+        }
     }
 }
