@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-             x:Class="TakeMeThereXamarinForms.App">
+<prism:PrismApplication
+    x:Class="TakeMeThereXamarinForms.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
     <Application.Resources>
-        <!-- Application resource dictionary -->
+        <!--  Application resource dictionary  -->
+        <Color x:Key="BackgroundColor">#F2F3F7</Color>
+        <Color x:Key="TileColor">#F2F3F7</Color>
     </Application.Resources>
 
 </prism:PrismApplication>

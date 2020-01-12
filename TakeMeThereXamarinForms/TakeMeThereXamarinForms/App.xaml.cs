@@ -36,9 +36,10 @@ namespace TakeMeThereXamarinForms
         {
             InitializeComponent();
 
-            //リソース
-            Resources = new ResourceDictionary();
-            Resources.Add("TileColor", Color.FromHex("1BA1E2"));
+            ////リソース
+            //Resources = new ResourceDictionary();
+            //Resources.Add("TileColor", Color.FromHex("F2F3F7"));
+            //Resources.Add("BackgroundColor", Color.FromHex("F2F3F7"));
 
             App.Geolocation.Start(new TimeSpan(0, 0, GeolocationTimeSpanSeconds));
             App.Compass.Start();
