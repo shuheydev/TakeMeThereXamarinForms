@@ -49,10 +49,10 @@
                 VerticalOptions="Center"
                 WidthRequest="300">
                 <Grid HeightRequest="300" VerticalOptions="FillAndExpand">
-                    <skiaforms:SKCanvasView
+                    <!--<skiaforms:SKCanvasView
                         x:Name="skCanvasViewCompass"
                         IsVisible="False"
-                        Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />
+                        Rotation="{Binding Path=Compass.HeadingNorthForRotate}" />-->
                     <skiaforms:SKCanvasView x:Name="skCanvasViewTargetDirection" Rotation="{Binding Path=Compass.DirectionToTargetForRotate}" />
                 </Grid>
             </controls:ShadowFrame>
