@@ -28,8 +28,16 @@
                 <TapGestureRecognizer Command="{Binding Path=NavigateCommand}" CommandParameter="SelectTargetPage" />
             </controls:ShadowFrame.GestureRecognizers>
             <Grid>
-                <Label FontSize="20" Text="Destination" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
                 <Label
+                    Grid.Row="0"
+                    FontSize="20"
+                    Text="Destination" />
+                <Label
+                    Grid.Row="1"
                     FontSize="40"
                     HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Center"
