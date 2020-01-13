@@ -1,50 +1,201 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TakeMeThereXamarinForms.Views.TargetDetailPage"
-             Title="{Binding Path=Title}">
+<ContentPage
+    x:Class="TakeMeThereXamarinForms.Views.TargetDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:controls="clr-namespace:TakeMeThereXamarinForms.Controls"
+    xmlns:fonts="clr-namespace:TakeMeThereXamarinForms.Resources"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    Title="{Binding Path=Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="buttonStyle" TargetType="ImageButton">
-                <Setter Property="HeightRequest" Value="60" />
-                <Setter Property="WidthRequest" Value="60" />
-                <Setter Property="CornerRadius" Value="30" />
-                <Setter Property="BackgroundColor" Value="Accent" />
-            </Style>
-        </ResourceDictionary>
+        <Style x:Key="buttonStyle" TargetType="ImageButton">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HighlightTextColor}" />
+        </Style>
+        <Style x:Key="buttonStyle2" TargetType="Button">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource TileColor}" />
+        </Style>
+        <Style x:Key="shadowFrameForButton" TargetType="controls:ShadowFrame">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="IsClippedToBounds" Value="True" />
+        </Style>
     </ContentPage.Resources>
 
-    <StackLayout Padding="10" Spacing="20">
-        <StackLayout>
+    <StackLayout
+        Padding="10"
+        BackgroundColor="{StaticResource BackgroundColor}"
+        Spacing="10">
+        <StackLayout Spacing="30">
+            <controls:ShadowFrame
+                Padding="0"
+                BackgroundColor="{StaticResource TileColor}"
+                CornerRadius="10"
+                Elevation="20">
+                <StackLayout>
+                    <StackLayout>
+                        <controls:ShadowFrame
+                            Margin="10,10,0,0"
+                            Padding="5"
+                            BackgroundColor="{StaticResource TileColor}"
+                            CornerRadius="5"
+                            Elevation="20"
+                            HorizontalOptions="Start">
+                            <Label Text="Name" />
+                        </controls:ShadowFrame>
+                        <Entry
+                            Margin="10,0,10,10"
+                            Keyboard="Default"
+                            Placeholder="東京タワー"
+                            Text="{Binding Path=TargetInfo.Name, Mode=TwoWay}" />
+                    </StackLayout>
+                    <!--</controls:ShadowFrame>
 
-            <Label Text="Plus Code" />
-            <Entry Keyboard="Text" Placeholder="MP5W+C5 東京、東京都" Text="{Binding Path=TargetInfo.PlusCode,Mode=TwoWay}" />
+            <controls:ShadowFrame
+                Padding="0"
+                BackgroundColor="{StaticResource TileColor}"
+                CornerRadius="10"
+                Elevation="20">-->
+                    <StackLayout>
+                        <controls:ShadowFrame
+                            Margin="10,10,0,0"
+                            Padding="5"
+                            BackgroundColor="{StaticResource TileColor}"
+                            CornerRadius="5"
+                            Elevation="20"
+                            HorizontalOptions="Start">
+                            <Label Text="Plus Code" />
+                        </controls:ShadowFrame>
+                        <Entry
+                            Margin="10,0,10,10"
+                            Keyboard="Text"
+                            Placeholder="MP5W+C5 東京、東京都"
+                            Text="{Binding Path=TargetInfo.PlusCode, Mode=TwoWay}" />
+                    </StackLayout>
+                    <!--</controls:ShadowFrame>
 
-            <Label Text="Name" />
-            <Entry Keyboard="Default" Placeholder="東京タワー" Text="{Binding Path=TargetInfo.Name,Mode=TwoWay}" />
+            <controls:ShadowFrame
+                Padding="0"
+                BackgroundColor="{StaticResource TileColor}"
+                CornerRadius="10"
+                Elevation="20">-->
+                    <StackLayout>
+                        <controls:ShadowFrame
+                            Margin="10,10,0,0"
+                            Padding="5"
+                            BackgroundColor="{StaticResource TileColor}"
+                            CornerRadius="5"
+                            Elevation="20"
+                            HorizontalOptions="Start">
+                            <Label Text="Latitude" />
+                        </controls:ShadowFrame>
+                        <Entry
+                            Margin="10,0,10,10"
+                            Keyboard="Numeric"
+                            Placeholder="35.6585805"
+                            Text="{Binding Path=TargetInfo.Latitude, Mode=TwoWay}" />
+                    </StackLayout>
+                    <!--</controls:ShadowFrame>
 
-            <Label Text="Latitude" />
-            <Entry Keyboard="Numeric" Placeholder="35.6585805" Text="{Binding Path=TargetInfo.Latitude,Mode=TwoWay}" />
+            <controls:ShadowFrame
+                Padding="0"
+                BackgroundColor="{StaticResource TileColor}"
+                CornerRadius="10"
+                Elevation="20">-->
+                    <StackLayout>
+                        <controls:ShadowFrame
+                            Margin="10,10,0,0"
+                            Padding="5"
+                            BackgroundColor="{StaticResource TileColor}"
+                            CornerRadius="5"
+                            Elevation="20"
+                            HorizontalOptions="Start">
+                            <Label Text="Longitude" />
+                        </controls:ShadowFrame>
+                        <Entry
+                            Margin="10,0,10,10"
+                            Keyboard="Numeric"
+                            Placeholder="139.7432442"
+                            Text="{Binding Path=TargetInfo.Longitude, Mode=TwoWay}" />
+                    </StackLayout>
+                </StackLayout>
+            </controls:ShadowFrame>
 
-            <Label Text="Longitude" />
-            <Entry Keyboard="Numeric" Placeholder="139.7432442" Text="{Binding Path=TargetInfo.Longitude,Mode=TwoWay}" />
-
-            <StackLayout Orientation="Horizontal" Spacing="20">
-                <ImageButton Source="Arrow_back_white_48dp.png"
-                        Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=CancelCommand}" />
-                <ImageButton Source="Delete_outline_white_48dp.png"
-                        Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=DeleteCommand}" />
-                <ImageButton Source="Save_white_48dp.png"
-                        Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=SaveCommand}" />
-                <ImageButton Source="Map_white_48dp.png"
-                        Style="{StaticResource buttonStyle}"
-                        Command="{Binding Path=OpenMapCommand}" />
+            <StackLayout
+                Margin="0,40,0,0"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                Spacing="20">
+                <controls:ShadowFrame
+                    Elevation="20"
+                    HorizontalOptions="End"
+                    Style="{StaticResource shadowFrameForButton}"
+                    VerticalOptions="End">
+                    <Button Command="{Binding Path=CancelCommand}" Style="{StaticResource buttonStyle2}">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Glyph="{x:Static fonts:IconFont.LeftBig}"
+                                Size="36"
+                                Color="{StaticResource HighlightTextColor}" />
+                        </Button.ImageSource>
+                    </Button>
+                </controls:ShadowFrame>
+                <controls:ShadowFrame
+                    Elevation="20"
+                    HorizontalOptions="End"
+                    Style="{StaticResource shadowFrameForButton}"
+                    VerticalOptions="End">
+                    <Button Command="{Binding Path=DeleteCommand}" Style="{StaticResource buttonStyle2}">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Glyph="{x:Static fonts:IconFont.TrashEmpty}"
+                                Size="36"
+                                Color="{StaticResource HighlightTextColor}" />
+                        </Button.ImageSource>
+                    </Button>
+                </controls:ShadowFrame>
+                <controls:ShadowFrame
+                    Elevation="20"
+                    HorizontalOptions="End"
+                    Style="{StaticResource shadowFrameForButton}"
+                    VerticalOptions="End">
+                    <Button Command="{Binding Path=SaveCommand}" Style="{StaticResource buttonStyle2}">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Glyph="{x:Static fonts:IconFont.Floppy}"
+                                Size="36"
+                                Color="{StaticResource HighlightTextColor}" />
+                        </Button.ImageSource>
+                    </Button>
+                </controls:ShadowFrame>
+                <controls:ShadowFrame
+                    Elevation="20"
+                    HorizontalOptions="End"
+                    Style="{StaticResource shadowFrameForButton}"
+                    VerticalOptions="End">
+                    <Button Command="{Binding Path=OpenMapCommand}" Style="{StaticResource buttonStyle2}">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Glyph="{x:Static fonts:IconFont.MapO}"
+                                Size="36"
+                                Color="{StaticResource HighlightTextColor}" />
+                        </Button.ImageSource>
+                    </Button>
+                </controls:ShadowFrame>
             </StackLayout>
         </StackLayout>
     </StackLayout>

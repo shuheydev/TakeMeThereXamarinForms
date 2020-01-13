@@ -4,6 +4,7 @@ using Prism.Navigation;
 using System;
 using System.Windows.Input;
 using TakeMeThereXamarinForms.Models;
+using TakeMeThereXamarinForms.Repositories;
 using Xamarin.Forms;
 using Essentials = Xamarin.Essentials;
 
@@ -20,11 +21,12 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private INavigationService _navigationService;
+        private readonly IPlaceRepository _placeRepository;
 
-        public TargetDetailPageViewModel(INavigationService navigationService)
+        public TargetDetailPageViewModel(INavigationService navigationService, IPlaceRepository placeRepository)
         {
             this._navigationService = navigationService;
-
+            this._placeRepository = placeRepository;
             this.TargetInfo = new Place();
             this.Geolocation = App.Geolocation;
         }
@@ -51,7 +53,8 @@ namespace TakeMeThereXamarinForms.ViewModels
                 //更新日時の更新
                 this.TargetInfo.UpdatedAt = DateTimeOffset.Now;
 
-                App.Database.SaveItemAsync(this.TargetInfo);
+                //App.Database.SaveItemAsync(this.TargetInfo);
+                _placeRepository.Add(TargetInfo);
                 _navigationService.GoBackAsync();
             }, () =>
             {
@@ -68,7 +71,8 @@ namespace TakeMeThereXamarinForms.ViewModels
         public ICommand DeleteCommand =>
             new DelegateCommand(() =>
             {
-                App.Database.DeleteItemAsync(TargetInfo);
+                //App.Database.DeleteItemAsync(TargetInfo);
+                _placeRepository.Delete(TargetInfo);
                 _navigationService.GoBackAsync();
             },
                 () => this.TargetInfo.Id != 0)
