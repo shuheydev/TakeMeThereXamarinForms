@@ -11,8 +11,8 @@ namespace TakeMeThereXamarinForms.Data
 
         public TargetInfoDatabase(string dbPath)
         {
-            database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<Place>().Wait();
+            //database = new SQLiteAsyncConnection(dbPath);
+            //database.CreateTableAsync<Place>().Wait();
         }
 
         public Task<List<Place>> GetItemsAsync()
