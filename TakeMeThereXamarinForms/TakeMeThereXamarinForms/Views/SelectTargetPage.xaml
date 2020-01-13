@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:controls="clr-namespace:TakeMeThereXamarinForms.Controls"
+    xmlns:fonts="clr-namespace:TakeMeThereXamarinForms.Resources"
+    xmlns:local="clr-namespace:TakeMeThereXamarinForms.Converters"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     x:Name="Root"
     Title="{Binding Path=Title}"
@@ -15,7 +17,13 @@
             <Setter Property="HeightRequest" Value="72" />
             <Setter Property="WidthRequest" Value="72" />
             <Setter Property="CornerRadius" Value="40" />
-            <Setter Property="BackgroundColor" Value="{StaticResource HighlightColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HighlightTextColor}" />
+        </Style>
+        <Style x:Key="buttonStyle2" TargetType="Button">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource TileColor}" />
         </Style>
         <Style x:Key="shadowFrameForButton" TargetType="controls:ShadowFrame">
             <Setter Property="HeightRequest" Value="72" />
@@ -29,11 +37,11 @@
     <Grid>
         <ListView
             x:Name="ListView_TargetList"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="{StaticResource BackgroundColor}"
             HasUnevenRows="True"
             ItemTapped="ListView_TargetList_ItemTapped"
-            ItemsSource="{Binding Path=Places}">
+            ItemsSource="{Binding Path=Places}"
+            SeparatorColor="Transparent">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior
                     Command="{Binding Path=ItemSelectedCommand}"
@@ -43,50 +51,78 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <AbsoluteLayout Padding="10">
-                            <StackLayout
-                                AbsoluteLayout.LayoutBounds="0.5,0.5,0.95,0.95"
-                                AbsoluteLayout.LayoutFlags="All"
-                                Orientation="Horizontal"
-                                Spacing="5">
-                                <StackLayout HorizontalOptions="StartAndExpand" Orientation="Vertical">
-                                    <Label FontSize="40" Text="{Binding Path=Name}" />
-                                    <Label FontSize="25" Text="{Binding Path=PlusCode}" />
-                                </StackLayout>
-                                <ImageButton
-                                    BackgroundColor="#00FFFFFF"
-                                    Command="{Binding Source={x:Reference Root}, Path=BindingContext.EditItemCommand}"
-                                    CommandParameter="{Binding}"
-                                    HeightRequest="30"
+                        <controls:ShadowFrame
+                            Margin="10"
+                            Padding="10"
+                            BackgroundColor="{StaticResource TileColor}"
+                            CornerRadius="10"
+                            Elevation="20"
+                            IsVisible="{Binding IsGuardian, Converter={local:NullBoolConverter}}">
+                            <Grid>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource HighlightColor2}"
+                                    CornerRadius="10"
+                                    HeightRequest="10"
                                     HorizontalOptions="End"
-                                    Source="Edit_black_48dp.png"
-                                    WidthRequest="30">
-                                    <ImageButton.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Path=IsGuardian}"
-                                            TargetType="ImageButton"
-                                            Value="True">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </ImageButton.Triggers>
-                                </ImageButton>
-                            </StackLayout>
-                        </AbsoluteLayout>
+                                    VerticalOptions="Start"
+                                    WidthRequest="10" />
+
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Orientation="Vertical">
+                                        <Label FontSize="30" Text="{Binding Path=Name}" />
+                                        <Label FontSize="15" Text="{Binding Path=PlusCode}" />
+                                    </StackLayout>
+                                    <controls:ShadowFrame
+                                        Margin="5"
+                                        Padding="2"
+                                        BackgroundColor="{StaticResource TileColor}"
+                                        CornerRadius="5"
+                                        Elevation="20"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="End">
+                                        <ImageButton
+                                            BackgroundColor="#00FFFFFF"
+                                            Command="{Binding Source={x:Reference Root}, Path=BindingContext.EditItemCommand}"
+                                            CommandParameter="{Binding}"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="End"
+                                            WidthRequest="30">
+                                            <ImageButton.Source>
+                                                <FontImageSource
+                                                    FontFamily="{StaticResource IconFontFamily}"
+                                                    Glyph="{x:Static fonts:IconFont.Edit}"
+                                                    Size="20"
+                                                    Color="Gray" />
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </controls:ShadowFrame>
+                                </StackLayout>
+                            </Grid>
+                        </controls:ShadowFrame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <controls:ShadowFrame
             Margin="20"
-            Elevation="80"
+            Elevation="20"
             HorizontalOptions="End"
             Style="{StaticResource shadowFrameForButton}"
             VerticalOptions="End">
-            <ImageButton
+            <Button
                 Command="{Binding Path=NavigateCommand}"
                 CommandParameter="TargetDetailPage"
-                Source="Add_white_48dp.png"
-                Style="{StaticResource buttonStyle}" />
+                Style="{StaticResource buttonStyle2}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="{StaticResource IconFontFamily}"
+                        Glyph="{x:Static fonts:IconFont.Plus}"
+                        Size="36"
+                        Color="{StaticResource HighlightTextColor}" />
+                </Button.ImageSource>
+            </Button>
         </controls:ShadowFrame>
     </Grid>
 </ContentPage>

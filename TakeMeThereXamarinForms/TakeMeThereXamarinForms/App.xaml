@@ -7,9 +7,15 @@
     <Application.Resources>
         <!--  Application resource dictionary  -->
         <Color x:Key="BackgroundColor">#F2F3F7</Color>
-        <Color x:Key="TileColor">#F2F3F7</Color>
+        <!--<Color x:Key="TileColor">#F2F3F7</Color>-->
+        <Color x:Key="TileColor">#FDFEFF</Color>
         <Color x:Key="HighlightColor">#9BFFE6</Color>
         <Color x:Key="HighlightTextColor">#F99014</Color>
+        <Color x:Key="HighlightColor2">#E97189</Color>
+
+        <OnPlatform x:Key="IconFontFamily" x:TypeArguments="x:String">
+            <On Platform="Android" Value="IconFonts.ttf#Icon Fonts" />
+        </OnPlatform>
     </Application.Resources>
 
 </prism:PrismApplication>

@@ -65,7 +65,7 @@
                 IsClippedToBounds="True"
                 VerticalOptions="Center"
                 WidthRequest="220">
-                <Frame BackgroundColor="{StaticResource BackgroundColor}" CornerRadius="200" />
+                <Frame BackgroundColor="{StaticResource TileColor}" CornerRadius="200" />
             </Frame>
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
