@@ -45,10 +45,11 @@ namespace TakeMeThereXamarinForms.ViewModels
             });
 
         private ObservableCollection<Place> _places = new ObservableCollection<Place>();
-        public ObservableCollection<Place> Places {
+        public ObservableCollection<Place> Places
+        {
             get => _places;
             set => SetProperty(ref _places, value);
-        } 
+        }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -58,7 +59,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         {
             await RestoreList();
         }
-        
+
         private async Task RestoreList()
         {
             //DBから目的地リストを取得して、選択日時降順にソート。
@@ -69,7 +70,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             //{
             //    Places.Add(place);
             //}
-            Places = new ObservableCollection<Place>(await _placeRepository.ReadAll());
+            Places = new ObservableCollection<Place>((await _placeRepository.ReadAll()).OrderByDescending(x => x.SelectedAt));
 
             //リストの一番下に番兵を入れる。
             //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
@@ -77,7 +78,7 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         public Command<Place> ItemSelectedCommand =>
-            new Command<Place>(targetInfo =>
+            new Command<Place>(async targetInfo =>
             {
                 //選択時のハイライトを無効にするためにView側でSelectedItem=nullにしているため、
                 //アイテム選択時に2回のイベントが発火する。
@@ -93,12 +94,13 @@ namespace TakeMeThereXamarinForms.ViewModels
                 targetInfo.SelectedAt = DateTimeOffset.Now;
 
                 //DBへ反映
-                App.Database.SaveItemAsync(targetInfo);
+                //App.Database.SaveItemAsync(targetInfo);
+                await _placeRepository.Update(targetInfo);
 
                 var parameter = new NavigationParameters();
                 parameter.Add(nameof(Place), targetInfo);
 
-                _navigationService.GoBackAsync(parameter);
+                await _navigationService.GoBackAsync(parameter);
             });
 
         public Command<Place> EditItemCommand =>

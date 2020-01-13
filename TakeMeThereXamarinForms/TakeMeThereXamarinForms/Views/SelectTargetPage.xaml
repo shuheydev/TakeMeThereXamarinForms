@@ -57,6 +57,7 @@
                             BackgroundColor="{StaticResource TileColor}"
                             CornerRadius="10"
                             Elevation="20"
+                            IsEnabled="{Binding IsGuardian, Converter={local:NullBoolConverter}}"
                             IsVisible="{Binding IsGuardian, Converter={local:NullBoolConverter}}">
                             <Grid>
                                 <Frame
