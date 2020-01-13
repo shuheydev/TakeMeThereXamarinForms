@@ -4,23 +4,29 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:controls="clr-namespace:TakeMeThereXamarinForms.Controls"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     x:Name="Root"
     Title="{Binding Path=Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
 
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="buttonStyle" TargetType="ImageButton">
-                <Setter Property="HeightRequest" Value="60" />
-                <Setter Property="WidthRequest" Value="60" />
-                <Setter Property="CornerRadius" Value="30" />
-                <Setter Property="BackgroundColor" Value="Accent" />
-            </Style>
-        </ResourceDictionary>
+        <Style x:Key="buttonStyle" TargetType="ImageButton">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HighlightColor}" />
+        </Style>
+        <Style x:Key="shadowFrameForButton" TargetType="controls:ShadowFrame">
+            <Setter Property="HeightRequest" Value="72" />
+            <Setter Property="WidthRequest" Value="72" />
+            <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="IsClippedToBounds" Value="True" />
+        </Style>
     </ContentPage.Resources>
 
-    <AbsoluteLayout>
+    <Grid>
         <ListView
             x:Name="ListView_TargetList"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -70,13 +76,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ImageButton
-            AbsoluteLayout.LayoutBounds="0.9,0.95"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            Command="{Binding Path=NavigateCommand}"
-            CommandParameter="TargetDetailPage"
-            Source="Add_white_48dp.png"
-            Style="{StaticResource buttonStyle}" />
-
-    </AbsoluteLayout>
+        <controls:ShadowFrame
+            Margin="20"
+            Elevation="80"
+            HorizontalOptions="End"
+            Style="{StaticResource shadowFrameForButton}"
+            VerticalOptions="End">
+            <ImageButton
+                Command="{Binding Path=NavigateCommand}"
+                CommandParameter="TargetDetailPage"
+                Source="Add_white_48dp.png"
+                Style="{StaticResource buttonStyle}" />
+        </controls:ShadowFrame>
+    </Grid>
 </ContentPage>
