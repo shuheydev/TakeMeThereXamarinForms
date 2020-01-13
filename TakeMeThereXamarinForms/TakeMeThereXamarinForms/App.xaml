@@ -9,6 +9,7 @@
         <Color x:Key="BackgroundColor">#F2F3F7</Color>
         <Color x:Key="TileColor">#F2F3F7</Color>
         <Color x:Key="HighlightColor">#9BFFE6</Color>
+        <Color x:Key="HighlightTextColor">#F99014</Color>
     </Application.Resources>
 
 </prism:PrismApplication>

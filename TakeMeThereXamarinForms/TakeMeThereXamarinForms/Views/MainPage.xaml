@@ -198,7 +198,8 @@
                             FontSize="40"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="End"
-                            Text="{Binding Path=Geolocation.ExpectedArrivalTimeToTarget, Converter={StaticResource ExpectedArrivalTimeConverter}}" />
+                            Text="{Binding Path=Geolocation.ExpectedArrivalTimeToTarget, Converter={StaticResource ExpectedArrivalTimeConverter}}"
+                            TextColor="{StaticResource HighlightTextColor}" />
                     </Grid>
                 </StackLayout>
             </controls:ShadowFrame>
