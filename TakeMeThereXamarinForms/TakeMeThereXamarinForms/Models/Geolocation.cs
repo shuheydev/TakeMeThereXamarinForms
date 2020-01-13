@@ -135,9 +135,9 @@ namespace TakeMeThereXamarinForms.Models
             IsWorking = false;
         }
 
-        public LocationInformation TargetInfo { get; private set; }
+        public Place TargetInfo { get; private set; }
 
-        public void SetTarget(LocationInformation targetInfo)
+        public void SetTarget(Place targetInfo)
         {
             this.TargetInfo = targetInfo;
         }

@@ -25,13 +25,13 @@ namespace TakeMeThereXamarinForms.ViewModels
         {
             this._navigationService = navigationService;
 
-            this.TargetInfo = new LocationInformation();
+            this.TargetInfo = new Place();
             this.Geolocation = App.Geolocation;
         }
 
-        private LocationInformation _targetInfo;
+        private Place _targetInfo;
 
-        public LocationInformation TargetInfo
+        public Place TargetInfo
         {
             get => _targetInfo;
             set => SetProperty(ref _targetInfo, value);
@@ -106,7 +106,7 @@ namespace TakeMeThereXamarinForms.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            var targetInfo = parameters[nameof(LocationInformation)] as LocationInformation;
+            var targetInfo = parameters[nameof(Place)] as Place;
 
             if (targetInfo == null)
             {

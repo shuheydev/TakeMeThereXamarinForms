@@ -7,16 +7,16 @@ using static Google.OpenLocationCode.OpenLocationCode;
 
 namespace TakeMeThereXamarinForms.Models
 {
-    public class LocationInformation : BindableBase
+    public class Place : BindableBase
     {
-        public LocationInformation()
+        public Place()
         {
             this.CreatedAt = DateTimeOffset.Now;
             this.UpdatedAt = DateTimeOffset.Now;
             this.SelectedAt = DateTimeOffset.Now;
         }
 
-        private LocationInformation(bool asGurdian)
+        private Place(bool asGurdian)
         {
             this.CreatedAt = DateTimeOffset.Now;
             this.UpdatedAt = DateTimeOffset.Now;
@@ -25,9 +25,9 @@ namespace TakeMeThereXamarinForms.Models
             this.IsGuardian = asGurdian;
         }
 
-        static public LocationInformation CreateGuardian()
+        static public Place CreateGuardian()
         {
-            return new LocationInformation(true);
+            return new Place(true);
         }
 
         [SQLite.PrimaryKey, SQLite.AutoIncrement]

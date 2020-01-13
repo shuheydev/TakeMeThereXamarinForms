@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using TakeMeThereXamarinForms.Data;
 using TakeMeThereXamarinForms.Models;
+using TakeMeThereXamarinForms.Repositories;
 using TakeMeThereXamarinForms.ViewModels;
 using TakeMeThereXamarinForms.Views;
 using Xamarin.Forms;
@@ -55,6 +56,8 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
 
             containerRegistry.Register<IApplicationStore, ApplicationStore>();
+
+            containerRegistry.RegisterSingleton<IPlaceRepository, PlaceMockRepository>();
         }
 
         protected override void OnResume()
@@ -80,7 +83,7 @@ namespace TakeMeThereXamarinForms
         private static TargetInfoDatabase _database;
 
         /// <summary>
-        /// シングルトンとしてデータベースオブジェクトを返す。 これによって
+        /// シングルトンとしてデータベースオブジェクトを返す。
         /// </summary>
         public static TargetInfoDatabase Database
         {
