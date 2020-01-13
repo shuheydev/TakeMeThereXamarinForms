@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TakeMeThereXamarinForms.Models;
@@ -18,8 +19,8 @@ namespace TakeMeThereXamarinForms.Repositories
                 Name = "目的地1",
                 PlusCode = "PlusCode1",
                 Longitude = 123.4567,
-                Latitude=12.3456,
-            })  ;
+                Latitude = 12.3456,
+            });
             _placeList.Add(new Place
             {
                 Id = 2,
@@ -37,14 +38,14 @@ namespace TakeMeThereXamarinForms.Repositories
                 Latitude = 23.4567,
             });
         }
-        public Task Add(Place item)
+        public async Task Add(Place item)
         {
-            throw new NotImplementedException();
+            _placeList.Add(item);
         }
 
-        public Task Delete(Place item)
+        public async Task Delete(Place item)
         {
-            throw new NotImplementedException();
+            _placeList.Remove(item);
         }
 
         public async Task<IEnumerable<Place>> ReadAll()
@@ -52,9 +53,14 @@ namespace TakeMeThereXamarinForms.Repositories
             return _placeList;
         }
 
-        public Task Update(Place item)
+        public async Task Update(Place item)
         {
-            throw new NotImplementedException();
+            var target = _placeList.FirstOrDefault(x => x.Id == item.Id); ;
+
+            if (target != null)
+            {
+                target = item;
+            }
         }
     }
 }
