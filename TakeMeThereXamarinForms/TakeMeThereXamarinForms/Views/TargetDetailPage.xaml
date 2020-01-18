@@ -59,13 +59,7 @@
                             Placeholder="東京タワー"
                             Text="{Binding Path=TargetInfo.Name, Mode=TwoWay}" />
                     </StackLayout>
-                    <!--</controls:ShadowFrame>
 
-            <controls:ShadowFrame
-                Padding="0"
-                BackgroundColor="{StaticResource TileColor}"
-                CornerRadius="10"
-                Elevation="20">-->
                     <StackLayout>
                         <controls:ShadowFrame
                             Margin="10,10,0,0"
@@ -82,13 +76,7 @@
                             Placeholder="MP5W+C5 東京、東京都"
                             Text="{Binding Path=TargetInfo.PlusCode, Mode=TwoWay}" />
                     </StackLayout>
-                    <!--</controls:ShadowFrame>
 
-            <controls:ShadowFrame
-                Padding="0"
-                BackgroundColor="{StaticResource TileColor}"
-                CornerRadius="10"
-                Elevation="20">-->
                     <StackLayout>
                         <controls:ShadowFrame
                             Margin="10,10,0,0"
@@ -105,13 +93,7 @@
                             Placeholder="35.6585805"
                             Text="{Binding Path=TargetInfo.Latitude, Mode=TwoWay}" />
                     </StackLayout>
-                    <!--</controls:ShadowFrame>
 
-            <controls:ShadowFrame
-                Padding="0"
-                BackgroundColor="{StaticResource TileColor}"
-                CornerRadius="10"
-                Elevation="20">-->
                     <StackLayout>
                         <controls:ShadowFrame
                             Margin="10,10,0,0"
@@ -141,60 +123,52 @@
                     HorizontalOptions="End"
                     Style="{StaticResource shadowFrameForButton}"
                     VerticalOptions="End">
-                    <Button Command="{Binding Path=CancelCommand}" Style="{StaticResource buttonStyle2}">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="{StaticResource IconFontFamily}"
-                                Glyph="{x:Static fonts:IconFont.LeftBig}"
-                                Size="36"
-                                Color="{StaticResource HighlightTextColor}" />
-                        </Button.ImageSource>
-                    </Button>
+                    <Button
+                        Command="{Binding Path=CancelCommand}"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="36"
+                        Style="{StaticResource buttonStyle2}"
+                        Text="{x:Static fonts:IconFont.LeftBig}"
+                        TextColor="{StaticResource HighlightTextColor}" />
                 </controls:ShadowFrame>
                 <controls:ShadowFrame
                     Elevation="20"
                     HorizontalOptions="End"
                     Style="{StaticResource shadowFrameForButton}"
                     VerticalOptions="End">
-                    <Button Command="{Binding Path=DeleteCommand}" Style="{StaticResource buttonStyle2}">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="{StaticResource IconFontFamily}"
-                                Glyph="{x:Static fonts:IconFont.TrashEmpty}"
-                                Size="36"
-                                Color="{StaticResource HighlightTextColor}" />
-                        </Button.ImageSource>
-                    </Button>
+                    <Button
+                        Command="{Binding Path=DeleteCommand}"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="36"
+                        Style="{StaticResource buttonStyle2}"
+                        Text="{x:Static fonts:IconFont.TrashEmpty}"
+                        TextColor="{StaticResource HighlightTextColor}" />
                 </controls:ShadowFrame>
                 <controls:ShadowFrame
                     Elevation="20"
                     HorizontalOptions="End"
                     Style="{StaticResource shadowFrameForButton}"
                     VerticalOptions="End">
-                    <Button Command="{Binding Path=SaveCommand}" Style="{StaticResource buttonStyle2}">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="{StaticResource IconFontFamily}"
-                                Glyph="{x:Static fonts:IconFont.Floppy}"
-                                Size="36"
-                                Color="{StaticResource HighlightTextColor}" />
-                        </Button.ImageSource>
-                    </Button>
+                    <Button
+                        Command="{Binding Path=SaveCommand}"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="36"
+                        Style="{StaticResource buttonStyle2}"
+                        Text="{x:Static fonts:IconFont.Floppy}"
+                        TextColor="{StaticResource HighlightTextColor}" />
                 </controls:ShadowFrame>
                 <controls:ShadowFrame
                     Elevation="20"
                     HorizontalOptions="End"
                     Style="{StaticResource shadowFrameForButton}"
                     VerticalOptions="End">
-                    <Button Command="{Binding Path=OpenMapCommand}" Style="{StaticResource buttonStyle2}">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="{StaticResource IconFontFamily}"
-                                Glyph="{x:Static fonts:IconFont.MapO}"
-                                Size="36"
-                                Color="{StaticResource HighlightTextColor}" />
-                        </Button.ImageSource>
-                    </Button>
+                    <Button
+                        Command="{Binding Path=OpenMapCommand}"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="36"
+                        Style="{StaticResource buttonStyle2}"
+                        Text="{x:Static fonts:IconFont.MapO}"
+                        TextColor="{StaticResource HighlightTextColor}" />
                 </controls:ShadowFrame>
             </StackLayout>
         </StackLayout>
