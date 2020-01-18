@@ -53,7 +53,6 @@ namespace TakeMeThereXamarinForms.ViewModels
                 //更新日時の更新
                 this.TargetInfo.UpdatedAt = DateTimeOffset.Now;
 
-                //App.Database.SaveItemAsync(this.TargetInfo);
                 _placeRepository.AddAsync(TargetInfo);
                 _navigationService.GoBackAsync();
             }, () =>

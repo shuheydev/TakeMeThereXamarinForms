@@ -14,7 +14,7 @@ namespace TakeMeXamarinForms.Sqlite.Repositories
 
         public PlaceRepository(IPlatformInfoService dbpathService)
         {
-            this._dbContext = new AppDbContext(dbpathService.GetUserDataFolderPath());
+            this._dbContext = new AppDbContext(dbpathService.GetSqliteDbPath());
         }
 
         public async Task<bool> AddAsync(Place item)
