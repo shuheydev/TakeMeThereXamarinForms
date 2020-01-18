@@ -32,7 +32,7 @@ namespace TakeMeThereXamarinForms.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
-            containerRegistry.RegisterSingleton<IPlatformPathService, PlatformInfoService>();
+            containerRegistry.RegisterSingleton<IPlatformInfoService, PlatformInfoService>();
             containerRegistry.RegisterSingleton<IPlaceRepository, PlaceRepository>();
         }
     }

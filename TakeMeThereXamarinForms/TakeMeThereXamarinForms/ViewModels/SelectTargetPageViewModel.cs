@@ -38,12 +38,6 @@ namespace TakeMeThereXamarinForms.ViewModels
             this._placeRepository = placeRepository;
         }
 
-        public Command<string> NavigateCommand =>
-            new Command<string>(name =>
-            {
-                _navigationService.NavigateAsync(name);
-            });
-
         private ObservableCollection<Place> _places = new ObservableCollection<Place>();
         public ObservableCollection<Place> Places
         {
@@ -63,19 +57,18 @@ namespace TakeMeThereXamarinForms.ViewModels
         private async Task RestoreList()
         {
             //DBから目的地リストを取得して、選択日時降順にソート。
-            //var targetGeolocationInfos = App.Database.GetItemsAsync().Result.OrderByDescending(info => info.SelectedAt);
-            //var places = await _placeRepository.ReadAll();
-            //Places.Clear();
-            //foreach (var place in places)
-            //{
-            //    Places.Add(place);
-            //}
             Places = new ObservableCollection<Place>((await _placeRepository.ReadAll()).OrderByDescending(x => x.SelectedAt));
 
             //リストの一番下に番兵を入れる。
             //これはリストの一番下のアイテムが追加ボタンにかぶって編集ボタンが押しにくいため、空のアイテムを追加する。
             Places.Add(Place.CreateGuardian());
         }
+
+        public Command<string> NavigateCommand =>
+            new Command<string>(name =>
+            {
+                _navigationService.NavigateAsync(name);
+            });
 
         public Command<Place> ItemSelectedCommand =>
             new Command<Place>(async targetInfo =>
@@ -84,17 +77,20 @@ namespace TakeMeThereXamarinForms.ViewModels
                 //アイテム選択時に2回のイベントが発火する。
                 //2回目のイベントはnullがくるのでそれをはじいている。
                 if (targetInfo == null)
+                {
                     return;
+                }
 
                 //番兵の場合は処理を行わない
                 if (targetInfo.IsGuardian == true)
+                {
                     return;
+                }
 
                 //選択日時を更新
                 targetInfo.SelectedAt = DateTimeOffset.Now;
 
                 //DBへ反映
-                //App.Database.SaveItemAsync(targetInfo);
                 await _placeRepository.UpdateAsync(targetInfo);
 
                 var parameter = new NavigationParameters();

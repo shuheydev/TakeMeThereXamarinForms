@@ -1,8 +1,10 @@
 ﻿using Prism.AppModel;
 using Prism.Navigation;
+using System.Threading.Tasks;
 using TakeMeThereXamarinForms.Models;
 using TakeMeThereXamarinForms.Repositories;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace TakeMeThereXamarinForms.ViewModels
 {
@@ -21,13 +23,9 @@ namespace TakeMeThereXamarinForms.ViewModels
             this.Geolocation = App.Geolocation;
             this.Compass = App.Compass;
             this.Compass.SetGeolocation(this.Geolocation);
-
-            RestoreInfo();
         }
 
-
         private Place _targetInfo;
-
         public Place TargetInfo
         {
             get => _targetInfo;
@@ -35,7 +33,6 @@ namespace TakeMeThereXamarinForms.ViewModels
         }
 
         private Geolocation _geolocation;
-
         public Geolocation Geolocation
         {
             get => _geolocation;
@@ -72,10 +69,6 @@ namespace TakeMeThereXamarinForms.ViewModels
         public Command<string> NavigateCommand =>
             new Command<string>(name =>
             {
-                //
-                //if (this.Geolocation.TargetInfo != null)
-                //    App.Database.SaveItemAsync(this.Geolocation.TargetInfo);
-
                 this.NavigationService.NavigateAsync(name);
             });
 
@@ -84,50 +77,57 @@ namespace TakeMeThereXamarinForms.ViewModels
             base.OnNavigatedFrom(parameters);
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
             var targetInfo = parameters[nameof(Place)] as Place;
 
             if (targetInfo == null)
+            {
+                targetInfo = (await _placeRepository.ReadAll()).OrderByDescending(x => x.SelectedAt).FirstOrDefault();
+            }
+
+            if(targetInfo==null)
+            {
                 return;
+            }
 
             this.TargetInfo = targetInfo;
             this.Geolocation.SetTarget(this.TargetInfo);
 
-            //即更新したい
-            //this.Geolocation.UpdateInformationAsync();
-
-            StoreInfo();
+            await StoreInfoAsync();
         }
 
-        public void OnResume()
+        public async void OnResume()
         {
-            RestoreInfo();
+            await RestoreInfo();
         }
 
-        public void OnSleep()
+        public async void OnSleep()
         {
-            StoreInfo();
+            await StoreInfoAsync();
         }
 
-        private void StoreInfo()
+        private async Task StoreInfoAsync()
         {
             this._applicationStore.Properties[nameof(TargetInfo)] = TargetInfo;
-            this._applicationStore.SavePropertiesAsync();
+            await this._applicationStore.SavePropertiesAsync();
         }
 
-        private void RestoreInfo()
+        private async Task RestoreInfo()
         {
+            //アプリケーション用の一時保存領域から取得
             if (this._applicationStore.Properties.TryGetValue(nameof(TargetInfo), out var targetInfo))
             {
-                this.TargetInfo = TargetInfo;
+                this.TargetInfo = targetInfo as Place;
+                return;
             }
-            else
-            {
-                this.TargetInfo = new Place();
-            }
+
+            //アプリケーションの一時保存領域にデータが見つからなかった場合
+            //DBから探す
+            var mostRecentSelectedPlaceInDB = (await _placeRepository.ReadAll()).OrderByDescending(x=>x.SelectedAt).FirstOrDefault();
+            this.TargetInfo = mostRecentSelectedPlaceInDB;
         }
     }
 }
