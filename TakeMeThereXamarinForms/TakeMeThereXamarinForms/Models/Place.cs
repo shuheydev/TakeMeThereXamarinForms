@@ -1,9 +1,7 @@
 ﻿using Google.OpenLocationCode;
 using Prism.Mvvm;
 using System;
-using System.Text.RegularExpressions;
 using Xamarin.Essentials;
-using static Google.OpenLocationCode.OpenLocationCode;
 
 namespace TakeMeThereXamarinForms.Models
 {

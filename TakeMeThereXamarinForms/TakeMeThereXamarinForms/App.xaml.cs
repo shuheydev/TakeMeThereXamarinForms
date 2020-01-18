@@ -56,8 +56,6 @@ namespace TakeMeThereXamarinForms
             containerRegistry.RegisterForNavigation<TargetDetailPage, TargetDetailPageViewModel>();
 
             containerRegistry.Register<IApplicationStore, ApplicationStore>();
-
-            containerRegistry.RegisterSingleton<IPlaceRepository, PlaceMockRepository>();
         }
 
         protected override void OnResume()

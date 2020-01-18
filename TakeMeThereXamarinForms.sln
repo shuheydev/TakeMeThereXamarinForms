@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TakeMeThereXamarinForms", "TakeMeThereXamarinForms\TakeMeThereXamarinForms\TakeMeThereXamarinForms.csproj", "{051B06AD-C8A9-4224-972B-B4E32F69A39F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeMeThereXamarinForms.Android", "TakeMeThereXamarinForms\TakeMeThereXamarinForms.Android\TakeMeThereXamarinForms.Android.csproj", "{8F6FA4EA-05BC-4485-8B07-29041845D91E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeMeThereXamarinForms.UWP", "TakeMeThereXamarinForms\TakeMeThereXamarinForms.UWP\TakeMeThereXamarinForms.UWP.csproj", "{D3C0FAF8-F724-42DF-9A08-1B89F27941F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeMeXamarinForms.Sqlite", "TakeMeXamarinForms.Sqlite\TakeMeXamarinForms.Sqlite.csproj", "{D4B136BF-34F8-4625-9D21-B0537AE6D88D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,26 @@ Global
 		{D3C0FAF8-F724-42DF-9A08-1B89F27941F0}.Release|x86.ActiveCfg = Release|x86
 		{D3C0FAF8-F724-42DF-9A08-1B89F27941F0}.Release|x86.Build.0 = Release|x86
 		{D3C0FAF8-F724-42DF-9A08-1B89F27941F0}.Release|x86.Deploy.0 = Release|x86
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|x64.Build.0 = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Debug|x86.Build.0 = Debug|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|ARM.Build.0 = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|ARM64.Build.0 = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|x64.Build.0 = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|x86.ActiveCfg = Release|Any CPU
+		{D4B136BF-34F8-4625-9D21-B0537AE6D88D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

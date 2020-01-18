@@ -1,5 +1,4 @@
-﻿
-using Android.Content;
+﻿using Android.Content;
 using Android.Support.V4.View;
 using CustomRenderer.Droid.Renderers;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(ShadowFrame), typeof(ShadowFrameRenderer))]
+
 namespace CustomRenderer.Droid.Renderers
 {
     public class ShadowFrameRenderer : Xamarin.Forms.Platform.Android.AppCompat.FrameRenderer

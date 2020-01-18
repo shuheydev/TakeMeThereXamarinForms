@@ -54,7 +54,7 @@ namespace TakeMeThereXamarinForms.ViewModels
                 this.TargetInfo.UpdatedAt = DateTimeOffset.Now;
 
                 //App.Database.SaveItemAsync(this.TargetInfo);
-                _placeRepository.Add(TargetInfo);
+                _placeRepository.AddAsync(TargetInfo);
                 _navigationService.GoBackAsync();
             }, () =>
             {
@@ -72,7 +72,7 @@ namespace TakeMeThereXamarinForms.ViewModels
             new DelegateCommand(() =>
             {
                 //App.Database.DeleteItemAsync(TargetInfo);
-                _placeRepository.Delete(TargetInfo);
+                _placeRepository.DeleteAsync(TargetInfo);
                 _navigationService.GoBackAsync();
             },
                 () => this.TargetInfo.Id != 0)

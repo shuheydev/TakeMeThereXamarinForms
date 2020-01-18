@@ -1,5 +1,4 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace TakeMeThereXamarinForms.Controls
 {
@@ -10,6 +9,7 @@ namespace TakeMeThereXamarinForms.Controls
             get { return (float)GetValue(ElevationProperty); }
             set { SetValue(ElevationProperty, value); }
         }
+
         public static readonly BindableProperty ElevationProperty = BindableProperty.Create(
                propertyName: nameof(Elevation),
                returnType: typeof(float),
@@ -18,6 +18,7 @@ namespace TakeMeThereXamarinForms.Controls
                defaultBindingMode: BindingMode.OneWay,
                propertyChanged: ElevationPropertyChanged
             );
+
         private static void ElevationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
         }

@@ -9,8 +9,8 @@ namespace TakeMeThereXamarinForms.Repositories
     public interface IPlaceRepository
     {
         Task<IEnumerable<Place>> ReadAll();
-        Task Update(Place item);
-        Task Add(Place item);
-        Task Delete(Place item);
+        Task<bool> UpdateAsync(Place item);
+        Task<bool> AddAsync(Place item);
+        Task<bool> DeleteAsync(Place item);
     }
 }

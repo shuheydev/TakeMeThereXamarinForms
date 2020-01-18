@@ -95,7 +95,7 @@ namespace TakeMeThereXamarinForms.ViewModels
 
                 //DBへ反映
                 //App.Database.SaveItemAsync(targetInfo);
-                await _placeRepository.Update(targetInfo);
+                await _placeRepository.UpdateAsync(targetInfo);
 
                 var parameter = new NavigationParameters();
                 parameter.Add(nameof(Place), targetInfo);

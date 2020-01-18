@@ -3,6 +3,10 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using TakeMeThereXamarinForms.Droid.Services;
+using TakeMeThereXamarinForms.Repositories;
+using TakeMeThereXamarinForms.Services;
+using TakeMeXamarinForms.Sqlite.Repositories;
 
 namespace TakeMeThereXamarinForms.Droid
 {
@@ -28,6 +32,8 @@ namespace TakeMeThereXamarinForms.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.RegisterSingleton<IPlatformPathService, PlatformInfoService>();
+            containerRegistry.RegisterSingleton<IPlaceRepository, PlaceRepository>();
         }
     }
 }

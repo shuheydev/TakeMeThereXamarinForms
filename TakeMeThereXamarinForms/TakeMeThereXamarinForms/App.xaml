@@ -17,5 +17,4 @@
             <On Platform="Android" Value="IconFonts.ttf#Icon Fonts" />
         </OnPlatform>
     </Application.Resources>
-
 </prism:PrismApplication>

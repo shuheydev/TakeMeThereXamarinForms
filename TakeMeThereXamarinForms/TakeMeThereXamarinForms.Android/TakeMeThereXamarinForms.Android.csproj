@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>3.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
@@ -68,6 +71,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\ShadowFrameRenderer.cs" />
+    <Compile Include="Services\PlatformInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\IconFonts.ttf" />
@@ -92,12 +96,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TakeMeThereXamarinForms\TakeMeThereXamarinForms.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
-      <Name>TakeMeThereXamarinForms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Add_white_48dp.png" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +112,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Save_white_48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TakeMeXamarinForms.Sqlite\TakeMeXamarinForms.Sqlite.csproj">
+      <Project>{D4B136BF-34F8-4625-9D21-B0537AE6D88D}</Project>
+      <Name>TakeMeXamarinForms.Sqlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TakeMeThereXamarinForms\TakeMeThereXamarinForms.csproj">
+      <Project>{051b06ad-c8a9-4224-972b-b4e32f69a39f}</Project>
+      <Name>TakeMeThereXamarinForms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
