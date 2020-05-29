@@ -6,11 +6,12 @@ namespace TakeMeXamarinForms.Sqlite
 {
     public class AppDbContext : DbContext
     {
+        private static AppDbContext _dbContext;
         private readonly string _dbPath;
 
         public DbSet<Place> Places { get; set; }
 
-        public AppDbContext(string dbPath)
+        private AppDbContext(string dbPath)
         {
             this._dbPath = dbPath;
             Database.EnsureCreated();
@@ -20,6 +21,11 @@ namespace TakeMeXamarinForms.Sqlite
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlite($"Data Source = {_dbPath}");
+        }
+
+        public static AppDbContext GetInstance(string dbPath)
+        {
+            return _dbContext = _dbContext ?? new AppDbContext(dbPath);
         }
     }
 }

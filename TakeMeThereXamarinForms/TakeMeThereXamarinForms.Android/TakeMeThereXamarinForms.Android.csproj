@@ -55,9 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>3.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
@@ -116,7 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TakeMeXamarinForms.Sqlite\TakeMeXamarinForms.Sqlite.csproj">
-      <Project>{D4B136BF-34F8-4625-9D21-B0537AE6D88D}</Project>
+      <Project>{d4b136bf-34f8-4625-9d21-b0537ae6d88d}</Project>
       <Name>TakeMeXamarinForms.Sqlite</Name>
     </ProjectReference>
     <ProjectReference Include="..\TakeMeThereXamarinForms\TakeMeThereXamarinForms.csproj">
