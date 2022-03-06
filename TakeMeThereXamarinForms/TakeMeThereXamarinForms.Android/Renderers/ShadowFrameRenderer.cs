@@ -1,5 +1,4 @@
 ﻿using Android.Content;
-using Android.Support.V4.View;
 using CustomRenderer.Droid.Renderers;
 using System.ComponentModel;
 using TakeMeThereXamarinForms.Controls;
@@ -33,8 +32,8 @@ namespace CustomRenderer.Droid.Renderers
 
             Control.StateListAnimator = new Android.Animation.StateListAnimator();
 
-            ViewCompat.SetElevation(this, shadowFrame.Elevation);
-            ViewCompat.SetElevation(Control, shadowFrame.Elevation);
+            //ViewCompat.SetElevation(this, shadowFrame.Elevation);
+            //ViewCompat.SetElevation(Control, shadowFrame.Elevation);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
